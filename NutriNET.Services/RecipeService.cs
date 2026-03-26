@@ -19,7 +19,7 @@
         public async Task<Recipe> GetRecipeAsync(int id)
         {
             var recipe = await _context.Recipes.FindAsync(id);
-            if (recipe.PrivacyLevel == PrivacyLevel.Archieved)
+            if (recipe?.PrivacyLevel == PrivacyLevel.Archieved)
                 return null;
 
             return recipe;
@@ -171,7 +171,6 @@
                 .ToListAsync();
         }
 
-
         public async Task UpdateRecipeAsync(Recipe updated, bool updateImage)
         {
             var recipe = await _context.Recipes
@@ -252,7 +251,11 @@
 
         public async Task<bool> DeleteRecipeRatingAsync(RecipeRating rating) 
         {
-            _context.RecipeRatings.Remove(await _context.RecipeRatings.FindAsync((rating.UserId, rating.RecipeId)));
+            var recipeRating = await _context.RecipeRatings.FindAsync(rating.UserId, rating.RecipeId);
+            if (recipeRating == null)
+                return false;
+
+            _context.RecipeRatings.Remove(recipeRating);
             return await _context.SaveChangesAsync() >0;
         }
 

@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace NutriNET.Data
+﻿namespace NutriNET.Data
 {
     public class AppDbContext : DbContext
     {

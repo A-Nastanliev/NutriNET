@@ -1,4 +1,4 @@
-﻿namespace NutriNET
+﻿namespace NutriNET.Data
 {
     public interface INutritionalValue
     {
