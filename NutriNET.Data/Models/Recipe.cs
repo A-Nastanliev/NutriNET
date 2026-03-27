@@ -6,6 +6,7 @@
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(80)]
         public string Name { get; set; }
 
         public PrivacyLevel PrivacyLevel { get; set; }

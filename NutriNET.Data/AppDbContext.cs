@@ -125,6 +125,7 @@
             modelBuilder.Entity<Recipe>(entity =>
             {
                 entity.Property(r => r.Name)
+                      .HasMaxLength(80)
                       .IsRequired();
 
                 entity.Property(r => r.Description)
@@ -132,7 +133,7 @@
                       .IsRequired();
 
                 entity.HasOne(r => r.Creator)
-                      .WithMany()
+                      .WithMany(c=>c.CreatedRecipes)
                       .HasForeignKey(r => r.CreatorId)
                       .OnDelete(DeleteBehavior.SetNull);
 
