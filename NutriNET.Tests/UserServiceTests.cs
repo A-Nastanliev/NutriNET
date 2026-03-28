@@ -9,7 +9,8 @@
         [SetUp]
         public void Setup()
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning)).Options;
 
             _context = new AppDbContext(options);
             _service = new UserService(_context);
@@ -96,29 +97,30 @@
         }
 
         [Test]
-        public async Task UpdatePasswordAsync_ShouldReturnTrue_WhenCorrectPassword()
+        public async Task UpdatePasswordAsync_ShouldUpdatePassword_WhenCorrectPassword()
         {
             var user = CreateUser();
             await _service.SignUpAsync(user);
 
             var dbUser = await _context.Users.FirstAsync();
+            var oldHash = dbUser.PasswordHash;
 
-            var result = await _service.UpdatePasswordAsync(dbUser.Id, "new", "1234");
+            await _service.UpdatePasswordAsync(dbUser.Id, "new", "1234");
 
-            Assert.That(result, Is.True);
+            var updatedUser = await _context.Users.AsNoTracking().FirstAsync(u => u.Id == dbUser.Id);
+
+            Assert.That(updatedUser.PasswordHash, Is.Not.EqualTo(oldHash));
         }
 
         [Test]
-        public async Task UpdatePasswordAsync_ShouldReturnFalse_WhenWrongPassword()
+        public async Task UpdatePasswordAsync_ShouldThrow_WhenWrongPassword()
         {
             var user = CreateUser();
             await _service.SignUpAsync(user);
 
             var dbUser = await _context.Users.FirstAsync();
 
-            var result = await _service.UpdatePasswordAsync(dbUser.Id, "new", "wrong");
-
-            Assert.That(result, Is.False);
+            Assert.ThrowsAsync<InvalidOperationException>(() => _service.UpdatePasswordAsync(dbUser.Id, "new", "wrong"));
         }
 
         [Test]
@@ -167,7 +169,6 @@
                 await _service.UpdateEmailAsync(user.Id, "new@test.com", "wrong"));
         }
 
-
         [Test]
         public async Task DeleteAsync_ShouldDeleteUser()
         {
@@ -175,22 +176,33 @@
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            var result = await _service.DeleteAsync(user.Id, 1);
+            await _service.DeleteAsync(user.Id, 1);
 
-            Assert.That(result, Is.True);
             Assert.That(_context.Users.Count(), Is.EqualTo(0));
         }
 
         [Test]
-        public async Task DeleteAsync_ShouldReturnFalse_WhenMissing()
+        public void DeleteAsync_ShouldThrow_WhenMissing()
         {
-            var result = await _service.DeleteAsync(999, 1);
-
-            Assert.That(result, Is.False);
+            Assert.ThrowsAsync<KeyNotFoundException>(async () =>
+                await _service.DeleteAsync(999, 1));
         }
 
         [Test]
-        public async Task FollowAsync_ShouldCreateFollower()
+        public async Task DeleteAsync_ShouldThrow_WhenAdmin()
+        {
+            var admin = CreateUser();
+            admin.Role = UserRole.Administrator;
+
+            _context.Users.Add(admin);
+            await _context.SaveChangesAsync();
+
+            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+                await _service.DeleteAsync(admin.Id, 1));
+        }
+
+        [Test]
+        public async Task FollowAsync_ShouldCreateFollower_WhenUsersExist()
         {
             var u1 = CreateUser("u1@test.com", "u1");
             var u2 = CreateUser("u2@test.com", "u2");
@@ -198,26 +210,24 @@
             _context.Users.AddRange(u1, u2);
             await _context.SaveChangesAsync();
 
-            var result = await _service.FollowAsync(u1.Id, u2.Id);
+            await _service.FollowAsync(u1.Id, u2.Id);
 
-            Assert.That(result, Is.True);
             Assert.That(_context.Followers.Count(), Is.EqualTo(1));
         }
 
         [Test]
-        public async Task UnfollowAsync_ShouldRemoveFollower()
+        public async Task UnfollowAsync_ShouldRemoveFollower_WhenExists()
         {
             _context.Followers.Add(new Follower { FollowerId = 1, FollowingId = 2 });
             await _context.SaveChangesAsync();
 
-            var result = await _service.UnfollowAsync(1, 2);
+            await _service.UnfollowAsync(1, 2);
 
-            Assert.That(result, Is.True);
             Assert.That(_context.Followers.Count(), Is.EqualTo(0));
         }
 
         [Test]
-        public async Task UpdateProfilePictureAsync_ShouldUpdate()
+        public async Task UpdateProfilePictureAsync_ShouldUpdateProfilePicture()
         {
             var user = CreateUser();
             _context.Users.Add(user);
@@ -225,13 +235,15 @@
 
             user.ProfilePicture = "pic.png";
 
-            var result = await _service.UpdateProfilePictureAsync(user);
+            await _service.UpdateProfilePictureAsync(user);
 
-            Assert.That(result, Is.True);
+            var dbUser = await _context.Users.FindAsync(user.Id);
+
+            Assert.That(dbUser.ProfilePicture, Is.EqualTo("pic.png"));
         }
 
         [Test]
-        public async Task CreateModeratorRequestAsync_ShouldCreate()
+        public async Task CreateModeratorRequestAsync_ShouldCreateRequest()
         {
             var request = new ModeratorRequest
             {
@@ -239,9 +251,8 @@
                 RequestDescription = "test"
             };
 
-            var result = await _service.CreateModeratorRequestAsync(request);
+            await _service.CreateModeratorRequestAsync(request);
 
-            Assert.That(result, Is.True);
             Assert.That(_context.ModeratorRequests.Count(), Is.EqualTo(1));
         }
 

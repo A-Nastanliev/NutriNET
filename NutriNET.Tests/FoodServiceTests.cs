@@ -9,7 +9,8 @@
         [SetUp]
         public void Setup()
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning)).Options;
 
             _context = new AppDbContext(options);
             _service = new FoodService(_context);
@@ -141,24 +142,21 @@
         }
 
         [Test]
-        public async Task DeleteFoodAsync_ShouldDeleteFood()
+        public async Task DeleteFoodAsync_ShouldDeleteFood_WhenExists()
         {
             var food = CreateFood();
             _context.Foods.Add(food);
             await _context.SaveChangesAsync();
 
-            var result = await _service.DeleteFoodAsync(food.Id);
+            await _service.DeleteFoodAsync(food.Id);
 
-            Assert.That(result, Is.True);
             Assert.That(_context.Foods.Count(), Is.EqualTo(0));
         }
 
         [Test]
-        public async Task DeleteFoodAsync_ShouldReturnFalse_WhenNotFound()
+        public async Task DeleteFoodAsync_ShouldThrow_WhenFoodNotFound()
         {
-            var result = await _service.DeleteFoodAsync(999);
-
-            Assert.That(result, Is.False);
+            Assert.ThrowsAsync<KeyNotFoundException>(() => _service.DeleteFoodAsync(999));
         }
 
         [Test]

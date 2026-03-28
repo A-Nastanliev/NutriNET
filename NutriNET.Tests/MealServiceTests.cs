@@ -9,7 +9,8 @@
         [SetUp]
         public void Setup()
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning)).Options;
 
             _context = new AppDbContext(options);
             _service = new MealService(_context);
@@ -77,16 +78,14 @@
             _context.Meals.Add(meal);
             await _context.SaveChangesAsync();
 
-            var result = await _service.UpdateMealAsync(meal, MealType.Dinner);
-
-            Assert.That(result, Is.True);
+            await _service.UpdateMealAsync(meal, MealType.Dinner);
 
             var dbMeal = await _context.Meals.FindAsync(meal.Id);
             Assert.That(dbMeal.Type, Is.EqualTo(MealType.Dinner));
         }
 
         [Test]
-        public async Task UpdateMealAsync_ShouldReturnFalse_WhenNotOwner()
+        public async Task UpdateMealAsync_ShouldThrow_WhenNotOwner()
         {
             var meal = CreateMeal(1);
             _context.Meals.Add(meal);
@@ -98,9 +97,8 @@
                 UserId = 2
             };
 
-            var result = await _service.UpdateMealAsync(anotherMeal, MealType.Dinner);
-
-            Assert.That(result, Is.False);
+            Assert.ThrowsAsync<InvalidOperationException>(() =>
+                _service.UpdateMealAsync(anotherMeal, MealType.Dinner));
         }
 
         [Test]
@@ -110,14 +108,13 @@
             _context.Meals.Add(meal);
             await _context.SaveChangesAsync();
 
-            var result = await _service.DeleteMealAsync(meal);
+            await _service.DeleteMealAsync(meal);
 
-            Assert.That(result, Is.True);
             Assert.That(_context.Meals.Count(), Is.EqualTo(0));
         }
 
         [Test]
-        public async Task DeleteMealAsync_ShouldReturnFalse_WhenNotOwner()
+        public async Task DeleteMealAsync_ShouldThrow_WhenNotOwner()
         {
             var meal = CreateMeal(1);
             _context.Meals.Add(meal);
@@ -129,9 +126,7 @@
                 UserId = 2
             };
 
-            var result = await _service.DeleteMealAsync(anotherMeal);
-
-            Assert.That(result, Is.False);
+            Assert.ThrowsAsync<InvalidOperationException>(() => _service.DeleteMealAsync(anotherMeal));
         }
 
         [Test]
@@ -152,14 +147,13 @@
                 Weight = 100
             };
 
-            var result = await _service.CreateMealFoodAsync(1, mealFood);
+            await _service.CreateMealFoodAsync(1, mealFood);
 
-            Assert.That(result, Is.True);
             Assert.That(_context.MealFoods.Count(), Is.EqualTo(1));
         }
 
         [Test]
-        public async Task CreateMealFoodAsync_ShouldFail_WhenNotOwner()
+        public async Task CreateMealFoodAsync_ShouldThrow_WhenNotOwner()
         {
             var meal = CreateMeal(1);
             _context.Meals.Add(meal);
@@ -176,13 +170,11 @@
                 Weight = 100
             };
 
-            var result = await _service.CreateMealFoodAsync(2, mealFood);
-
-            Assert.That(result, Is.False);
+            Assert.ThrowsAsync<InvalidOperationException>(() => _service.CreateMealFoodAsync(2, mealFood));
         }
 
         [Test]
-        public async Task UpdateMealFoodAsync_ShouldUpdateWeight()
+        public async Task UpdateMealFoodAsync_ShouldUpdateWeight_WhenExists()
         {
             var meal = CreateMeal(1);
             _context.Meals.Add(meal);
@@ -202,24 +194,20 @@
             _context.MealFoods.Add(mealFood);
             await _context.SaveChangesAsync();
 
-            var result = await _service.UpdateMealFoodAsync(1, mealFood.Id, 200);
-
-            Assert.That(result, Is.True);
+            await _service.UpdateMealFoodAsync(1, mealFood.Id, 200);
 
             var db = await _context.MealFoods.FindAsync(mealFood.Id);
             Assert.That(db.Weight, Is.EqualTo(200));
         }
 
         [Test]
-        public async Task UpdateMealFoodAsync_ShouldReturnFalse_WhenNotFound()
+        public async Task UpdateMealFoodAsync_ShouldThrow_WhenNotFound()
         {
-            var result = await _service.UpdateMealFoodAsync(1, 999, 200);
-
-            Assert.That(result, Is.False);
+            Assert.ThrowsAsync<KeyNotFoundException>(() => _service.UpdateMealFoodAsync(1, 999, 200));
         }
 
         [Test]
-        public async Task DeleteMealFoodAsync_ShouldDelete()
+        public async Task DeleteMealFoodAsync_ShouldDelete_WhenExists()
         {
             var meal = CreateMeal(1);
             _context.Meals.Add(meal);
@@ -239,18 +227,15 @@
             _context.MealFoods.Add(mealFood);
             await _context.SaveChangesAsync();
 
-            var result = await _service.DeleteMealFoodAsync(1, mealFood.Id);
+            await _service.DeleteMealFoodAsync(1, mealFood.Id);
 
-            Assert.That(result, Is.True);
             Assert.That(_context.MealFoods.Count(), Is.EqualTo(0));
         }
 
         [Test]
-        public async Task DeleteMealFoodAsync_ShouldReturnFalse_WhenNotFound()
+        public async Task DeleteMealFoodAsync_ShouldThrow_WhenNotFound()
         {
-            var result = await _service.DeleteMealFoodAsync(1, 999);
-
-            Assert.That(result, Is.False);
+            Assert.ThrowsAsync<KeyNotFoundException>(() => _service.DeleteMealFoodAsync(1, 999));
         }
     }   
 }

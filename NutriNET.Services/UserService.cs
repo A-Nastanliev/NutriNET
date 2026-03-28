@@ -69,18 +69,18 @@ namespace NutriNET.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> UpdatePasswordAsync(int userToUpdateId, string newPassword, string currentPassword)
+        public async Task UpdatePasswordAsync(int userToUpdateId, string newPassword, string currentPassword)
         {    
             var user = await _context.Users.FindAsync(userToUpdateId);
             if (user == null)
-                throw new InvalidOperationException();
+                throw new KeyNotFoundException("UserNotFound");
 
             if (!VerifyPassword(currentPassword, user.PasswordHash))
-                return false;
+                throw new InvalidOperationException("IncorrectPassword");
 
             user.PasswordHash = HashPassword(newPassword);
 
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(User userToUpdate)
@@ -107,15 +107,14 @@ namespace NutriNET.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> UpdateProfilePictureAsync(User userToUpdate)
+        public async Task UpdateProfilePictureAsync(User userToUpdate)
         {
             var user = await _context.Users.FindAsync(userToUpdate.Id);
             if (user == null)
-                return false;
+                throw new KeyNotFoundException("UserNotFound");
 
             user.ProfilePicture = userToUpdate.ProfilePicture;
-
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
         public async Task<User> GetByIdAsync(int id)
@@ -143,41 +142,88 @@ namespace NutriNET.Services
             return (users, users.LastOrDefault()?.CreatedAt);
         }
 
-        public async Task<bool> DeleteAsync( int userToDeleteId, int actionUser)
+        public async Task DeleteAsync( int userToDeleteId, int actionUser)
         {
             var userToDelete = await _context.Users.FindAsync(userToDeleteId);
 
             if (userToDelete == null)
-                return false;
+                throw new KeyNotFoundException();
 
             if (userToDelete.Role == UserRole.Administrator)
                 throw new InvalidOperationException($"CannotDeleteOtherAdmin");
 
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
             try
             {
+                var recipes = await _context.Recipes
+                  .Where(r => r.CreatorId == userToDeleteId)
+                  .ToListAsync();
+
+                var recipeIds = recipes.Select(r => r.Id).ToList();
+
+                var usedRecipeIds = await (
+                     from mf in _context.MealFoods
+                     join m in _context.Meals on mf.MealId equals m.Id
+                     where mf.RecipeId != null &&
+                           recipeIds.Contains(mf.RecipeId.Value) &&
+                           m.UserId != userToDeleteId
+                     select mf.RecipeId.Value)
+                    .Distinct()
+                    .ToListAsync();
+
+                foreach (var recipe in recipes)
+                {
+                    if (usedRecipeIds.Contains(recipe.Id))
+                    {
+                        recipe.PrivacyLevel = PrivacyLevel.Archieved;
+
+                        await _context.RecipeListItems
+                            .Where(rl => rl.RecipeId == recipe.Id)
+                            .ExecuteDeleteAsync();
+
+                        await _context.RecipeComments
+                            .Where(rc => rc.RecipeId == recipe.Id)
+                            .ExecuteDeleteAsync();
+
+                        await _context.RecipeRatings
+                            .Where(rr => rr.RecipeId == recipe.Id)
+                            .ExecuteDeleteAsync();
+                    }
+                    else
+                    {
+                        _context.Recipes.Remove(recipe);
+                    }
+                }
                 _context.Users.Remove(userToDelete);
-                return await _context.SaveChangesAsync() > 0;
+                await _context.SaveChangesAsync() ;
+                await transaction.CommitAsync();
             }
             catch (DbUpdateException)
             {
-                return false;
+                await transaction.RollbackAsync();
+                throw;
             }
         }
 
-        public async Task<bool> FollowAsync(int followerId, int followingId) 
+        public async Task FollowAsync(int followerId, int followingId) 
         {
+            var followingUser = await _context.Users.FindAsync(followingId);
+            if (followingUser == null)
+                throw new KeyNotFoundException("UserNotFound");
+
             _context.Followers.Add(new Follower { FollowerId = followerId, FollowingId = followingId, FollowDate = DateTime.UtcNow });   
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
          }
 
-        public async Task<bool> UnfollowAsync(int followerId, int followingId)
+        public async Task UnfollowAsync(int followerId, int followingId)
         {
             var follower = await _context.Followers.FindAsync(followerId, followingId);
             if (follower == null)
-                return false;
+                throw new KeyNotFoundException("NotFollowing");
 
             _context.Followers.Remove(follower);
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<User>> GetNextFollowersAsync(int  userId, int count, DateTime? lastFollowDate, int? lastFollowerId)
@@ -256,14 +302,14 @@ namespace NutriNET.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> EndCommentRestrictionAsync(int id)
+        public async Task EndCommentRestrictionAsync(int id)
         {
             var restriction = await _context.CommentRestrictions.FindAsync(id);
             if(restriction == null)
-                return false;
+                throw new KeyNotFoundException("CommentRestrictionNotFound");
 
             restriction.EndDate = DateTime.UtcNow;
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
         public async Task<CommentRestriction> GetActiveCommentRestrictionAsync(int userId)
@@ -305,14 +351,14 @@ namespace NutriNET.Services
                 .ToListAsync();
         }
 
-        public async Task<bool> CreateModeratorRequestAsync(ModeratorRequest moderatorRequest)
+        public async Task CreateModeratorRequestAsync(ModeratorRequest moderatorRequest)
         {
             moderatorRequest.DateSent = DateTime.UtcNow;
             moderatorRequest.Status = RequestStatus.Pending;
             moderatorRequest.ActionedById = null;
             moderatorRequest.ActionedBy = null;
             _context.ModeratorRequests.Add(moderatorRequest);
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
         public async Task<ModeratorRequest> GetPendingModeratorRequestAsync(int userId)
@@ -320,7 +366,7 @@ namespace NutriNET.Services
             return await _context.ModeratorRequests.FirstOrDefaultAsync(mr=>mr.SenderId == userId && mr.Status == RequestStatus.Pending);
         }
 
-        public async Task<bool> UpdateModeratorRequestAsync(int requestId, RequestStatus newStatus, int adminId)
+        public async Task UpdateModeratorRequestAsync(int requestId, RequestStatus newStatus, int adminId)
         {
             var admin = await _context.Users.FindAsync(adminId);
             if (admin == null || admin?.Role != UserRole.Administrator) 
@@ -330,7 +376,7 @@ namespace NutriNET.Services
 
             var moderatorRequest = await _context.ModeratorRequests.FindAsync(requestId);
             if(moderatorRequest == null)
-                return false;
+                throw new KeyNotFoundException("ModeratorRequestNotFound");
 
             moderatorRequest.Status = newStatus;
             moderatorRequest.ActionedOn = DateTime.UtcNow;
@@ -339,12 +385,12 @@ namespace NutriNET.Services
             {
                 var user = await _context.Users.FindAsync(moderatorRequest.SenderId);
                 if (user == null)
-                    return false;
+                    throw new KeyNotFoundException("UserNotFound");
 
                 user.Role = UserRole.Moderator;
             }
 
-           return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<ModeratorRequest>> GetNextModeratorRequestsAsync(int count, DateTime? lastDateSent, int? lastRequestId, RequestStatus status)

@@ -124,63 +124,63 @@
             return result;
         }
 
-        public async Task<bool> UpdateMealAsync( Meal meal, MealType type)
+        public async Task UpdateMealAsync( Meal meal, MealType type)
         {
             var m = await _context.Meals.FindAsync(meal.Id);
             if (m == null || m?.UserId != meal.UserId)
-                return false;
+                throw new InvalidOperationException("MealNotFound");
 
             m.Type = type;
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteMealAsync( Meal meal)
+        public async Task DeleteMealAsync( Meal meal)
         {
             var m = await _context.Meals.FindAsync(meal.Id);
             if (m == null || m?.UserId != meal.UserId)
-                return false;
+                throw new InvalidOperationException("MealNotFound");
 
             _context.Meals.Remove(m);
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> CreateMealFoodAsync(int userId, MealFood mealFood)
+        public async Task CreateMealFoodAsync(int userId, MealFood mealFood)
         {
             var ownsMeal = await _context.Meals
                 .AnyAsync(m => m.Id == mealFood.MealId && m.UserId == userId);
 
             if (!ownsMeal)
-                return false;
+                throw new InvalidOperationException("MealNotFound");
 
             await _context.MealFoods.AddAsync(mealFood);
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> UpdateMealFoodAsync(int userId, int mealFoodId, double newWeight)
+        public async Task UpdateMealFoodAsync(int userId, int mealFoodId, double newWeight)
         {
             var mealFood = await _context.MealFoods
                .Where(mf => mf.Id == mealFoodId && mf.Meal.UserId == userId)
                .FirstOrDefaultAsync();
 
             if (mealFood == null)
-                return false;
+                throw new KeyNotFoundException("MealFoodNotFound");
 
             mealFood.Weight = newWeight;
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
 
-        public async Task<bool> DeleteMealFoodAsync(int userId, int mealFoodId)
+        public async Task DeleteMealFoodAsync(int userId, int mealFoodId)
         {
             var mealFood = await _context.MealFoods
                .Where(mf => mf.Id == mealFoodId && mf.Meal.UserId == userId)
                .FirstOrDefaultAsync();
 
             if (mealFood == null)
-                return false;
+                throw new KeyNotFoundException("MealFoodNotFound");
 
             _context.MealFoods.Remove(mealFood);
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
     }

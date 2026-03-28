@@ -108,14 +108,14 @@
             return (true, null);
         }
 
-        public async Task<bool> DeleteFoodAsync(int foodId)
+        public async Task DeleteFoodAsync(int foodId)
         {
             var food = await _context.Foods.FindAsync(foodId);
             if (food == null)
-                return false;
+                throw new KeyNotFoundException("FoodNotFound");
 
             _context.Foods.Remove(food);
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
         public async Task CreateFoodRequestAsync(FoodRequest foodRequest)

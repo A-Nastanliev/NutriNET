@@ -209,6 +209,12 @@
             if (await _context.MealFoods.AnyAsync(mf=>mf.RecipeId == recipe.Id)) 
             {
                 r.PrivacyLevel = PrivacyLevel.Archieved;
+                var listItems = await _context.RecipeListItems.Where(rl=>rl.RecipeId == recipe.Id).ToListAsync();
+                var comments = await _context.RecipeComments.Where(rc => rc.RecipeId == recipe.Id).ToListAsync();
+                var ratings = await _context.RecipeRatings.Where(rr=>rr.RecipeId == recipe.Id).ToListAsync();
+                _context.RecipeListItems.RemoveRange(listItems);
+                _context.RecipeComments.RemoveRange(comments);
+                _context.RecipeRatings.RemoveRange(ratings);
             }
             else
             {

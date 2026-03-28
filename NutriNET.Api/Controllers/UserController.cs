@@ -10,6 +10,7 @@ using NutriNET.Api.Dto;
 using System.Security.Claims;
 using NutriNET.Api.Dto.User;
 using NutriNET.Api.Mappers;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace NutriNET.Api.Controllers
 {
@@ -252,20 +253,21 @@ namespace NutriNET.Api.Controllers
                 return BadRequest(new { error = e.Message });
             }
 
-            var success = await _service.UpdateProfilePictureAsync(new User { Id = UserId.Value, ProfilePicture = newPath });
+            try
+            {
+                await _service.UpdateProfilePictureAsync(new User { Id = UserId.Value, ProfilePicture = newPath });
+                _imageStorageService.DeleteImage(oldImagePath);
 
-            if (!success)
+                var baseUrl = _configuration["App:BaseUrl"].TrimEnd('/');
+                var fullUrl = $"{baseUrl}/{newPath}";
+
+                return Ok(new { ProfilePicture = fullUrl });
+            }
+            catch (KeyNotFoundException ex)
             {
                 _imageStorageService.DeleteImage(newPath);
-                return NotFound();
+                return NotFound(ex.Message);
             }
-
-            _imageStorageService.DeleteImage(oldImagePath);
-
-            var baseUrl = _configuration["App:BaseUrl"].TrimEnd('/');
-            var fullUrl = $"{baseUrl}/{newPath}";
-
-            return Ok(new { ProfilePicture = fullUrl });
         }
 
         [HttpPut("me/password")]
@@ -273,15 +275,16 @@ namespace NutriNET.Api.Controllers
         {
             try
             {
-                var success = await _service.UpdatePasswordAsync(UserId.Value, req.NewPassword, req.CurrentPassword);
-                if (!success)
-                    return BadRequest(new { error = "IncorrectPassword" });
-
+                await _service.UpdatePasswordAsync(UserId.Value, req.NewPassword, req.CurrentPassword);
                 return NoContent();
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException ex)
             {
-                return Unauthorized();
+                return BadRequest(ex.Message);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
         }
 
@@ -319,8 +322,7 @@ namespace NutriNET.Api.Controllers
 
                 string profilePicture = user.ProfilePicture;
 
-                var success = await _service.DeleteAsync(UserId.Value, UserId.Value);
-                if (!success) return NotFound();
+                await _service.DeleteAsync(UserId.Value, UserId.Value);
 
                 _imageStorageService.DeleteImage(profilePicture);
 
@@ -329,6 +331,10 @@ namespace NutriNET.Api.Controllers
             catch (InvalidOperationException ex)
             {
                 return BadRequest(new { error = ex.Message });
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {
@@ -351,8 +357,7 @@ namespace NutriNET.Api.Controllers
 
                 string profilePicture = user.ProfilePicture;
 
-                var success = await _service.DeleteAsync(id, UserId.Value);
-                if (!success) return NotFound();
+                await _service.DeleteAsync(id, UserId.Value);
 
                 _imageStorageService.DeleteImage(profilePicture);
 
@@ -361,6 +366,10 @@ namespace NutriNET.Api.Controllers
             catch (InvalidOperationException ex)
             {
                 return BadRequest(new { error = ex.Message });
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {
@@ -371,21 +380,29 @@ namespace NutriNET.Api.Controllers
         [HttpPost("{id}/follow")]
         public async Task<IActionResult> FollowUser(int id)
         {
-            var success = await _service.FollowAsync(UserId.Value, id);
-            if (!success)
-                return NotFound();
-
-            return NoContent();
+            try
+            {
+                await _service.FollowAsync(UserId.Value, id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpDelete("{id}/unfollow")]
         public async Task<IActionResult> UnfollowUser(int id)
         {
-            var success = await _service.UnfollowAsync(UserId.Value, id);
-            if (!success)
-                return NotFound();
-
-            return NoContent();
+            try
+            {
+                await _service.UnfollowAsync(UserId.Value, id);
+                return NoContent();
+            }
+            catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpGet("me/followers")]
@@ -481,11 +498,15 @@ namespace NutriNET.Api.Controllers
         [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> EndCommentRestriction(int restrictionId)
         {
-            var success = await _service.EndCommentRestrictionAsync(restrictionId);
-            if (!success)
-                return NotFound(new { error = "CommentRestrictionNotFound" });
-
-            return NoContent();
+            try
+            {
+                await _service.EndCommentRestrictionAsync(restrictionId);
+                return NoContent();
+            }
+            catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost("moderator-requests")]
@@ -500,11 +521,16 @@ namespace NutriNET.Api.Controllers
                 RequestDescription = dto.Description
             };
 
-            var success = await _service.CreateModeratorRequestAsync(moderatorRequest);
-            if (!success)
-                return BadRequest();
+            try
+            {
+                await _service.CreateModeratorRequestAsync(moderatorRequest);
 
-            return StatusCode(201, new { id = moderatorRequest.Id });
+                return StatusCode(201, new { id = moderatorRequest.Id });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpGet("moderator-requests")]
@@ -524,15 +550,16 @@ namespace NutriNET.Api.Controllers
         {
             try
             {
-                var success = await _service.UpdateModeratorRequestAsync(requestId, req.Status, UserId.Value);
-                if (!success)
-                    return NotFound(new { error = "ModeratorRequestNotFound" });
-
+                await _service.UpdateModeratorRequestAsync(requestId, req.Status, UserId.Value);
                 return NoContent();
             }
             catch (UnauthorizedAccessException ex)
             {
                 return Forbid(ex.Message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
         }
     }

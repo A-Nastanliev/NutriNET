@@ -9,7 +9,8 @@
         [SetUp]
         public void Setup()
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString()).Options;
+            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning)).Options;
 
             _context = new AppDbContext(options);
             _service = new RecipeService(_context);

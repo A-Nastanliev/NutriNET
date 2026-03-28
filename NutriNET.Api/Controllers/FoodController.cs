@@ -164,12 +164,17 @@ namespace NutriNET.Api.Controllers
 
             string path = food.Image;
 
-            var success = await _service.DeleteFoodAsync(id);
-            if (!success)
-                return NotFound();
+            try
+            {
+                await _service.DeleteFoodAsync(id);
 
-            _imageStorageService.DeleteImage(path);
-            return NoContent();
+                _imageStorageService.DeleteImage(path);
+                return NoContent();
+            }
+            catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPost("requests")]  
