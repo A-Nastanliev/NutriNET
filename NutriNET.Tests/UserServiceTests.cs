@@ -3,16 +3,16 @@
     [TestFixture]
     public class UserServiceTests
     {
-        private AppDbContext _context;
+        private NutriDbContext _context;
         private UserService _service;
 
         [SetUp]
         public void Setup()
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString())
+            var options = new DbContextOptionsBuilder<NutriDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning)).Options;
 
-            _context = new AppDbContext(options);
+            _context = new NutriDbContext(options);
             _service = new UserService(_context);
         }
 
@@ -169,6 +169,7 @@
                 await _service.UpdateEmailAsync(user.Id, "new@test.com", "wrong"));
         }
 
+
         [Test]
         public async Task DeleteAsync_ShouldDeleteUser()
         {
@@ -227,6 +228,48 @@
         }
 
         [Test]
+        public async Task GetFollowStatsAsync_ShouldReturnZeros_WhenNoFollowers()
+        {
+            var user = CreateUser();
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            var (followersCount, followingCount) = await _service.GetFollowStatsAsync(user.Id);
+
+            Assert.That(followersCount, Is.EqualTo(0));
+            Assert.That(followingCount, Is.EqualTo(0));
+        }
+
+        [Test]
+        public async Task GetFollowStatsAsync_ShouldReturnCorrectCounts()
+        {
+            var u1 = CreateUser("u1@test.com", "u1");
+            var u2 = CreateUser("u2@test.com", "u2");
+            var u3 = CreateUser("u3@test.com", "u3");
+
+            _context.Users.AddRange(u1, u2, u3);
+            await _context.SaveChangesAsync();
+
+            _context.Followers.AddRange(
+                new Follower { FollowerId = u2.Id, FollowingId = u1.Id, FollowDate = DateTime.UtcNow },
+                new Follower { FollowerId = u3.Id, FollowingId = u1.Id, FollowDate = DateTime.UtcNow },
+                new Follower { FollowerId = u1.Id, FollowingId = u2.Id, FollowDate = DateTime.UtcNow }
+            );
+            await _context.SaveChangesAsync();
+
+            var (followersCount, followingCount) = await _service.GetFollowStatsAsync(u1.Id);
+
+            Assert.That(followersCount, Is.EqualTo(2));
+            Assert.That(followingCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GetFollowStatsAsync_ShouldThrow_WhenUserNotFound()
+        {
+            Assert.ThrowsAsync<KeyNotFoundException>(() => _service.GetFollowStatsAsync(999));
+        }
+
+        [Test]
         public async Task UpdateProfilePictureAsync_ShouldUpdateProfilePicture()
         {
             var user = CreateUser();
@@ -265,6 +308,89 @@
 
             Assert.ThrowsAsync<UnauthorizedAccessException>(() =>
                 _service.UpdateModeratorRequestAsync(1, RequestStatus.Accepted, user.Id));
+        }
+
+        [Test]
+        public async Task CreatePasswordResetCodeAsync_ShouldReturnCode_AndSaveToDb()
+        {
+            var user = CreateUser();
+            await _service.SignUpAsync(user);
+
+            var code = await _service.CreatePasswordResetCodeAsync(user.EmailAddress);
+
+            Assert.That(code, Is.Not.Null);
+            Assert.That(code, Has.Length.EqualTo(6));
+            Assert.That(await _context.PasswordResetTokens.CountAsync(), Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task CreatePasswordResetCodeAsync_UnknownEmail_ReturnsNull()
+        {
+            var code = await _service.CreatePasswordResetCodeAsync("ghost@test.com");
+
+            Assert.That(code, Is.Null);
+            Assert.That(await _context.PasswordResetTokens.CountAsync(), Is.EqualTo(0));
+        }
+
+        [Test]
+        public async Task CreatePasswordResetCodeAsync_ShouldReplaceOldToken()
+        {
+            var user = CreateUser();
+            await _service.SignUpAsync(user);
+
+            await _service.CreatePasswordResetCodeAsync(user.EmailAddress);
+            await _service.CreatePasswordResetCodeAsync(user.EmailAddress);
+
+            Assert.That(await _context.PasswordResetTokens.CountAsync(), Is.EqualTo(1));
+        }
+
+        [Test]
+        public async Task ResetPasswordAsync_ValidCode_UpdatesPasswordAndDeletesToken()
+        {
+            var user = CreateUser();
+            await _service.SignUpAsync(user);
+            var code = await _service.CreatePasswordResetCodeAsync(user.EmailAddress);
+
+            await _service.ResetPasswordAsync(user.EmailAddress, code, "NewPassword123!");
+
+            Assert.That(await _context.PasswordResetTokens.CountAsync(), Is.EqualTo(0));
+            var result = await _service.EmailPasswordLoginAsync(user.EmailAddress, "NewPassword123!");
+            Assert.That(result, Is.Not.Null);
+        }
+
+        [Test]
+        public async Task ResetPasswordAsync_WrongCode_Throws()
+        {
+            var user = CreateUser();
+            await _service.SignUpAsync(user);
+            await _service.CreatePasswordResetCodeAsync(user.EmailAddress);
+
+            Assert.ThrowsAsync<InvalidOperationException>(() =>
+                _service.ResetPasswordAsync(user.EmailAddress, "000000", "NewPassword123!"));
+        }
+
+        [Test]
+        public async Task ResetPasswordAsync_ExpiredToken_Throws()
+        {
+            var user = CreateUser();
+            await _service.SignUpAsync(user);
+
+            _context.PasswordResetTokens.Add(new PasswordResetToken
+            {
+                UserId = user.Id,
+                Code = "doesntmatter",
+                ExpiresAt = DateTime.UtcNow.AddMinutes(-1)
+            });
+            await _context.SaveChangesAsync();
+
+            Assert.ThrowsAsync<InvalidOperationException>(() =>
+                _service.ResetPasswordAsync(user.EmailAddress, "123456", "NewPassword123!"));
+        }
+
+        [Test]
+        public async Task ResetPasswordAsync_UnknownEmail_Throws()
+        {
+            Assert.ThrowsAsync<KeyNotFoundException>(() => _service.ResetPasswordAsync("ghost@test.com", "123456", "NewPassword123!"));
         }
 
         [TearDown]

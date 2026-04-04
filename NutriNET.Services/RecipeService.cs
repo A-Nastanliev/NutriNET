@@ -2,9 +2,9 @@
 {
     public class RecipeService
     {
-        private readonly AppDbContext _context;
+        private readonly NutriDbContext _context;
 
-        public RecipeService(AppDbContext context)
+        public RecipeService(NutriDbContext context)
         {
             _context = context;
         }
@@ -45,8 +45,8 @@
                 {
                     var w = word;
                     query = query.Where(r =>
-                        r.Name.Contains(w) ||                     
-                        r.Creator.Username.Contains(w) ||  
+                        r.Name.Contains(w) ||
+                        r.Creator.Username.Contains(w) ||
                         r.Ingredients.Any(i => i.Food.Name.Contains(w))
                     );
                 }
@@ -69,7 +69,7 @@
                 .ToListAsync();
         }
 
-        public async Task<List<Recipe>> GetNextFollowingRecipesAsync( int userId, int count, DateTime? lastDate, int? lastRecipeId, string search)
+        public async Task<List<Recipe>> GetNextFollowingRecipesAsync(int userId, int count, DateTime? lastDate, int? lastRecipeId, string search)
         {
             var followingIds = await _context.Followers
                 .Where(f => f.FollowerId == userId)
@@ -120,7 +120,7 @@
                 .ToListAsync();
         }
 
-        public async Task<List<Recipe>> GetUserRecipesAsync(int creatorId,int viewerId, int count, DateTime? lastDate, int? lastRecipeId)
+        public async Task<List<Recipe>> GetUserRecipesAsync(int creatorId, int viewerId, int count, DateTime? lastDate, int? lastRecipeId)
         {
             var query = _context.Recipes
                 .Where(r => r.CreatorId == creatorId);
@@ -171,6 +171,7 @@
                 .ToListAsync();
         }
 
+
         public async Task UpdateRecipeAsync(Recipe updated, bool updateImage)
         {
             var recipe = await _context.Recipes
@@ -200,18 +201,18 @@
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteRecipeAsync(Recipe recipe)
+        public async Task DeleteRecipeAsync(Recipe recipe)
         {
             var r = await _context.Recipes.FindAsync(recipe.Id);
             if (r == null || r.CreatorId != recipe.CreatorId)
-                return false;
+                throw new KeyNotFoundException("RecipeNotFound");
 
-            if (await _context.MealFoods.AnyAsync(mf=>mf.RecipeId == recipe.Id)) 
+            if (await _context.MealFoods.AnyAsync(mf => mf.RecipeId == recipe.Id))
             {
                 r.PrivacyLevel = PrivacyLevel.Archieved;
-                var listItems = await _context.RecipeListItems.Where(rl=>rl.RecipeId == recipe.Id).ToListAsync();
+                var listItems = await _context.RecipeListItems.Where(rl => rl.RecipeId == recipe.Id).ToListAsync();
                 var comments = await _context.RecipeComments.Where(rc => rc.RecipeId == recipe.Id).ToListAsync();
-                var ratings = await _context.RecipeRatings.Where(rr=>rr.RecipeId == recipe.Id).ToListAsync();
+                var ratings = await _context.RecipeRatings.Where(rr => rr.RecipeId == recipe.Id).ToListAsync();
                 _context.RecipeListItems.RemoveRange(listItems);
                 _context.RecipeComments.RemoveRange(comments);
                 _context.RecipeRatings.RemoveRange(ratings);
@@ -220,14 +221,20 @@
             {
                 _context.Recipes.Remove(r);
             }
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
 
-        public async Task CreateRecipeRatingAsync(RecipeRating rating) 
+        public async Task CreateRecipeRatingAsync(RecipeRating rating)
         {
             _context.RecipeRatings.Add(rating);
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<int?> GetUserRatingAsync(int userId, int recipeId)
+        {
+            var rating = await _context.RecipeRatings.FindAsync(userId, recipeId);
+            return rating?.Rating;
         }
 
         public async Task<(int count, double average)> GetRecipeRatingSummaryAsync(int recipeId)
@@ -248,21 +255,21 @@
         public async Task<bool> UpdateRecipeRatingAsync(RecipeRating rating)
         {
             var recipeRating = await _context.RecipeRatings.FindAsync(rating.UserId, rating.RecipeId);
-            if (recipeRating == null) 
+            if (recipeRating == null)
                 return false;
 
             recipeRating.Rating = rating.Rating;
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> DeleteRecipeRatingAsync(RecipeRating rating) 
+        public async Task<bool> DeleteRecipeRatingAsync(RecipeRating rating)
         {
             var recipeRating = await _context.RecipeRatings.FindAsync(rating.UserId, rating.RecipeId);
             if (recipeRating == null)
                 return false;
 
             _context.RecipeRatings.Remove(recipeRating);
-            return await _context.SaveChangesAsync() >0;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task CreateRecipeCommentAsync(RecipeComment comment)
@@ -304,10 +311,10 @@
         public async Task<bool> DeleteRecipeCommentAsync(RecipeComment comment, int? userId = null)
         {
             var c = await _context.RecipeComments.FindAsync(comment.Id);
-            if (c == null || (c.UserId != userId && userId!=null)) return false;
+            if (c == null || (c.UserId != userId && userId != null)) return false;
 
             _context.RecipeComments.Remove(c);
-           return await _context.SaveChangesAsync() > 0;
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task CreateRecipeListAsync(RecipeList list)
@@ -320,7 +327,7 @@
         {
             return await _context.RecipeLists
                 .Where(rl => rl.UserId == userId)
-                .OrderByDescending(rl => rl.Id)
+                .OrderBy(rl => rl.Id)
                 .ToListAsync();
         }
 
@@ -336,14 +343,18 @@
         public async Task DeleteRecipeListAsync(int listId, int userId)
         {
             var rl = await _context.RecipeLists.FindAsync(listId);
-            if (rl == null || rl.UserId != userId) return ;
+            if (rl == null || rl.UserId != userId) return;
 
             _context.RecipeLists.Remove(rl);
-           await _context.SaveChangesAsync() ;
+            await _context.SaveChangesAsync();
         }
 
         public async Task CreateRecipeListItemAsync(int listId, int recipeId)
         {
+            var exists = await _context.RecipeListItems.AnyAsync(rli => rli.RecipeId == recipeId && rli.RecipeListId == listId);
+            if (exists)
+                throw new InvalidOperationException("RecipeAlreadyInList");
+
             var item = new RecipeListItem
             {
                 RecipeListId = listId,
@@ -354,7 +365,7 @@
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Recipe>> GetNextRecipesInListAsync(int listId,  int count,  DateTime? lastDate,  int? lastRecipeId)
+        public async Task<List<Recipe>> GetNextRecipesInListAsync(int listId, int count, DateTime? lastDate, int? lastRecipeId)
         {
             var query = from rli in _context.RecipeListItems
                         join r in _context.Recipes on rli.RecipeId equals r.Id
@@ -385,7 +396,7 @@
                 .FirstOrDefaultAsync(rli => rli.RecipeListId == listId && rli.RecipeId == recipeId);
 
             if (item == null || item.RecipeList.UserId != userId)
-                return ;
+                return;
 
             _context.RecipeListItems.Remove(item);
             await _context.SaveChangesAsync();

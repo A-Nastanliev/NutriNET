@@ -1,37 +1,39 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NutriNET.Api.Dto;
+using NutriNET.Api.Dto.User;
+using NutriNET.Api.Mappers;
 using NutriNET.Api.Services;
 using NutriNET.Data.Enums;
 using NutriNET.Data.Models;
 using NutriNET.Services;
 using System.IdentityModel.Tokens.Jwt;
-using NutriNET.Api.Dto;
 using System.Security.Claims;
-using NutriNET.Api.Dto.User;
-using NutriNET.Api.Mappers;
-using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace NutriNET.Api.Controllers
 {
-    [Route("api/users")]
     [ApiController]
     [Authorize]
+    [Route("api/users")]
     public class UserController : ControllerBase
     {
         private readonly UserService _service;
         private readonly IConfiguration _configuration;
         private readonly IImageStorageService _imageStorageService;
+        private readonly IEmailService _emailService;
 
         private int? UserId => int.TryParse(User.FindFirstValue(ClaimTypes.NameIdentifier), out var id) ? id : null;
 
         private UserRole? Role => Enum.TryParse<UserRole>(User.FindFirstValue(ClaimTypes.Role), out var role) ? role : null;
 
-        public UserController(IConfiguration configuration, UserService service, IImageStorageService imageStorageService)
+        public UserController(IConfiguration configuration, UserService service, IImageStorageService imageStorageService, IEmailService emailService)
         {
             _service = service;
             _configuration = configuration;
             _imageStorageService = imageStorageService;
+            _emailService = emailService;
         }
 
         [AllowAnonymous]
@@ -223,7 +225,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (UnauthorizedAccessException)
             {
-                return BadRequest(new { error = "Invalid password." });
+                return BadRequest(new { error = "IncorrectPassword" });
             }
             catch (DbUpdateException)
             {
@@ -235,7 +237,7 @@ namespace NutriNET.Api.Controllers
         public async Task<IActionResult> UpdateProfilePicture([FromForm] IFormFile picture)
         {
             if (picture == null || picture.Length == 0)
-                return BadRequest("No image provided.");
+                return BadRequest();
 
             var user = await _service.GetByIdAsync(UserId.Value);
             if (user == null)
@@ -266,7 +268,7 @@ namespace NutriNET.Api.Controllers
             catch (KeyNotFoundException ex)
             {
                 _imageStorageService.DeleteImage(newPath);
-                return NotFound(ex.Message);
+                return NotFound(new { error = ex.Message });
             }
         }
 
@@ -280,11 +282,11 @@ namespace NutriNET.Api.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return NotFound(new { error = ex.Message });
             }
         }
 
@@ -311,6 +313,7 @@ namespace NutriNET.Api.Controllers
             }
         }
 
+
         [HttpDelete]
         public async Task<IActionResult> Delete()
         {
@@ -318,7 +321,7 @@ namespace NutriNET.Api.Controllers
             {
                 var user = await _service.GetByIdAsync(UserId.Value);
                 if (user == null)
-                    return NotFound();
+                    return NotFound("UserNotFound");
 
                 string profilePicture = user.ProfilePicture;
 
@@ -350,10 +353,13 @@ namespace NutriNET.Api.Controllers
             {
                 var user = await _service.GetByIdAsync(id);
                 if (user == null)
-                    return NotFound();
+                    return NotFound("UserNotFound");
 
                 if (user.Role == UserRole.Administrator && user.Id == id)
                     return BadRequest("AdminCannotDeleteSelf");
+
+                if (user.Role == UserRole.Administrator)
+                    return BadRequest("CannotDeleteOtherAdmin");
 
                 string profilePicture = user.ProfilePicture;
 
@@ -387,7 +393,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return NotFound(new { error = ex.Message });
             }
         }
 
@@ -399,9 +405,27 @@ namespace NutriNET.Api.Controllers
                 await _service.UnfollowAsync(UserId.Value, id);
                 return NoContent();
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return NotFound(new { error = ex.Message });
+            }
+        }
+
+        [HttpGet("{id}/stats")]
+        public async Task<IActionResult> GetUserStats(int id)
+        {
+            try
+            {
+                var (followersCount, followingCount) = await _service.GetFollowStatsAsync(id);
+                return Ok(new
+                {
+                    FollowersCount = followersCount,
+                    FollowingCount = followingCount
+                });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { error = ex.Message });
             }
         }
 
@@ -411,7 +435,7 @@ namespace NutriNET.Api.Controllers
             var followers = await _service.GetNextFollowersAsync(UserId.Value, load.Count, load.CursorDate, load.CursorId);
             var baseUrl = _configuration["App:BaseUrl"];
 
-            var dtos = followers.Select(u => u.ToPublicDto(baseUrl)).ToList();
+            var vms = followers.Select(u => u.ToPublicDto(baseUrl)).ToList();
 
             DateTime? nextCursorDate = null;
             int? nextCursorId = null;
@@ -425,7 +449,7 @@ namespace NutriNET.Api.Controllers
 
             return Ok(new
             {
-                Followers = dtos,
+                Followers = vms,
                 CursorDate = nextCursorDate,
                 CursorId = nextCursorId
             });
@@ -436,7 +460,7 @@ namespace NutriNET.Api.Controllers
         {
             var following = await _service.GetNextFollowingAsync(UserId.Value, load.Count, load.CursorDate, load.CursorId);
             var baseUrl = _configuration["App:BaseUrl"];
-            var dtos = following.Select(u => u.ToPublicDto(baseUrl)).ToList();
+            var vms = following.Select(u => u.ToPublicDto(baseUrl)).ToList();
 
             DateTime? nextCursorDate = null;
             int? nextCursorId = null;
@@ -450,7 +474,7 @@ namespace NutriNET.Api.Controllers
 
             return Ok(new
             {
-                Followings = dtos,
+                Followings = vms,
                 CursorDate = nextCursorDate,
                 CursorId = nextCursorId
             });
@@ -473,11 +497,11 @@ namespace NutriNET.Api.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Forbid(ex.Message);
+                return StatusCode(403, new { error = ex.Message });
             }
 
             return StatusCode(201, new { id = restriction.Id });
@@ -503,9 +527,9 @@ namespace NutriNET.Api.Controllers
                 await _service.EndCommentRestrictionAsync(restrictionId);
                 return NoContent();
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return NotFound(new { error = ex.Message });
             }
         }
 
@@ -555,11 +579,42 @@ namespace NutriNET.Api.Controllers
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Forbid(ex.Message);
+                return StatusCode(403, new { error = ex.Message });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return NotFound(new { error = ex.Message });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest req)
+        {
+            var code = await _service.CreatePasswordResetCodeAsync(req.Email);
+
+            if (code != null)
+                await _emailService.SendPasswordResetEmailAsync(req.Email, code, req.Language);
+
+            return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("reset-password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest req)
+        {
+            try
+            {
+                await _service.ResetPasswordAsync(req.Email, req.Code, req.NewPassword);
+                return Ok();
+            }
+            catch (KeyNotFoundException)
+            {
+                return BadRequest(new { error = "InvalidOrExpiredCode" });
+            }
+            catch (InvalidOperationException)
+            {
+                return BadRequest(new { error = "InvalidOrExpiredCode" });
             }
         }
     }

@@ -2,14 +2,14 @@
 {
     public class FoodService
     {
-        private readonly AppDbContext _context;
+        private readonly NutriDbContext _context;
 
-        public FoodService(AppDbContext context)
+        public FoodService(NutriDbContext context)
         {
             _context = context;
         }
 
-        public async Task<(bool Success, string? ErrorMessage)> CreateFoodAsync( Food food)
+        public async Task<(bool Success, string? ErrorMessage)> CreateFoodAsync(Food food)
         {
             var validationError = ValidateNutrition(food);
             if (validationError != null)
@@ -39,7 +39,7 @@
             return null;
         }
 
-        public async Task<List<Food>> GetNextFoodsAsync(int count, DateTime? lastDateAdded, int? lastFoodId, string search ) 
+        public async Task<List<Food>> GetNextFoodsAsync(int count, DateTime? lastDateAdded, int? lastFoodId, string search)
         {
             var query = _context.Foods.AsQueryable();
 
@@ -79,13 +79,14 @@
 
         public async Task<Food> GetFoodByBarcodeAsync(string barcode)
         {
-            return await _context.Foods.FirstOrDefaultAsync(f => f.Barcode == barcode);
+            return await _context.Foods
+                .FirstOrDefaultAsync(f => f.Barcode == barcode);
         }
 
         public async Task<(bool Success, string? ErrorMessage)> UpdateFoodAsync(Food foodToUpdate, bool updateImage = false)
         {
             var food = await _context.Foods.FindAsync(foodToUpdate.Id);
-            if(food == null)
+            if (food == null)
                 return (false, "FoodNotFound");
 
             var validationError = ValidateNutrition(foodToUpdate);
@@ -99,7 +100,7 @@
             food.Carbohydrates = foodToUpdate.Carbohydrates;
             food.Fats = foodToUpdate.Fats;
             food.Barcode = foodToUpdate.Barcode;
-            if (updateImage) 
+            if (updateImage)
             {
                 food.Image = foodToUpdate.Image;
             }
@@ -139,11 +140,11 @@
 
         public async Task<List<FoodRequest>> GetMyPendingFoodRequestsAsync(int userId)
         {
-            return await _context.FoodRequests.Where(fr=>fr.Status == RequestStatus.Pending && fr.SenderId == userId).ToListAsync();
+            return await _context.FoodRequests.Where(fr => fr.Status == RequestStatus.Pending && fr.SenderId == userId).ToListAsync();
         }
 
         public async Task UpdateFoodRequestAsync(FoodRequest foodRequest)
-        { 
+        {
             var fr = await _context.FoodRequests.FindAsync(foodRequest.Id);
 
             if (fr == null)

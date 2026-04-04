@@ -3,16 +3,16 @@
     [TestFixture]
     public class MealServiceTests
     {
-        private AppDbContext _context;
+        private NutriDbContext _context;
         private MealService _service;
 
         [SetUp]
         public void Setup()
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString())
+            var options = new DbContextOptionsBuilder<NutriDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning)).Options;
 
-            _context = new AppDbContext(options);
+            _context = new NutriDbContext(options);
             _service = new MealService(_context);
         }
 
@@ -237,5 +237,5 @@
         {
             Assert.ThrowsAsync<KeyNotFoundException>(() => _service.DeleteMealFoodAsync(1, 999));
         }
-    }   
+    }
 }

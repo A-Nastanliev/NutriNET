@@ -3,16 +3,16 @@
     [TestFixture]
     public class FoodServiceTests
     {
-        private AppDbContext _context;
+        private NutriDbContext _context;
         private FoodService _service;
 
         [SetUp]
         public void Setup()
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString())
+            var options = new DbContextOptionsBuilder<NutriDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning)).Options;
 
-            _context = new AppDbContext(options);
+            _context = new NutriDbContext(options);
             _service = new FoodService(_context);
         }
 
@@ -37,7 +37,7 @@
             };
         }
 
-        private FoodRequest CreateFoodRequest(int senderId = 1,string barcode = "12345678",string name = "Test Food",    string brand = "Test Brand")
+        private FoodRequest CreateFoodRequest(int senderId = 1, string barcode = "12345678", string name = "Test Food", string brand = "Test Brand")
         {
             return new FoodRequest
             {
@@ -184,7 +184,7 @@
                 SenderId = 1
             };
 
-            Assert.ThrowsAsync<InvalidOperationException>(() =>_service.CreateFoodRequestAsync(request));
+            Assert.ThrowsAsync<InvalidOperationException>(() => _service.CreateFoodRequestAsync(request));
         }
 
         [Test]

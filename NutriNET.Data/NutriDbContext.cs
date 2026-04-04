@@ -1,6 +1,6 @@
 ﻿namespace NutriNET.Data
 {
-    public class AppDbContext : DbContext
+    public class NutriDbContext : DbContext
     {
         public DbSet<CommentRestriction> CommentRestrictions { get; set; }
         public DbSet<Follower> Followers { get; set; }
@@ -9,6 +9,7 @@
         public DbSet<Meal> Meals { get; set; }
         public DbSet<MealFood> MealFoods { get; set; }
         public DbSet<ModeratorRequest> ModeratorRequests { get; set; }
+        public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RecipeComment> RecipeComments { get; set; }
         public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
@@ -17,9 +18,9 @@
         public DbSet<RecipeRating> RecipeRatings { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public AppDbContext() { }
+        public NutriDbContext() { }
 
-        public AppDbContext(DbContextOptions options) : base(options) { }
+        public NutriDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -122,6 +123,14 @@
                     .OnDelete(DeleteBehavior.SetNull);
             });
 
+            modelBuilder.Entity<PasswordResetToken>(entity =>
+            {
+                entity.HasOne(prt => prt.User)
+                      .WithMany()
+                      .HasForeignKey(prt => prt.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
             modelBuilder.Entity<Recipe>(entity =>
             {
                 entity.Property(r => r.Name)
@@ -129,7 +138,7 @@
                       .IsRequired();
 
                 entity.Property(r => r.Description)
-                      .HasMaxLength(2000)
+                      .HasMaxLength(3000)
                       .IsRequired();
 
                 entity.HasOne(r => r.Creator)

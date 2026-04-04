@@ -10,7 +10,7 @@ using NutriNET.Data;
 
 namespace NutriNET.Data.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(NutriDbContext))]
     [Migration("20260327191625_RecipeOwnership")]
     partial class RecipeOwnership
     {

@@ -5,6 +5,7 @@ using NutriNET.Api.Services;
 using NutriNET.Data;
 using NutriNET.Data.Enums;
 using NutriNET.Services;
+using Resend;
 using System.Security.Claims;
 using System.Text;
 
@@ -45,9 +46,15 @@ builder.Services.AddAuthorization(options =>
          UserRole.Moderator.ToString()
      ));
 });
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<NutriDbContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IImageStorageService, ImageStorageService>();
+builder.Services.AddHttpClient<ResendClient>();
+builder.Services.Configure<ResendClientOptions>(o =>
+{
+    o.ApiToken = builder.Configuration["Resend:ApiKey"];
+});
+builder.Services.AddTransient<IEmailService, ResendEmailService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<FoodService>();
 builder.Services.AddScoped<MealService>();
@@ -65,6 +72,7 @@ if (!Directory.Exists(webRootPath))
     Directory.CreateDirectory(webRootPath);
 }
 
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseAuthentication();
@@ -79,7 +87,7 @@ app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<NutriDbContext>();
     db.Database.Migrate();
 }
 

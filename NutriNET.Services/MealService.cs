@@ -2,14 +2,14 @@
 {
     public class MealService
     {
-        private readonly AppDbContext _context;
+        private readonly NutriDbContext _context;
 
-        public MealService(AppDbContext context)
+        public MealService(NutriDbContext context)
         {
             _context = context;
         }
 
-        public async Task CreateMealAsync( Meal meal)
+        public async Task CreateMealAsync(Meal meal)
         {
             meal.DateTime = DateTime.UtcNow;
             _context.Meals.Add(meal);
@@ -124,7 +124,7 @@
             return result;
         }
 
-        public async Task UpdateMealAsync( Meal meal, MealType type)
+        public async Task UpdateMealAsync(Meal meal, MealType type)
         {
             var m = await _context.Meals.FindAsync(meal.Id);
             if (m == null || m?.UserId != meal.UserId)
@@ -134,7 +134,7 @@
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteMealAsync( Meal meal)
+        public async Task DeleteMealAsync(Meal meal)
         {
             var m = await _context.Meals.FindAsync(meal.Id);
             if (m == null || m?.UserId != meal.UserId)

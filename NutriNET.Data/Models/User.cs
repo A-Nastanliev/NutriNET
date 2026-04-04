@@ -12,7 +12,7 @@
         public UserRole Role { get; set; }
 
         [Required]
-        [Length(4, 40)]
+        [Length(4, 24)]
         public string Username { get; set; }
 
         [Required]

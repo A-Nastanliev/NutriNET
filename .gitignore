@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 NutriNET.Api/wwwroot
 /NutriNET.Api/responses.log
+/NutriNET.Api/dotnet-tools.json

@@ -6,7 +6,7 @@
         public int Id { get; set; }
 
         [Required]
-        [Length(1, 20)]
+        [Length(1, 24)]
         public string Name { get; set; }
 
         public int UserId { get; set; }

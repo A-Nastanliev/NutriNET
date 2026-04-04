@@ -17,7 +17,7 @@
         public DateTime Date { get; set; }
 
         [Required]
-        [MaxLength(2_000)]
+        [MaxLength(3_000)]
         public string Description { get; set; }
 
         public int? CreatorId { get; set; }

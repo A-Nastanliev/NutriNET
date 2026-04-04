@@ -5,9 +5,9 @@ namespace NutriNET.Services
 {
     public class UserService
     {
-        private readonly AppDbContext _context;
+        private readonly NutriDbContext _context;
 
-        public UserService(AppDbContext context)
+        public UserService(NutriDbContext context)
         {
             _context = context; 
         }
@@ -226,6 +226,18 @@ namespace NutriNET.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<(int FollowersCount, int FollowingCount)> GetFollowStatsAsync(int userId)
+        {
+            var exists = await _context.Users.AnyAsync(u => u.Id == userId);
+            if (!exists)
+                throw new KeyNotFoundException("UserNotFound");
+
+            var followersCount = await _context.Followers.CountAsync(f => f.FollowingId == userId);
+            var followingCount = await _context.Followers.CountAsync(f => f.FollowerId == userId);
+
+            return (followersCount, followingCount);
+        }
+
         public async Task<List<User>> GetNextFollowersAsync(int  userId, int count, DateTime? lastFollowDate, int? lastFollowerId)
         {
             var query = _context.Followers.Where(f => f.FollowingId == userId);
@@ -388,6 +400,12 @@ namespace NutriNET.Services
                     throw new KeyNotFoundException("UserNotFound");
 
                 user.Role = UserRole.Moderator;
+                var restriction = await _context.CommentRestrictions.
+                  FirstOrDefaultAsync(cr => cr.UserId == user.Id && (cr.EndDate == null || cr.EndDate > DateTime.UtcNow));
+                if (restriction != null)
+                {
+                    restriction.EndDate = DateTime.UtcNow;
+                }
             }
 
             await _context.SaveChangesAsync();
@@ -444,6 +462,47 @@ namespace NutriNET.Services
             return CryptographicOperations.FixedTimeEquals(hash, storedHash);
         }
 
+        public async Task<string> CreatePasswordResetCodeAsync(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == email);
+            if (user == null)
+                return null;
 
+            var existing = _context.PasswordResetTokens.Where(t => t.UserId == user.Id);
+            _context.PasswordResetTokens.RemoveRange(existing);
+
+            var code = Random.Shared.Next(100000, 999999).ToString();
+
+            _context.PasswordResetTokens.Add(new PasswordResetToken
+            {
+                UserId = user.Id,
+                Code = HashPassword(code),
+                ExpiresAt = DateTime.UtcNow.AddMinutes(15)
+            });
+
+            await _context.SaveChangesAsync();
+            return code;
+        }
+
+        public async Task ResetPasswordAsync(string email, string code, string newPassword)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == email);
+            if (user == null)
+                throw new KeyNotFoundException("UserNotFound");
+
+            var token = await _context.PasswordResetTokens
+                .FirstOrDefaultAsync(t => t.UserId == user.Id && t.ExpiresAt > DateTime.UtcNow);
+
+            if (token == null)
+                throw new InvalidOperationException("InvalidOrExpiredCode");
+
+            if (!VerifyPassword(code, token.Code))
+                throw new InvalidOperationException("InvalidOrExpiredCode");
+
+            _context.PasswordResetTokens.Remove(token);
+            user.PasswordHash = HashPassword(newPassword);
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

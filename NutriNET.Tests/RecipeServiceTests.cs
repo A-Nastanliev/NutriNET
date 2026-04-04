@@ -3,16 +3,16 @@
     [TestFixture]
     public class RecipeServiceTests
     {
-        private AppDbContext _context;
+        private NutriDbContext _context;
         private RecipeService _service;
 
         [SetUp]
         public void Setup()
         {
-            var options = new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString())
+            var options = new DbContextOptionsBuilder<NutriDbContext>().UseInMemoryDatabase(Guid.NewGuid().ToString())
                 .ConfigureWarnings(w => w.Ignore(InMemoryEventId.TransactionIgnoredWarning)).Options;
 
-            _context = new AppDbContext(options);
+            _context = new NutriDbContext(options);
             _service = new RecipeService(_context);
         }
 
@@ -230,7 +230,7 @@
 
 
         [Test]
-        public async Task DeleteRecipeAsync_ShouldReturnFalse_WhenNotOwner()
+        public async Task DeleteRecipeAsync_ShouldThrow_WhenNotOwner()
         {
             var recipe = CreateRecipe(1);
             _context.Recipes.Add(recipe);
@@ -239,9 +239,10 @@
             var fake = CreateRecipe(2);
             fake.Id = recipe.Id;
 
-            var result = await _service.DeleteRecipeAsync(fake);
-
-            Assert.That(result, Is.False);
+            Assert.ThrowsAsync<KeyNotFoundException>(async () =>
+            {
+                await _service.DeleteRecipeAsync(fake);
+            });
         }
 
 

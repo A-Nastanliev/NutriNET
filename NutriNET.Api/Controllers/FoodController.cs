@@ -34,8 +34,9 @@ namespace NutriNET.Api.Controllers
 
         [HttpPost]
         [Authorize(Policy = "AdminOrModerator")]
-        public async Task<IActionResult> CreateFood( [FromForm] FoodFormDto dto)
+        public async Task<IActionResult> CreateFood([FromForm] FoodFormDto dto)
         {
+
             string imagePath = null;
 
             try
@@ -55,12 +56,12 @@ namespace NutriNET.Api.Controllers
                 if (!success)
                 {
                     _imageStorageService.DeleteImage(food.Image);
-                    return  BadRequest(error);
+                    return BadRequest(error);
                 }
 
                 return StatusCode(201, new { id = food.Id });
             }
-            catch(DbUpdateException ex)
+            catch (DbUpdateException ex)
             {
                 _imageStorageService.DeleteImage(imagePath);
                 return Conflict("FoodBarcodeExists");
@@ -145,8 +146,8 @@ namespace NutriNET.Api.Controllers
                 }
 
                 return NoContent();
-            }          
-            catch(DbUpdateException ex)
+            }
+            catch (DbUpdateException ex)
             {
                 _imageStorageService.DeleteImage(newImagePath);
                 return Conflict("FoodBarcodeExists");
@@ -156,7 +157,7 @@ namespace NutriNET.Api.Controllers
 
         [HttpDelete("{id}")]
         [Authorize(Policy = "AdminOnly")]
-        public async Task<IActionResult> DeleteFood( int id)
+        public async Task<IActionResult> DeleteFood(int id)
         {
             var food = await _service.GetFoodAsync(id);
             if (food == null)
@@ -171,13 +172,13 @@ namespace NutriNET.Api.Controllers
                 _imageStorageService.DeleteImage(path);
                 return NoContent();
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
         }
 
-        [HttpPost("requests")]  
+        [HttpPost("requests")]
         public async Task<IActionResult> CreateFoodRequest([FromBody] FoodRequestDto foodRequest)
         {
             try
@@ -214,7 +215,7 @@ namespace NutriNET.Api.Controllers
             {
                 return NotFound("FoodRequestNotFound");
             }
-            catch (InvalidOperationException )
+            catch (InvalidOperationException)
             {
                 return Conflict("FoodRequestDeniedBarcodeExists");
             }

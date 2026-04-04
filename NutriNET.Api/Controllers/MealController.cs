@@ -65,7 +65,7 @@ namespace NutriNET.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateMeal( int id, [FromBody] MealDto meal)
+        public async Task<IActionResult> UpdateMeal(int id, [FromBody] MealDto meal)
         {
             var entity = new Meal
             {
@@ -78,7 +78,7 @@ namespace NutriNET.Api.Controllers
                 await _service.UpdateMealAsync(entity, meal.Type);
                 return NoContent();
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -108,7 +108,7 @@ namespace NutriNET.Api.Controllers
                 Weight = mealFood.Weight,
             };
 
-            if(mealFood.Food.FoodType == FoodType.Food)
+            if (mealFood.Food.FoodType == FoodType.Food)
             {
                 entity.FoodId = mealFood.Food.Id;
             }
@@ -122,7 +122,7 @@ namespace NutriNET.Api.Controllers
                 await _service.CreateMealFoodAsync(UserId.Value, entity);
                 return StatusCode(201, new { id = entity.Id });
             }
-            catch(InvalidOperationException ex)
+            catch (InvalidOperationException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -137,7 +137,7 @@ namespace NutriNET.Api.Controllers
 
                 return NoContent();
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 return BadRequest(ex.Message);
             }
