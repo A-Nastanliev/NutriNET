@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace NutriNET.Services
 {
@@ -522,27 +523,19 @@ namespace NutriNET.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<RefreshToken> CreateRefreshTokenAsync(int userId)
+        private string HashToken(string token)
         {
-            var token = new RefreshToken
-            {
-                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-                UserId = userId,
-                ExpiresAt = DateTime.UtcNow.AddDays(30),
-                CreatedAt = DateTime.UtcNow,
-                IsRevoked = false
-            };
-
-            await _context.RefreshTokens.AddAsync(token);
-            await _context.SaveChangesAsync();
-            return token;
+            var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(token));
+            return Convert.ToHexString(bytes);
         }
 
         public async Task<RefreshToken> CreateRefreshTokenAsync(int userId, int expireDays = 30)
         {
+            var rawToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+
             var token = new RefreshToken
             {
-                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                Token = HashToken(rawToken),
                 UserId = userId,
                 ExpiresAt = DateTime.UtcNow.AddDays(expireDays),
                 CreatedAt = DateTime.UtcNow,
@@ -551,14 +544,16 @@ namespace NutriNET.Services
 
             await _context.RefreshTokens.AddAsync(token);
             await _context.SaveChangesAsync();
+            token.Token = rawToken;
             return token;
         }
 
-        public async Task<RefreshToken?> GetRefreshTokenAsync(string token)
+        public async Task<RefreshToken?> GetRefreshTokenAsync(string rawToken)
         {
+            var hashed = HashToken(rawToken);
             return await _context.RefreshTokens
                 .Include(rt => rt.User)
-                .FirstOrDefaultAsync(rt => rt.Token == token);
+                .FirstOrDefaultAsync(rt => rt.Token == hashed);
         }
 
         public async Task<RefreshToken?> GetActiveRefreshTokenAsync(int userId)
@@ -571,8 +566,9 @@ namespace NutriNET.Services
 
         public async Task RevokeRefreshTokenAsync(RefreshToken token)
         {
-            token.IsRevoked = true;
-            _context.RefreshTokens.Update(token);
+            var tracked = await _context.RefreshTokens.FindAsync(token.Id);
+            if (tracked == null) return;
+            tracked.IsRevoked = true;
             await _context.SaveChangesAsync();
         }
 

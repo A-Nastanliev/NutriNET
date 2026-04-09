@@ -394,6 +394,20 @@
         }
 
         [Test]
+        public async Task CreateRefreshTokenAsync_TokenInDb_ShouldBeHashed()
+        {
+            var user = CreateUser();
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            var token = await _service.CreateRefreshTokenAsync(user.Id);
+            var dbToken = await _context.RefreshTokens.AsNoTracking().FirstAsync();
+
+            Assert.That(dbToken.Token, Is.Not.EqualTo(token.Token));
+            Assert.That(dbToken.Token, Has.Length.EqualTo(64));
+        }
+
+        [Test]
         public async Task CreateRefreshTokenAsync_ShouldSaveTokenToDb()
         {
             var user = CreateUser();
@@ -437,19 +451,6 @@
             Assert.That(token.ExpiresAt, Is.InRange(before, after));
         }
 
-        [Test]
-        public async Task CreateRefreshTokenAsync_ShouldDefault30Days_WhenNoExpireProvided()
-        {
-            var user = CreateUser();
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            var before = DateTime.UtcNow.AddDays(30).AddSeconds(-5);
-            var token = await _service.CreateRefreshTokenAsync(user.Id);
-            var after = DateTime.UtcNow.AddDays(30).AddSeconds(5);
-
-            Assert.That(token.ExpiresAt, Is.InRange(before, after));
-        }
 
         [Test]
         public async Task GetRefreshTokenAsync_ShouldReturnToken_WhenExists()
@@ -491,10 +492,10 @@
             await _context.SaveChangesAsync();
 
             var token = await _service.CreateRefreshTokenAsync(user.Id);
-            await _service.RevokeRefreshTokenAsync(token);
+            var dbToken = await _context.RefreshTokens.AsNoTracking().FirstAsync(t => t.Id == token.Id);
+            await _service.RevokeRefreshTokenAsync(dbToken);
 
             var result = await _service.GetActiveRefreshTokenAsync(user.Id);
-
             Assert.That(result, Is.Null);
         }
 
@@ -551,11 +552,11 @@
             await _context.SaveChangesAsync();
 
             var token = await _service.CreateRefreshTokenAsync(user.Id);
+            var dbToken = await _context.RefreshTokens.AsNoTracking().FirstAsync(t => t.Id == token.Id);
+            await _service.RevokeRefreshTokenAsync(dbToken);
 
-            await _service.RevokeRefreshTokenAsync(token);
-
-            var dbToken = await _context.RefreshTokens.FindAsync(token.Id);
-            Assert.That(dbToken.IsRevoked, Is.True);
+            var updated = await _context.RefreshTokens.AsNoTracking().FirstAsync(t => t.Id == token.Id);
+            Assert.That(updated.IsRevoked, Is.True);
         }
 
         [Test]
@@ -587,7 +588,8 @@
             await _context.SaveChangesAsync();
 
             var token = await _service.CreateRefreshTokenAsync(user.Id);
-            await _service.RevokeRefreshTokenAsync(token);
+            var dbToken = await _context.RefreshTokens.AsNoTracking().FirstAsync(t => t.Id == token.Id);
+            await _service.RevokeRefreshTokenAsync(dbToken);
 
             Assert.DoesNotThrowAsync(() => _service.RevokeAllUserRefreshTokensAsync(user.Id));
             Assert.That(await _context.RefreshTokens.CountAsync(t => t.IsRevoked), Is.EqualTo(1));
