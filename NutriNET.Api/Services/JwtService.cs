@@ -8,7 +8,7 @@ namespace NutriNET.Api.Services
 {
     public static class JwtService
     {
-        public static string GenerateToken(int userId, UserRole role, string secret, string issuer, string audience, int expireMinutes = 20160)
+        public static string GenerateAccessToken(int userId, UserRole role, string secret, string issuer, string audience, int expireMinutes = 15)
         {
             var key = Encoding.ASCII.GetBytes(secret);
 

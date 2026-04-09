@@ -16,6 +16,7 @@
         public DbSet<RecipeList> RecipeLists { get; set; }
         public DbSet<RecipeListItem> RecipeListItems { get; set; }
         public DbSet<RecipeRating> RecipeRatings { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<User> Users { get; set; }
 
         public NutriDbContext() { }
@@ -194,7 +195,7 @@
                 entity.HasOne(rli => rli.Recipe)
                       .WithMany(r => r.RecipeListItems)
                       .HasForeignKey(rli => rli.RecipeId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                      .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<RecipeRating>(entity =>
@@ -202,6 +203,14 @@
                 entity.HasOne(rr => rr.User)
                       .WithMany(u=>u.RecipeRatings)
                       .HasForeignKey(rr => rr.UserId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<RefreshToken>(entity =>
+            {
+                entity.HasOne(rt => rt.User)
+                      .WithMany(u => u.RefreshTokens)
+                      .HasForeignKey(rt => rt.UserId)
                       .OnDelete(DeleteBehavior.Cascade);
             });
 

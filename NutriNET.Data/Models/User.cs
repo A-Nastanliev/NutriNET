@@ -126,5 +126,7 @@
 
         [NotMapped]
         public int? _FollowingId { get; set; }
+
+        public ICollection<RefreshToken> RefreshTokens { get; set; }
     }
 }

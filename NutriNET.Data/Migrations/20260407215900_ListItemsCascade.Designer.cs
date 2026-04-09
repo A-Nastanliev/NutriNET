@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NutriNET.Data;
 
@@ -10,9 +11,11 @@ using NutriNET.Data;
 namespace NutriNET.Data.Migrations
 {
     [DbContext(typeof(NutriDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260407215900_ListItemsCascade")]
+    partial class ListItemsCascade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -401,35 +404,6 @@ namespace NutriNET.Data.Migrations
                     b.ToTable("RecipeRatings");
                 });
 
-            modelBuilder.Entity("NutriNET.Data.Models.RefreshToken", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("ExpiresAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsRevoked")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RefreshTokens");
-                });
-
             modelBuilder.Entity("NutriNET.Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -677,17 +651,6 @@ namespace NutriNET.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("NutriNET.Data.Models.RefreshToken", b =>
-                {
-                    b.HasOne("NutriNET.Data.Models.User", "User")
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("NutriNET.Data.Models.Meal", b =>
                 {
                     b.Navigation("MealFoods");
@@ -732,8 +695,6 @@ namespace NutriNET.Data.Migrations
                     b.Navigation("RecipeLists");
 
                     b.Navigation("RecipeRatings");
-
-                    b.Navigation("RefreshTokens");
 
                     b.Navigation("SentFoodRequests");
 

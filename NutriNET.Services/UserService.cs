@@ -142,7 +142,7 @@ namespace NutriNET.Services
             return (users, users.LastOrDefault()?.CreatedAt);
         }
 
-        public async Task DeleteAsync( int userToDeleteId, int actionUser)
+        public async Task DeleteAsync( int userToDeleteId, int actionUserId)
         {
             var userToDelete = await _context.Users.FindAsync(userToDeleteId);
 
@@ -151,6 +151,20 @@ namespace NutriNET.Services
 
             if (userToDelete.Role == UserRole.Administrator)
                 throw new InvalidOperationException($"CannotDeleteOtherAdmin");
+
+
+            if (userToDeleteId != actionUserId)
+            {
+                var actionUser = await _context.Users.FindAsync(actionUserId);
+                if (actionUser == null)
+                {
+                    throw new KeyNotFoundException();
+                }
+                if (actionUser.Role != UserRole.Administrator)
+                {
+                    throw new UnauthorizedAccessException("ForbiddenAction");
+                }
+            }
 
             using var transaction = await _context.Database.BeginTransactionAsync();
 
@@ -466,12 +480,15 @@ namespace NutriNET.Services
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.EmailAddress == email);
             if (user == null)
+            {
+                await Task.Delay(Random.Shared.Next(100, 300));
                 return null;
+            }
 
             var existing = _context.PasswordResetTokens.Where(t => t.UserId == user.Id);
             _context.PasswordResetTokens.RemoveRange(existing);
 
-            var code = Random.Shared.Next(100000, 999999).ToString();
+            var code = RandomNumberGenerator.GetInt32(0, 1_000_000).ToString("D6");
 
             _context.PasswordResetTokens.Add(new PasswordResetToken
             {
@@ -501,6 +518,72 @@ namespace NutriNET.Services
 
             _context.PasswordResetTokens.Remove(token);
             user.PasswordHash = HashPassword(newPassword);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<RefreshToken> CreateRefreshTokenAsync(int userId)
+        {
+            var token = new RefreshToken
+            {
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                UserId = userId,
+                ExpiresAt = DateTime.UtcNow.AddDays(30),
+                CreatedAt = DateTime.UtcNow,
+                IsRevoked = false
+            };
+
+            await _context.RefreshTokens.AddAsync(token);
+            await _context.SaveChangesAsync();
+            return token;
+        }
+
+        public async Task<RefreshToken> CreateRefreshTokenAsync(int userId, int expireDays = 30)
+        {
+            var token = new RefreshToken
+            {
+                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
+                UserId = userId,
+                ExpiresAt = DateTime.UtcNow.AddDays(expireDays),
+                CreatedAt = DateTime.UtcNow,
+                IsRevoked = false
+            };
+
+            await _context.RefreshTokens.AddAsync(token);
+            await _context.SaveChangesAsync();
+            return token;
+        }
+
+        public async Task<RefreshToken?> GetRefreshTokenAsync(string token)
+        {
+            return await _context.RefreshTokens
+                .Include(rt => rt.User)
+                .FirstOrDefaultAsync(rt => rt.Token == token);
+        }
+
+        public async Task<RefreshToken?> GetActiveRefreshTokenAsync(int userId)
+        {
+            return await _context.RefreshTokens
+                .Where(rt => rt.UserId == userId && !rt.IsRevoked && rt.ExpiresAt > DateTime.UtcNow)
+                .OrderByDescending(rt => rt.CreatedAt)
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task RevokeRefreshTokenAsync(RefreshToken token)
+        {
+            token.IsRevoked = true;
+            _context.RefreshTokens.Update(token);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RevokeAllUserRefreshTokensAsync(int userId)
+        {
+            var tokens = await _context.RefreshTokens
+                .Where(rt => rt.UserId == userId && !rt.IsRevoked)
+                .ToListAsync();
+
+            foreach (var token in tokens)
+                token.IsRevoked = true;
 
             await _context.SaveChangesAsync();
         }

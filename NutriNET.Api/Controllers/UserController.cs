@@ -37,6 +37,26 @@ namespace NutriNET.Api.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh([FromBody] RefreshRequest req)
+        {
+            var existing = await _service.GetRefreshTokenAsync(req.RefreshToken);
+            if (existing == null || existing.ExpiresAt < DateTime.UtcNow)
+                return Unauthorized(new { error = "SessionExpired" });
+
+            await _service.RevokeRefreshTokenAsync(existing);
+            var newRefresh = await _service.CreateRefreshTokenAsync(existing.UserId);
+
+            var secret = _configuration["Jwt:Secret"];
+            var issuer = _configuration["Jwt:Issuer"];
+            var audience = _configuration["Jwt:Audience"];
+            var user = await _service.GetByIdAsync(existing.UserId);
+            var newAccess = JwtService.GenerateAccessToken(user.Id, user.Role, secret, issuer, audience);
+
+            return Ok(new { AccessToken = newAccess, RefreshToken = newRefresh.Token });
+        }
+
+        [AllowAnonymous]
         [HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromForm] SignUpRequest req)
         {
@@ -77,18 +97,20 @@ namespace NutriNET.Api.Controllers
         {
             var user = await _service.EmailPasswordLoginAsync(req.Email, req.Password);
             if (user == null)
-            {
                 return Unauthorized(new { error = "InvalidCredentials" });
-            }
 
             var secret = _configuration["Jwt:Secret"];
             var issuer = _configuration["Jwt:Issuer"];
             var audience = _configuration["Jwt:Audience"];
             var baseUrl = _configuration["App:BaseUrl"];
-            var token = JwtService.GenerateToken(user.Id, user.Role, secret, issuer, audience);
+
+            var accessToken = JwtService.GenerateAccessToken(user.Id, user.Role, secret, issuer, audience);
+            var refreshToken = await _service.CreateRefreshTokenAsync(user.Id);
+
             return Ok(new
             {
-                Token = token,
+                AccessToken = accessToken,
+                RefreshToken = refreshToken.Token,
                 User = user.ToDto(baseUrl)
             });
         }
@@ -100,35 +122,32 @@ namespace NutriNET.Api.Controllers
             var baseUrl = _configuration["App:BaseUrl"];
 
             if (user == null)
-            {
                 return Unauthorized(new { error = "SessionExpired" });
-            }
-
-            string? newToken = null;
-            if (Role.HasValue && user.Role != Role.Value)
-            {
-                var expClaim = User.FindFirst(JwtRegisteredClaimNames.Exp)?.Value;
-                int remainingMinutes = 60;
-                if (long.TryParse(expClaim, out var expUnix))
-                {
-                    var expUtc = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
-                    remainingMinutes = (int)Math.Max(1, (expUtc - DateTime.UtcNow).TotalMinutes);
-                }
-
-                var secret = _configuration["Jwt:Secret"];
-                var issuer = _configuration["Jwt:Issuer"];
-                var audience = _configuration["Jwt:Audience"];
-
-                newToken = JwtService.GenerateToken(UserId.Value, user.Role, secret, issuer, audience, remainingMinutes);
-            }
 
             var response = new Dictionary<string, object?>
             {
                 ["user"] = user.ToDto(baseUrl)
             };
 
-            if (newToken != null)
-                response["tokenUpdate"] = new { Token = newToken };
+            if (Role.HasValue && user.Role != Role.Value)
+            {
+                var secret = _configuration["Jwt:Secret"];
+                var issuer = _configuration["Jwt:Issuer"];
+                var audience = _configuration["Jwt:Audience"];
+
+                var newAccessToken = JwtService.GenerateAccessToken(UserId.Value, user.Role, secret, issuer, audience);
+
+                var currentRefresh = await _service.GetActiveRefreshTokenAsync(UserId.Value);
+                string? newRefreshToken = null;
+                if (currentRefresh != null)
+                {
+                    var remainingDays = (int)Math.Max(1, (currentRefresh.ExpiresAt - DateTime.UtcNow).TotalDays);
+                    await _service.RevokeRefreshTokenAsync(currentRefresh);
+                    newRefreshToken = (await _service.CreateRefreshTokenAsync(UserId.Value, remainingDays)).Token;
+                }
+
+                response["tokenUpdate"] = new { AccessToken = newAccessToken, RefreshToken = newRefreshToken };
+            }
 
             return Ok(response);
         }
@@ -140,39 +159,36 @@ namespace NutriNET.Api.Controllers
             var baseUrl = _configuration["App:BaseUrl"];
 
             var dbRole = await _service.GetRole(userId);
-
             var commentRestriction = await _service.GetActiveCommentRestrictionAsync(userId);
             var moderatorRequest = await _service.GetPendingModeratorRequestAsync(userId);
 
-            string? newToken = null;
-            bool roleChanged = Role.Value != dbRole;
-            if (roleChanged)
-            {
-                var expClaim = User.FindFirst(JwtRegisteredClaimNames.Exp)?.Value;
-                int remainingMinutes = 60;
-                if (long.TryParse(expClaim, out var expUnix))
-                {
-                    var expUtc = DateTimeOffset.FromUnixTimeSeconds(expUnix).UtcDateTime;
-                    remainingMinutes = (int)Math.Max(1, (expUtc - DateTime.UtcNow).TotalMinutes);
-                }
-
-                var secret = _configuration["Jwt:Secret"];
-                var issuer = _configuration["Jwt:Issuer"];
-                var audience = _configuration["Jwt:Audience"];
-                newToken = JwtService.GenerateToken(userId, dbRole, secret, issuer, audience, remainingMinutes);
-            }
-
-            var response = new Dictionary<string, object?>()
+            var response = new Dictionary<string, object?>
             {
                 ["commentRestriction"] = commentRestriction?.ToDto(baseUrl),
                 ["moderatorRequest"] = moderatorRequest?.ToDto(baseUrl)
             };
 
+            bool roleChanged = Role.Value != dbRole;
             if (roleChanged)
-                response["role"] = dbRole;
+            {
+                var secret = _configuration["Jwt:Secret"];
+                var issuer = _configuration["Jwt:Issuer"];
+                var audience = _configuration["Jwt:Audience"];
 
-            if (newToken != null)
-                response["tokenUpdate"] = new { Token = newToken };
+                var newAccessToken = JwtService.GenerateAccessToken(userId, dbRole, secret, issuer, audience);
+
+                var currentRefresh = await _service.GetActiveRefreshTokenAsync(userId);
+                string? newRefreshToken = null;
+                if (currentRefresh != null)
+                {
+                    var remainingDays = (int)Math.Max(1, (currentRefresh.ExpiresAt - DateTime.UtcNow).TotalDays);
+                    await _service.RevokeRefreshTokenAsync(currentRefresh);
+                    newRefreshToken = (await _service.CreateRefreshTokenAsync(userId, remainingDays)).Token;
+                }
+
+                response["role"] = dbRole;
+                response["tokenUpdate"] = new { AccessToken = newAccessToken, RefreshToken = newRefreshToken };
+            }
 
             return Ok(response);
         }
@@ -376,6 +392,10 @@ namespace NutriNET.Api.Controllers
             catch (KeyNotFoundException)
             {
                 return NotFound();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return StatusCode(403, new { error = ex.Message });
             }
             catch (Exception)
             {
