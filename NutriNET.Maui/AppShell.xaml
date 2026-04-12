@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="NutriNET.Maui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:NutriNET.Maui"
+    xmlns:authentication="clr-namespace:NutriNET.Maui.Views.Authentication"
+    xmlns:settings="clr-namespace:NutriNET.Maui.Views.Settings"
+    Title="NutriNET.Maui"
+    xmlns:role="clr-namespace:NutriNET.Maui.Authentication"
+    Shell.FlyoutBehavior="Disabled">
+
+
+    <ShellContent
+      Shell.NavBarIsVisible="False"
+      Shell.TabBarIsVisible="False"
+      FlyoutItemIsVisible="False"
+      ContentTemplate="{DataTemplate authentication:LoadingPage}"
+      Route="LoadingPage">
+    </ShellContent>
+
+    <ShellContent
+      Shell.NavBarIsVisible="False"
+      Shell.TabBarIsVisible="False"
+      FlyoutItemIsVisible="False"
+      ContentTemplate="{DataTemplate authentication:LoginPage}"
+      Route="LoginPage">
+    </ShellContent>
+
+    <ShellContent
+      Shell.NavBarIsVisible="False"
+      Shell.TabBarIsVisible="False"
+      FlyoutItemIsVisible="False"
+      ContentTemplate="{DataTemplate authentication:SignUpPage}"
+      Route="SignUpPage">
+    </ShellContent>
+
+    <TabBar>
+        <Tab Title="{local:Translate MealsTabTitle}" Icon="home_icon.png">
+        </Tab>
+        <Tab Title="{local:Translate FoodsTabTitle}" Icon="food_icon.png">
+        </Tab>
+        <Tab Title="{local:Translate RecipesTabTitle}" Icon="recipes_icon.png">
+        </Tab>
+        <Tab Title="{local:Translate SettingsTitle}" Icon="settings_icon.png">
+            <ShellContent Title="{local:Translate SettingsTitle}"
+             ContentTemplate="{DataTemplate settings:SettingsPage}"
+             Route="SettingsPage"/>
+        </Tab>
+        <Tab Title="{local:Translate ManagementTabTitle}" Icon="management_icon.png"
+            IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource RoleVisibilityConverter}, ConverterParameter='Administrator,Moderator'}">
+        </Tab>
+    </TabBar>
+
+</Shell>

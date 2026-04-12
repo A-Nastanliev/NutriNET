@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Settings.SettingsPage"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Settings"
+             xmlns:views="clr-namespace:NutriNET.Maui.Views.Settings"
+             xmlns:passToggle="clr-namespace:NutriNET.Maui.Views"
+             x:DataType="vm:SettingsVM"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             Title="{local:Translate SettingsTitle}"
+             xmlns:role="clr-namespace:NutriNET.Maui.Authentication">
+    
+    <ScrollView VerticalScrollBarVisibility="Never" SafeAreaEdges="Container">
+        <VerticalStackLayout Padding="20" Spacing="20"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Start">
+
+            <Border Style="{StaticResource SectionCard}">
+                <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+                    <Border
+                         Stroke="{StaticResource Primary}" StrokeThickness="2" StrokeShape="RoundRectangle 90"
+                         WidthRequest="180" HeightRequest="180" HorizontalOptions="Center" VerticalOptions="Center">
+                        <ImageButton
+                            Source="{Binding ProfileImageSource}" Aspect="AspectFill" Command="{Binding PickProfilePictureCommand}">
+                            <ImageButton.Clip>
+                                <EllipseGeometry Center="90,90" RadiusX="90" RadiusY="90" />
+                            </ImageButton.Clip>
+                        </ImageButton>
+                    </Border>
+                    <HorizontalStackLayout
+                        Spacing="12" HorizontalOptions="Center" IsVisible="{Binding IsPictureChanged}">
+                        <Button Text="{local:Translate Confirm}" Command="{Binding ConfirmProfilePictureCommand}" />
+                        <Button Text="{local:Translate Cancel}" Command="{Binding CancelProfilePictureCommand}" />
+                    </HorizontalStackLayout>
+                    <Label Text="{Binding User.PublicUser.Username}" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                    <Grid ColumnSpacing="20" HorizontalOptions="Center" ColumnDefinitions="*,*">
+                        <Border Style="{StaticResource SectionCard}" Padding="10,10,14,10" HorizontalOptions="Center">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer x:Name="OpenFollowersGesture" CommandParameter="{Binding OpenFollowersCommand}" />
+                            </Border.GestureRecognizers>
+
+                            <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                                <Label Text="{Binding FollowersCount}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" />
+                                <Label Text="{local:Translate FollowersPageTitle}" FontSize="Micro" TextColor="White" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                        <Border Style="{StaticResource SectionCard}" Padding="14,10,10,10" Grid.Column="1" HorizontalOptions="Center">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer x:Name="OpenFollowingGesture" CommandParameter="{Binding OpenFollowingCommand}" />
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                                <Label Text="{Binding FollowingCount}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" />
+                                <Label Text="{local:Translate FollowingPageTitle}" FontSize="Micro" TextColor="White" HorizontalOptions="Center" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border
+                Style="{StaticResource SectionCard}">
+                <Border.IsVisible>
+                    <MultiBinding Converter="{StaticResource AllTrueMultiConverter}">
+                        <Binding Path="User.ModeratorRequest.Id" Converter="{StaticResource EqualsConverter}">
+                            <Binding.ConverterParameter>
+                                <x:Int32>0</x:Int32>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                        <Binding Path="Role" Source="{StaticResource User}" Converter="{StaticResource RoleVisibilityConverter}"  ConverterParameter="{x:Static role:UserRole.User}" />
+                    </MultiBinding>
+                </Border.IsVisible>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="OpenCreateModeratorRequestGesture" Command="{Binding OpenCreateModeratorRequestCommand}"/>
+                </Border.GestureRecognizers>
+                <Grid ColumnSpacing="20" VerticalOptions="Center" HorizontalOptions="Start">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="management_icon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                    <Label Text="{local:Translate RequestModeratorRole}" Grid.Column="1" VerticalOptions="Center" FontSize="Medium" HorizontalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <views:ModeratorRequestView
+                BindingContext="{Binding User.ModeratorRequest}" />
+
+            <Border Style="{StaticResource SectionCard}">
+                <Grid RowDefinitions="Auto, Auto, Auto" RowSpacing="10">
+                    <Label
+                        Text="{Binding User.PublicUser.Username}" Grid.Row="0" FontSize="Medium"/>
+                    <Entry Text="{Binding NewUsername}"
+                        Grid.Row="1" Placeholder="{local:Translate NewUsername}" MaxLength="24"/>
+                    <Button
+                        Text="{local:Translate SaveChanges}" Command="{Binding UpdateUsernameCommand}" Grid.Row="2" HorizontalOptions="End"/>
+                </Grid>
+            </Border>
+
+            <Border Style="{StaticResource SectionCard}">
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="10" ColumnDefinitions="*, Auto">
+                    <Label Text="{local:Translate ChangeEmail}" Grid.Row="0" FontSize="Medium" Grid.ColumnSpan="2"/>
+                    <Label Grid.Row="1" Grid.ColumnSpan="2" FontSize="Micro" TextColor="{StaticResource Gray300}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{local:Translate CurrentEmail} " />
+                                <Span Text=":"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding User.EmailAddress}" FontSize="Small"/>
+                    <Entry Text="{Binding NewEmail}" Placeholder="{local:Translate NewEmail}"
+                        Keyboard="Email" Grid.ColumnSpan="2" Grid.Row="3" FontSize="Small"/>
+                    <Entry Text="{Binding ChangeEmailPassword}" Placeholder="{local:Translate Password}"
+                        x:Name="EmailPasswordEntry" IsPassword="True" Grid.Row="4" FontSize="Small"/>
+                    <passToggle:PasswordVisibilityToggle Grid.Column="1" Grid.Row="4" TargetEntry="{x:Reference EmailPasswordEntry}"/>
+                    <Button HorizontalOptions="End"
+                        Text="{local:Translate SaveChanges}" Command="{Binding UpdateEmailCommand}" Grid.Row="5" Grid.ColumnSpan="2"/>
+                </Grid>
+            </Border>
+
+            <Border Style="{StaticResource SectionCard}">
+                <Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="*, Auto" RowSpacing="10" ColumnSpacing="20">
+                    <Label Text="{local:Translate ChangePassword}" Grid.Row="0" FontSize="Medium" Grid.ColumnSpan="2"/>
+                    <Entry Text="{Binding OldPassword}" MaxLength="64"
+                        x:Name="OldPasswordEntry" Placeholder="{local:Translate CurrentPassword}" IsPassword="True" Grid.Row="1" Grid.Column="0"/>
+                    <passToggle:PasswordVisibilityToggle Grid.Column="1" Grid.Row="1" TargetEntry="{x:Reference OldPasswordEntry}"/>
+                    <Entry Text="{Binding NewPassword}" MaxLength="64"
+                        x:Name="NewPasswordEntry" Placeholder="{local:Translate NewPassword}" IsPassword="True" Grid.Row="2" Grid.Column="0"/>
+                    <passToggle:PasswordVisibilityToggle Grid.Column="1" Grid.Row="2" TargetEntry="{x:Reference NewPasswordEntry}"/>
+                    <Button Text="{local:Translate SaveChanges}" HorizontalOptions="End" Command="{Binding UpdatePasswordCommand}" Grid.Row="3" Grid.ColumnSpan="2"/>
+                </Grid>
+            </Border>
+
+            <Border Style="{StaticResource SectionCard}">
+                <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                    <Label
+                       FontSize="Medium" VerticalTextAlignment="Center" VerticalOptions="Center">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{local:Translate Language}" />
+                                <Span Text=":" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Picker x:Name="LanguagePicker" VerticalOptions="Center" FontSize="Medium"
+                        SelectedIndexChanged="LanguagePicker_SelectedIndexChanged" 
+                        TextColor="{StaticResource SecondaryDarkText}" TitleColor="{StaticResource SecondaryDarkText}">
+                        <Picker.Items>
+                            <x:String>English</x:String>
+                            <x:String>Български</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </HorizontalStackLayout>
+            </Border>
+
+            <views:CommentRestrictionView
+                BindingContext="{Binding User.CurrentRestriction}"/>
+
+            <Border Style="{StaticResource SectionCard}">
+                <HorizontalStackLayout Spacing="30" HorizontalOptions="Center">
+                    <Button CornerRadius="20" Text="{local:Translate Logout}" Background="{StaticResource Gray400}" Command="{Binding LogoutCommand}" />
+                    <buttons:SfButton Text="{local:Translate Delete}" Command="{Binding DeleteAccountCommand}" FontSize="Small" ImageSource="delete_icon.png"
+                        ShowIcon="True" ImageAlignment="Right" TextColor="White">
+                        <buttons:SfButton.Style>
+                            <Style TargetType="buttons:SfButton">
+                                <Setter Property="Background" Value="Red" />
+                            </Style>
+                        </buttons:SfButton.Style>
+                    </buttons:SfButton>
+                </HorizontalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

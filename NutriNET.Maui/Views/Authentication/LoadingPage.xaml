@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Authentication.LoadingPage"
+             xmlns:localization="clr-namespace:NutriNET.Maui.Resources.Languages"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+    
+    <Grid HorizontalOptions="Center"
+      VerticalOptions="Center"
+      RowDefinitions="Auto,Auto,Auto"
+      RowSpacing="25">
+
+        <Label Text="NutriNET"
+           FontSize="32"
+           FontAttributes="Bold"
+           TextColor="White"
+           Grid.Row="0"
+           HorizontalOptions="Center"/>
+
+        <Label 
+           Text="{local:Translate LoadingText}"
+           FontSize="16" Grid.Row="1"
+           TextColor="#CCCCCC"
+           HorizontalOptions="Center"/>
+
+        <ActivityIndicator Grid.Row="2"
+                       IsRunning="True"
+                       WidthRequest="80"
+                       HeightRequest="80"
+                       Color="{StaticResource Primary}"
+                       HorizontalOptions="Center"/>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,84 @@
+﻿using CommunityToolkit.Maui;
+using Microcharts.Maui;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NutriNET.Maui.ApiClients;
+using NutriNET.Maui.Authentication;
+using NutriNET.Maui.Models.User;
+using NutriNET.Maui.ViewModels.Authentication;
+using NutriNET.Maui.ViewModels.Settings;
+using NutriNET.Maui.Views.Authentication;
+using NutriNET.Maui.Views.Settings;
+using Syncfusion.Maui.Toolkit.Hosting;
+using ZXing.Net.Maui.Controls;
+
+namespace NutriNET.Maui
+{
+    public static class MauiProgram
+    {
+        public static MauiApp CreateMauiApp()
+        {
+            var builder = MauiApp.CreateBuilder();
+            builder
+                .UseMauiApp<App>()
+                .ConfigureSyncfusionToolkit()
+                .UseMauiCommunityToolkit()
+                .UseBarcodeReader()
+                .UseMicrocharts()
+                .ConfigureFonts(fonts =>
+                {
+                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                });
+
+#if DEBUG
+    		builder.Logging.AddDebug();
+#endif
+
+            builder.Services.AddSingleton<UserVM>();
+
+            builder.Services.AddSingleton<ITokenStore, TokenStore>();
+            builder.Services.AddTransient<AuthMessageHandler>();
+
+            void AddApiClient<T>() where T : class
+            {
+                builder.Services
+                    .AddHttpClient<T>(client =>
+                    {
+                        client.BaseAddress = new Uri("");
+                    })
+                    .AddHttpMessageHandler<AuthMessageHandler>();
+            }
+
+            AddApiClient<UserClient>();
+            AddApiClient<FoodClient>();
+            AddApiClient<MealClient>();
+            AddApiClient<RecipeClient>();
+
+            builder.Services.AddHttpClient<RefreshClient>(client =>
+            {
+                client.BaseAddress = new Uri("");
+            });
+
+            builder.Services.AddTransient<LoginVM>();
+            builder.Services.AddTransient<LoginPage>();
+
+            builder.Services.AddTransient<SignUpVM>();
+            builder.Services.AddTransient<SignUpPage>();
+
+            builder.Services.AddTransient<LoadingVM>();
+            builder.Services.AddTransient<LoadingPage>();
+
+            builder.Services.AddSingleton<SettingsVM>();
+            builder.Services.AddSingleton<SettingsPage>();
+
+            builder.Services.AddTransient<ForgotPasswordVM>();
+            builder.Services.AddTransient<ForgotPasswordPage>();
+
+            builder.Services.AddTransient<ResetCodeVM>();
+            builder.Services.AddTransient<ResetCodePage>();
+
+            return builder.Build();
+        }
+    }
+}

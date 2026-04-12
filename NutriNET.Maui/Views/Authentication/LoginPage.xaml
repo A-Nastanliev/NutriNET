@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Authentication.LoginPage"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Authentication"
+             xmlns:passToggle="clr-namespace:NutriNET.Maui.Views"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             x:DataType="vm:LoginVM"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False">
+    
+    <ScrollView>
+        <Grid
+            Padding="24" RowSpacing="20" ColumnDefinitions="*, Auto" ColumnSpacing="20"
+            HorizontalOptions="Center" VerticalOptions="Center" RowDefinitions="Auto, Auto, Auto, Auto, Auto,Auto">
+
+            <Label
+                Text="{local:Translate WelcomeText}" Grid.ColumnSpan="2"
+                FontSize="Large" Grid.Row="0"
+                FontAttributes="Bold"
+                TextColor="White"
+                HorizontalOptions="Center" />
+
+            <Entry
+                Placeholder="{local:Translate LoginIdentifier}"
+                Keyboard="Email" Grid.Row="1"
+                Text="{Binding Email}" Grid.ColumnSpan="2"
+                TextColor="White"
+                PlaceholderColor="{StaticResource Gray400}"
+                BackgroundColor="#1E1E1E" />
+
+            <Entry
+                Placeholder="{local:Translate Password}" x:Name="PasswordEntry"
+                IsPassword="True" Grid.Row="2" Grid.Column="0"
+                Text="{Binding Password}" MaxLength="64"
+                TextColor="White"
+                PlaceholderColor="{StaticResource Gray400}"
+                BackgroundColor="#1E1E1E" />
+
+            <passToggle:PasswordVisibilityToggle Grid.Column="1" Grid.Row="2" TargetEntry="{x:Reference PasswordEntry}"/>
+
+            <Label Text="{local:Translate ForgotPassword}" Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="Start" 
+                   VerticalTextAlignment="Start" TextColor="{StaticResource SecondaryDarkText}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Button
+                Text="{local:Translate LoginText}" Grid.Row="4" Grid.ColumnSpan="2"
+                Command="{Binding LoginCommand}"
+                BackgroundColor="{StaticResource Primary}"
+                FontAttributes="Bold" FontSize="Small"
+                CornerRadius="20" />
+
+            <Button Grid.Row="5" Grid.ColumnSpan="2"
+                Text="{local:Translate NoAccountText}"
+                Command="{Binding GoToSignUpCommand}"
+                BackgroundColor="Transparent" FontSize="Small"
+                TextColor="{StaticResource PrimaryDark}"
+                HorizontalOptions="Center" />
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

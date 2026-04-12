@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionNotAllowed" xml:space="preserve">
+    <value>Действието не е разрешено</value>
+  </data>
+  <data name="AdminCannotDeleteSelf" xml:space="preserve">
+    <value>Администраторите не могат да изтриват собствените си профили.</value>
+  </data>
+  <data name="AllFieldsRequiredMessage" xml:space="preserve">
+    <value>Всички полета са задължителни.</value>
+  </data>
+  <data name="AlreadyHaveAccountText" xml:space="preserve">
+    <value>Вече имате акаунт? Влезте</value>
+  </data>
+  <data name="Breakfast" xml:space="preserve">
+    <value>Закуска</value>
+  </data>
+  <data name="By" xml:space="preserve">
+    <value>От</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Откажи</value>
+  </data>
+  <data name="ChangeEmail" xml:space="preserve">
+    <value>Промяна на имейл</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Промяна на парола</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Код</value>
+  </data>
+  <data name="CodeSent" xml:space="preserve">
+    <value>Кодът е изпратен! Провери имейла си!</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Потвърди</value>
+  </data>
+  <data name="ConfirmDeleteProgressTitle" xml:space="preserve">
+    <value>Потвърждение за изтриване ({0} от {1})</value>
+  </data>
+  <data name="CreateAccountText" xml:space="preserve">
+    <value>Създай акаунт</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>{0} създаден</value>
+  </data>
+  <data name="CurrentEmail" xml:space="preserve">
+    <value>Настоящ имейл</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Текуща парола</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Изтрий</value>
+  </data>
+  <data name="DeletedUser" xml:space="preserve">
+    <value>{0} бе изтрит</value>
+  </data>
+  <data name="DeleteMyAccountConfirmMessage" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете акаунта си? Това действие не може да бъде отменено.</value>
+  </data>
+  <data name="Dinner" xml:space="preserve">
+    <value>Вечеря</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Имейл</value>
+  </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Имейл адрес</value>
+  </data>
+  <data name="EmailUpdated" xml:space="preserve">
+    <value>Имейлът беше сменен</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Край</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Грешка</value>
+  </data>
+  <data name="FollowersPageTitle" xml:space="preserve">
+    <value>Последователи</value>
+  </data>
+  <data name="FollowingPageTitle" xml:space="preserve">
+    <value>Следвани</value>
+  </data>
+  <data name="FoodsTabTitle" xml:space="preserve">
+    <value>Храна</value>
+  </data>
+  <data name="ForbiddenAction" xml:space="preserve">
+    <value>Нямате разрешение да извършите това действие.</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Забравена парола?</value>
+  </data>
+  <data name="ForgotPasswordPageTitle" xml:space="preserve">
+    <value>Забравена парола</value>
+  </data>
+  <data name="ForgotPasswordSubtitle" xml:space="preserve">
+    <value>Въведи имейла си и ще ти изпратим код за възстановяване.</value>
+  </data>
+  <data name="GenericErrorMessage" xml:space="preserve">
+    <value>Възникна грешка. Моля, опитайте отново.</value>
+  </data>
+  <data name="Handled" xml:space="preserve">
+    <value>Обработено</value>
+  </data>
+  <data name="InternalServerError" xml:space="preserve">
+    <value>Възникна грешка на сървъра. Моля, опитайте отново по-късно.</value>
+  </data>
+  <data name="InvalidEmailMessage" xml:space="preserve">
+    <value>Моля, въведете валиден имейл.</value>
+  </data>
+  <data name="InvalidEmailTitle" xml:space="preserve">
+    <value>Невалиден имейл</value>
+  </data>
+  <data name="InvalidPasswordMessage" xml:space="preserve">
+    <value>Паролата трябва да е между 8 и 64 символа и да съдържа главна буква, малка буква и цифра.</value>
+  </data>
+  <data name="InvalidPasswordTitle" xml:space="preserve">
+    <value>Невалидна парола</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Език</value>
+  </data>
+  <data name="LoadingText" xml:space="preserve">
+    <value>Зарежда...</value>
+  </data>
+  <data name="LoginFailedTitle" xml:space="preserve">
+    <value>Неуспешен вход</value>
+  </data>
+  <data name="LoginIdentifier" xml:space="preserve">
+    <value>Имейл адрес</value>
+  </data>
+  <data name="LoginText" xml:space="preserve">
+    <value>Вход</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Изход</value>
+  </data>
+  <data name="Lunch" xml:space="preserve">
+    <value>Обяд</value>
+  </data>
+  <data name="ManagementTabTitle" xml:space="preserve">
+    <value>Администрация</value>
+  </data>
+  <data name="MealsTabTitle" xml:space="preserve">
+    <value>Хранене</value>
+  </data>
+  <data name="NewEmail" xml:space="preserve">
+    <value>Нов имейл</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Нова парола</value>
+  </data>
+  <data name="NewUsername" xml:space="preserve">
+    <value>Ново потребителско име</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Не</value>
+  </data>
+  <data name="NoAccountText" xml:space="preserve">
+    <value>Нямате акаунт? Регистрирайте се!</value>
+  </data>
+  <data name="NoEndDate" xml:space="preserve">
+    <value>Без крайна дата</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Парола</value>
+  </data>
+  <data name="PasswordPlaceholder" xml:space="preserve">
+    <value>Мин. 8 символа</value>
+  </data>
+  <data name="PasswordUpdated" xml:space="preserve">
+    <value>Паролата беше променена</value>
+  </data>
+  <data name="ProfilePictureRequired" xml:space="preserve">
+    <value>Профилната снимка е задължителна</value>
+  </data>
+  <data name="RecipesTabTitle" xml:space="preserve">
+    <value>Рецепти</value>
+  </data>
+  <data name="RequestModeratorRole" xml:space="preserve">
+    <value>Подай заявка, за да станеш модератор</value>
+  </data>
+  <data name="ResetCodePageTitle" xml:space="preserve">
+    <value>Нова парола</value>
+  </data>
+  <data name="ResetCodeSubtitle" xml:space="preserve">
+    <value>Въведи кода, който изпратихме на имейла ти, и избери нова парола.</value>
+  </data>
+  <data name="ResetPasswordButton" xml:space="preserve">
+    <value>Смени паролата</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Запази промените</value>
+  </data>
+  <data name="SendCode" xml:space="preserve">
+    <value>Изпрати код</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Изпратено</value>
+  </data>
+  <data name="SessionExpired" xml:space="preserve">
+    <value>Сесията ви е изтекла. Моля, влезте отново.</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="SignUpFailedTitle" xml:space="preserve">
+    <value>Неуспешна регистрация</value>
+  </data>
+  <data name="SignUpText" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
+  <data name="Snack" xml:space="preserve">
+    <value>Междинно хранене</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Начало</value>
+  </data>
+  <data name="UnknownUser" xml:space="preserve">
+    <value>Неизвестен потребител</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Потребителско име</value>
+  </data>
+  <data name="UsernameTooShort" xml:space="preserve">
+    <value>Потребителското име трябва да е поне {0} символа</value>
+  </data>
+  <data name="UsernameUpdated" xml:space="preserve">
+    <value>Потребителското име беше променено</value>
+  </data>
+  <data name="WelcomeText" xml:space="preserve">
+    <value>Добре дошли</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+</root>

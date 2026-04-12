@@ -1,0 +1,26 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             xmlns:converters="clr-namespace:NutriNET.Maui.Converters"
+             xmlns:managers="clr-namespace:NutriNET.Maui.Managers"
+             x:Class="NutriNET.Maui.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:TimeConverter x:Key="TimeConverter" />
+            <converters:RoleVisibilityConverter x:Key="RoleVisibilityConverter"/>
+            <converters:StringToDoubleConverter x:Key="StringToDoubleConverter"/>
+            <converters:EqualsConverter x:Key="EqualsConverter"/>
+            <converters:EqualsConverter x:Key="NotEqualsConverter" Invert="True"/>
+            <converters:CaloriesFormatter x:Key="CaloriesFormatter"/>
+            <converters:AllTrueMultiConverter x:Key="AllTrueMultiConverter"/>
+            <converters:AllTrueMultiConverter x:Key="NotAllTrueMutliConverter" Invert="True"/>
+            <converters:MealTypeConverter x:Key="MealTypeConverter"/>
+            <x:Boolean x:Key="TrueBool">True</x:Boolean>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

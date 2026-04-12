@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Settings.ModeratorRequestView"
+             xmlns:vm="clr-namespace:NutriNET.Maui.Models.User"
+             x:DataType="vm:ModeratorRequestVM"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             x:Name="Root">
+
+    <ContentView.Resources>
+        <x:Int32 x:Key="Zero">0</x:Int32>
+    </ContentView.Resources>
+
+    <ContentView.IsVisible>
+        <Binding Path="Id"
+            Converter="{StaticResource NotEqualsConverter}">
+            <Binding.ConverterParameter>
+                <x:Int32>0</x:Int32>
+            </Binding.ConverterParameter>
+        </Binding>
+    </ContentView.IsVisible>
+
+    <Border
+        Style="{StaticResource SectionCard}">
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer
+              Command="{Binding TapCommand, Source={x:Reference Root}}"
+              CommandParameter="{Binding BindingContext, Source={x:Reference Root}}"/>
+        </Border.GestureRecognizers>
+        <VerticalStackLayout Spacing="8" Background="Transparent" >
+            
+            <HorizontalStackLayout Spacing="12" VerticalOptions="Center" HorizontalOptions="Start">
+                <Border
+                    WidthRequest="50"
+                    HeightRequest="50"
+                    StrokeThickness="1"
+                    Stroke="LightGray"
+                    StrokeShape="RoundRectangle 50"
+                    VerticalOptions="Center">
+
+                    <Image Source="{Binding PublicUser.ProfilePictureSource}"
+                           Aspect="AspectFill">
+                        <Image.Clip>
+                            <EllipseGeometry
+                                Center="25,25"
+                                RadiusX="25"
+                                RadiusY="25" />
+                        </Image.Clip>
+                    </Image>
+                </Border>
+
+                <Label
+                    Text="{Binding PublicUser.Username}"
+                    FontAttributes="Bold"
+                    FontSize="Medium"
+                    VerticalOptions="Center" />
+                <HorizontalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                      Command="{Binding NameTapCommand, Source={x:Reference Root}}"
+                      CommandParameter="{Binding BindingContext.PublicUser, Source={x:Reference Root}}"/>
+                </HorizontalStackLayout.GestureRecognizers>
+            </HorizontalStackLayout>
+
+            <Label
+                Text="{Binding Description}"
+                FontSize="Small"
+                LineBreakMode="WordWrap" />
+            <HorizontalStackLayout Spacing="8">
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        FontSize="Micro" TextColor="White" VerticalOptions="Center" >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{local:Translate Sent}" />
+                                <Span Text=":" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label FontSize="Micro" TextColor="White" VerticalOptions="Center"
+                           IsVisible="{Binding ActionDate, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Null}}">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{local:Translate Handled}" />
+                                <Span Text=":" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                                  Command="{Binding NameTapCommand, Source={x:Reference Root}}"
+                                  CommandParameter="{Binding BindingContext.ActionUser, Source={x:Reference Root}}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="8">
+                    <Label
+                        Text="{Binding DateSent, Converter={StaticResource TimeConverter}}" FontSize="Micro"
+                        TextColor="White" VerticalOptions="Center" HorizontalOptions="Start" >
+                    </Label>
+                    <Label  IsVisible="{Binding ActionDate, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Null}}"
+                        Text="{Binding ActionDate, Converter={StaticResource TimeConverter}}"
+                        FontSize="Micro" VerticalOptions="Center" TextColor="White" HorizontalOptions="Start" >
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer
+                              Command="{Binding NameTapCommand, Source={x:Reference Root}}"
+                              CommandParameter="{Binding BindingContext.ActionUser, Source={x:Reference Root}}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Spacing="6" HorizontalOptions="Start" VerticalOptions="Center" 
+                IsVisible="{Binding ActionDate, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Null}}">
+                <Label  Text="{local:Translate By}" FontSize="Micro" VerticalOptions="Center" />
+                <Border
+                       WidthRequest="25" HeightRequest="25" StrokeThickness="1"
+                        Stroke="LightGray" StrokeShape="RoundRectangle 25" VerticalOptions="Center">
+                    <Image Source="{Binding ActionUser.ProfilePictureSource}"
+                            Aspect="AspectFill" VerticalOptions="Center">
+                        <Image.Clip>
+                            <EllipseGeometry  Center="12.5,12.5" RadiusX="12.5" RadiusY="12.5" />
+                        </Image.Clip>
+                    </Image>
+                </Border>
+                <Label Text="{Binding ActionUser.Username}" FontSize="Small" VerticalOptions="Center"
+                    FontAttributes="Bold" LineBreakMode="TailTruncation" MaxLines="1"
+                    IsVisible="{Binding ActionUser.Id, Converter={StaticResource NotEqualsConverter},ConverterParameter={StaticResource Zero}}"/>
+                <Label Text="{local:Translate UnknownUser}" FontSize="Small" VerticalOptions="Center"
+                     FontAttributes="Bold" LineBreakMode="TailTruncation" MaxLines="1"
+                     IsVisible="{Binding ActionUser.Id, Converter={StaticResource EqualsConverter},ConverterParameter={StaticResource Zero}}"/>
+                <HorizontalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding NameTapCommand, Source={x:Reference Root}}"
+                        CommandParameter="{Binding BindingContext.ActionUser, Source={x:Reference Root}}"/>
+                </HorizontalStackLayout.GestureRecognizers>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

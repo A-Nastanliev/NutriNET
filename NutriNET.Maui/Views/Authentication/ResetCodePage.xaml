@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Authentication.ResetCodePage"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             Title="{local:Translate ResetCodePageTitle}"
+             Shell.TabBarIsVisible="False"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Authentication"
+             x:DataType="vm:ResetCodeVM"
+             xmlns:views="clr-namespace:NutriNET.Maui.Views">
+
+    <Grid HorizontalOptions="Center" VerticalOptions="Start"
+          RowDefinitions="Auto, Auto, Auto, Auto"
+          RowSpacing="24" Padding="24,40,24,0">
+
+        <Label Grid.Row="0" Text="{local:Translate ResetCodeSubtitle}" TextColor="{StaticResource Gray400}"
+               FontSize="14"
+               HorizontalOptions="Start" />
+
+        <VerticalStackLayout Grid.Row="1" Spacing="6">
+            <Label Text="{local:Translate Code}"
+                   TextColor="{StaticResource Gray400}"
+                   FontSize="13" FontAttributes="Bold" />
+            <views:OtpInput Code="{Binding Code,Mode=TwoWay}" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Row="2" Spacing="6">
+            <Label Text="{local:Translate NewPassword}"
+                   TextColor="{StaticResource Gray400}"
+                   FontSize="13" FontAttributes="Bold" />
+            <Grid ColumnDefinitions="*, Auto">
+                <Entry x:Name="PasswordEntry"
+                       Grid.Column="0" Placeholder="{local:Translate PasswordPlaceholder}"
+                       IsPassword="True" Text="{Binding NewPassword}" MaxLength="64"  TextColor="White"  PlaceholderColor="{StaticResource Gray400}"
+                       BackgroundColor="#1E1E1E" />
+                <views:PasswordVisibilityToggle Grid.Column="1" TargetEntry="{x:Reference PasswordEntry}" />
+            </Grid>
+        </VerticalStackLayout>
+
+        <Button Grid.Row="3"
+                Text="{local:Translate ResetPasswordButton}"
+                Command="{Binding SubmitCommand}"
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="White"
+                FontAttributes="Bold"
+                FontSize="Small"
+                CornerRadius="20" />
+    </Grid>
+</ContentPage>

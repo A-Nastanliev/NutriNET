@@ -41,7 +41,7 @@ namespace NutriNET.Api.Controllers
         public async Task<IActionResult> Refresh([FromBody] RefreshRequest req)
         {
             var existing = await _service.GetRefreshTokenAsync(req.RefreshToken);
-            if (existing == null || existing.ExpiresAt < DateTime.UtcNow)
+            if (existing == null || existing.IsRevoked || existing.ExpiresAt < DateTime.UtcNow)
                 return Unauthorized(new { error = "SessionExpired" });
 
             await _service.RevokeRefreshTokenAsync(existing);
@@ -104,6 +104,7 @@ namespace NutriNET.Api.Controllers
             var audience = _configuration["Jwt:Audience"];
             var baseUrl = _configuration["App:BaseUrl"];
 
+            await _service.RevokeAllUserRefreshTokensAsync(user.Id);
             var accessToken = JwtService.GenerateAccessToken(user.Id, user.Role, secret, issuer, audience);
             var refreshToken = await _service.CreateRefreshTokenAsync(user.Id);
 

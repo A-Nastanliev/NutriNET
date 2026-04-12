@@ -1,0 +1,35 @@
+﻿using NutriNET.Maui.Resources.Languages;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
+using System.Text;
+
+namespace NutriNET.Maui.Managers
+{
+    public class LocalizationResourceManager : INotifyPropertyChanged
+    {
+        private LocalizationResourceManager()
+        {
+            Culture = CultureInfo.CurrentCulture;
+        }
+
+        public CultureInfo Culture
+        {
+            get => CultureInfo.CurrentUICulture;
+            set
+            {
+                CultureInfo.CurrentUICulture = CultureInfo.CurrentCulture = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
+            }
+        }
+
+        public static LocalizationResourceManager Instance { get; } = new();
+
+        public object this[string resourceKey]
+            => AppResources.ResourceManager.GetObject(resourceKey, Culture) ?? Array.Empty<byte>();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+    }
+}

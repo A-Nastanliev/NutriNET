@@ -1,4 +1,7 @@
 <Solution>
+  <Project Path="NutriNET.Maui/NutriNET.Maui.csproj" Id="66a19c42-1897-475e-886e-aa9a1d87392a">
+    <Deploy Solution="Release|*" />
+  </Project>
   <Project Path="NutriNET.Api/NutriNET.Api.csproj" Id="22ecce14-ac9b-4b45-b903-7abd009f4b42" />
   <Project Path="NutriNET.Data/NutriNET.Data.csproj" Id="756f5182-edf6-4d06-a5de-e4e6b69de6cf" />
   <Project Path="NutriNET.Services/NutriNET.Services.csproj" Id="d49de0dc-f4bd-467b-b84b-2c5b0422f763" />
