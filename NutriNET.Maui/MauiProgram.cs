@@ -78,6 +78,24 @@ namespace NutriNET.Maui
             builder.Services.AddTransient<ResetCodeVM>();
             builder.Services.AddTransient<ResetCodePage>();
 
+            builder.Services.AddTransient<FollowersVM>();
+            builder.Services.AddTransient<FollowersPage>();
+
+            builder.Services.AddTransient<FollowingVM>();
+            builder.Services.AddTransient<FollowingPage>();
+
+            builder.Services.AddTransient<CreateModeratorRequestVM>();
+            builder.Services.AddTransient<CreateModeratorRequestPage>();
+
+            builder.Services.AddSingleton<ModeratorRequestsVM>();
+            builder.Services.AddSingleton<ModeratorRequestsPage>();
+
+            builder.Services.AddSingleton<CommentRestrictionsVM>();
+            builder.Services.AddSingleton<CommentRestrictionsPage>();
+
+            builder.Services.AddSingleton<ManageModeratorsVM>();
+            builder.Services.AddSingleton<ManageModeratorsPage>();
+
             return builder.Build();
         }
     }

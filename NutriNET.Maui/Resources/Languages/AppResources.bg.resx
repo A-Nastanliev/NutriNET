@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Приеми</value>
+  </data>
   <data name="ActionNotAllowed" xml:space="preserve">
     <value>Действието не е разрешено</value>
   </data>
@@ -126,8 +129,14 @@
   <data name="AllFieldsRequiredMessage" xml:space="preserve">
     <value>Всички полета са задължителни.</value>
   </data>
+  <data name="AlreadyHasRestriction" xml:space="preserve">
+    <value>Потребителят има активно ограничение</value>
+  </data>
   <data name="AlreadyHaveAccountText" xml:space="preserve">
     <value>Вече имате акаунт? Влезте</value>
+  </data>
+  <data name="BarcodeNotFound" xml:space="preserve">
+    <value>Не беше намерена храна с баркод {0}</value>
   </data>
   <data name="Breakfast" xml:space="preserve">
     <value>Закуска</value>
@@ -137,6 +146,9 @@
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Откажи</value>
+  </data>
+  <data name="CannotDeleteOtherAdmin" xml:space="preserve">
+    <value>Не можете да изтриете профила на друг администратор</value>
   </data>
   <data name="ChangeEmail" xml:space="preserve">
     <value>Промяна на имейл</value>
@@ -150,6 +162,18 @@
   <data name="CodeSent" xml:space="preserve">
     <value>Кодът е изпратен! Провери имейла си!</value>
   </data>
+  <data name="CommentRestrictionNotFound" xml:space="preserve">
+    <value>Ограничението за коментари не е намерено.</value>
+  </data>
+  <data name="CommentRestrictionsEmpty" xml:space="preserve">
+    <value>Не бяха намерени ограничения</value>
+  </data>
+  <data name="CommentRestrictionsPageTitle" xml:space="preserve">
+    <value>Ограничения за коментари</value>
+  </data>
+  <data name="CommentRestrictionsPickerTitle" xml:space="preserve">
+    <value>Статус на ограниченията</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Потвърди</value>
   </data>
@@ -162,11 +186,17 @@
   <data name="Created" xml:space="preserve">
     <value>{0} създаден</value>
   </data>
+  <data name="CreateModeratorRequestPageTitle" xml:space="preserve">
+    <value>Заявка за модератор</value>
+  </data>
   <data name="CurrentEmail" xml:space="preserve">
     <value>Настоящ имейл</value>
   </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>Текуща парола</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Откажи</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Изтрий</value>
@@ -176,6 +206,18 @@
   </data>
   <data name="DeleteMyAccountConfirmMessage" xml:space="preserve">
     <value>Сигурни ли сте, че искате да изтриете акаунта си? Това действие не може да бъде отменено.</value>
+  </data>
+  <data name="Demote" xml:space="preserve">
+    <value>Понижи</value>
+  </data>
+  <data name="Demoted" xml:space="preserve">
+    <value>{0} беше понижен</value>
+  </data>
+  <data name="DemoteMessage" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да понижите този модератор до обикновен потребител?</value>
+  </data>
+  <data name="DemoteTitle" xml:space="preserve">
+    <value>Понижи {0}</value>
   </data>
   <data name="Dinner" xml:space="preserve">
     <value>Вечеря</value>
@@ -189,20 +231,65 @@
   <data name="EmailUpdated" xml:space="preserve">
     <value>Имейлът беше сменен</value>
   </data>
+  <data name="EmailUse" xml:space="preserve">
+    <value>Имейлът е зает.</value>
+  </data>
   <data name="End" xml:space="preserve">
     <value>Край</value>
+  </data>
+  <data name="EndButton" xml:space="preserve">
+    <value>Прекрати</value>
+  </data>
+  <data name="EndUserRestrictionConfirmation" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да премахнете ограничението на {0}?</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Грешка</value>
   </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Последвай</value>
+  </data>
+  <data name="FollowBack" xml:space="preserve">
+    <value>Следвай обратно</value>
+  </data>
+  <data name="FollowersEmpty" xml:space="preserve">
+    <value>Нямате последователи</value>
+  </data>
   <data name="FollowersPageTitle" xml:space="preserve">
     <value>Последователи</value>
+  </data>
+  <data name="FollowingEmpty" xml:space="preserve">
+    <value>Не следвате никого</value>
   </data>
   <data name="FollowingPageTitle" xml:space="preserve">
     <value>Следвани</value>
   </data>
+  <data name="FoodBarcodeExists" xml:space="preserve">
+    <value>Храна с баркод {0} вече съществува.</value>
+  </data>
+  <data name="FoodNotFound" xml:space="preserve">
+    <value>Храната не беше намерена</value>
+  </data>
+  <data name="FoodRequestDeniedBarcodeExists" xml:space="preserve">
+    <value>Храна с баркод {0} вече съществува. Заяквата беше отказана.</value>
+  </data>
+  <data name="FoodRequestNotFound" xml:space="preserve">
+    <value>Заявката за храна не беше намерена</value>
+  </data>
   <data name="FoodsTabTitle" xml:space="preserve">
     <value>Храна</value>
+  </data>
+  <data name="FoodValidationCalories" xml:space="preserve">
+    <value>Калориите трябва да са между 0 и 900</value>
+  </data>
+  <data name="FoodValidationCarbohydrates" xml:space="preserve">
+    <value>Въглехидратите трябва да са между 0 и 100</value>
+  </data>
+  <data name="FoodValidationFats" xml:space="preserve">
+    <value>Мазнините трябва да са между 0 и 100</value>
+  </data>
+  <data name="FoodValidationProtein" xml:space="preserve">
+    <value>Белтъците трябва да се между 0 и 100</value>
   </data>
   <data name="ForbiddenAction" xml:space="preserve">
     <value>Нямате разрешение да извършите това действие.</value>
@@ -222,14 +309,23 @@
   <data name="Handled" xml:space="preserve">
     <value>Обработено</value>
   </data>
+  <data name="IncorrectPassword" xml:space="preserve">
+    <value>Въвели сте грешна парола, моля опитайте отново.</value>
+  </data>
   <data name="InternalServerError" xml:space="preserve">
     <value>Възникна грешка на сървъра. Моля, опитайте отново по-късно.</value>
+  </data>
+  <data name="InvalidCredentials" xml:space="preserve">
+    <value>Въведените данни за вход са неверни.</value>
   </data>
   <data name="InvalidEmailMessage" xml:space="preserve">
     <value>Моля, въведете валиден имейл.</value>
   </data>
   <data name="InvalidEmailTitle" xml:space="preserve">
     <value>Невалиден имейл</value>
+  </data>
+  <data name="InvalidOrExpiredCode" xml:space="preserve">
+    <value>Невалиден или изтекъл код. Моля, поискайте нов.</value>
   </data>
   <data name="InvalidPasswordMessage" xml:space="preserve">
     <value>Паролата трябва да е между 8 и 64 символа и да съдържа главна буква, малка буква и цифра.</value>
@@ -261,8 +357,50 @@
   <data name="ManagementTabTitle" xml:space="preserve">
     <value>Администрация</value>
   </data>
+  <data name="ManageModeratorsPageTitle" xml:space="preserve">
+    <value>Управление на модератори</value>
+  </data>
+  <data name="MaxFoodRequests" xml:space="preserve">
+    <value>Имате 3 чакащи заявки. Изчакайте поне една да бъде прегледана, преди да изпратите нова</value>
+  </data>
+  <data name="MealFoodNotFound" xml:space="preserve">
+    <value>Храната не е намерена в храненето.</value>
+  </data>
+  <data name="MealNotFound" xml:space="preserve">
+    <value>Храненето не бе намерено</value>
+  </data>
   <data name="MealsTabTitle" xml:space="preserve">
     <value>Хранене</value>
+  </data>
+  <data name="ModeratorRequestDescriptionPlaceholder" xml:space="preserve">
+    <value>Опишете защо искате да станете модератор....</value>
+  </data>
+  <data name="ModeratorRequestNotFound" xml:space="preserve">
+    <value>Заявката за модератор вече не съществува.</value>
+  </data>
+  <data name="ModeratorRequestsEmpty" xml:space="preserve">
+    <value>Няма заявки за модератор</value>
+  </data>
+  <data name="ModeratorRequestsPageTitle" xml:space="preserve">
+    <value>Заявки за модератор</value>
+  </data>
+  <data name="ModeratorRequestsPickerTitle" xml:space="preserve">
+    <value>Статус на заявките за модератор</value>
+  </data>
+  <data name="ModeratorRequestSubmitted" xml:space="preserve">
+    <value>Заявката е изпратена</value>
+  </data>
+  <data name="ModeratorRequestValidation" xml:space="preserve">
+    <value>Описание на заявката трябва да е поне {0} символа.</value>
+  </data>
+  <data name="ModeratorsEmpty" xml:space="preserve">
+    <value>Няма намерени модератори</value>
+  </data>
+  <data name="ModeratorsTabPageTitle" xml:space="preserve">
+    <value>Модератори</value>
+  </data>
+  <data name="ModRequestsTabPageTitle" xml:space="preserve">
+    <value>Заявки за модератор</value>
   </data>
   <data name="NewEmail" xml:space="preserve">
     <value>Нов имейл</value>
@@ -282,8 +420,14 @@
   <data name="NoEndDate" xml:space="preserve">
     <value>Без крайна дата</value>
   </data>
+  <data name="NotFollowing" xml:space="preserve">
+    <value>Не следвате този потребител</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>ОК</value>
+  </data>
+  <data name="OnlyTemporaryRestrictions" xml:space="preserve">
+    <value>Модераторите могат да налагат само временни ограничения</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Парола</value>
@@ -297,11 +441,29 @@
   <data name="ProfilePictureRequired" xml:space="preserve">
     <value>Профилната снимка е задължителна</value>
   </data>
+  <data name="PromoteUserToModeratorMessage" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да направите {0} модератор?</value>
+  </data>
+  <data name="RecipeAlreadyInList" xml:space="preserve">
+    <value>{0} вече е в {1}</value>
+  </data>
+  <data name="RecipeNotFound" xml:space="preserve">
+    <value>Рецептата не беше намерена</value>
+  </data>
   <data name="RecipesTabTitle" xml:space="preserve">
     <value>Рецепти</value>
   </data>
   <data name="RequestModeratorRole" xml:space="preserve">
     <value>Подай заявка, за да станеш модератор</value>
+  </data>
+  <data name="RequestStatusAccepted" xml:space="preserve">
+    <value>Приети</value>
+  </data>
+  <data name="RequestStatusDeclined" xml:space="preserve">
+    <value>Отказани</value>
+  </data>
+  <data name="RequestStatusPending" xml:space="preserve">
+    <value>Очакващи</value>
   </data>
   <data name="ResetCodePageTitle" xml:space="preserve">
     <value>Нова парола</value>
@@ -311,6 +473,18 @@
   </data>
   <data name="ResetPasswordButton" xml:space="preserve">
     <value>Смени паролата</value>
+  </data>
+  <data name="RestrictionsTabPageTitle" xml:space="preserve">
+    <value>Ограничения</value>
+  </data>
+  <data name="RestrictionStatusActive" xml:space="preserve">
+    <value>Активни</value>
+  </data>
+  <data name="RestrictionStatusInactive" xml:space="preserve">
+    <value>Неактивни</value>
+  </data>
+  <data name="RestrictionStatusUndefined" xml:space="preserve">
+    <value>Неопределени</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Запази промените</value>
@@ -339,17 +513,32 @@
   <data name="Start" xml:space="preserve">
     <value>Начало</value>
   </data>
+  <data name="SubmitRequest" xml:space="preserve">
+    <value>Изпрати заявка</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Отследвай</value>
+  </data>
   <data name="UnknownUser" xml:space="preserve">
     <value>Неизвестен потребител</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Потребителско име</value>
   </data>
+  <data name="UsernameOrEmailInUse" xml:space="preserve">
+    <value>Вече съществува потребител с това потребителско име или имейл.</value>
+  </data>
   <data name="UsernameTooShort" xml:space="preserve">
     <value>Потребителското име трябва да е поне {0} символа</value>
   </data>
   <data name="UsernameUpdated" xml:space="preserve">
     <value>Потребителското име беше променено</value>
+  </data>
+  <data name="UsernameUse" xml:space="preserve">
+    <value>Потребителското име вече е заето.</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Потребителят не бе намерен</value>
   </data>
   <data name="WelcomeText" xml:space="preserve">
     <value>Добре дошли</value>

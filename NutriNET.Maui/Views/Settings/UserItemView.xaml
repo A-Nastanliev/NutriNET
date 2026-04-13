@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Settings.UserItemView"
+             xmlns:vm="clr-namespace:NutriNET.Maui.Models.User"
+             x:DataType="vm:PublicUserVM"
+             x:Name="Root">
+    <Grid Padding="10" ColumnDefinitions="Auto, *, Auto" VerticalOptions="Center">
+        <Border
+            WidthRequest="50"
+            HeightRequest="50"
+            StrokeThickness="1"
+            Stroke="LightGray"
+            StrokeShape="RoundRectangle 50"
+            VerticalOptions="Center"
+            HorizontalOptions="Start">
+            <Image Source="{Binding ProfilePictureSource}" Aspect="AspectFill">
+                <Image.Clip>
+                    <EllipseGeometry
+                        Center="25,25"
+                        RadiusX="25"
+                        RadiusY="25" />
+                </Image.Clip>
+            </Image>
+        </Border>
+
+        <Label
+            Grid.Column="1"
+            Text="{Binding Username}"
+            VerticalOptions="Center"
+            FontSize="16"
+            FontAttributes="Bold"
+            LineBreakMode="TailTruncation"
+            Margin="10,0">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer
+                Command="{Binding NameTapCommand, Source={x:Reference Root}}"
+                CommandParameter="{Binding BindingContext, Source={x:Reference Root}}"/>
+            </Label.GestureRecognizers>
+        </Label>
+
+        <Button FontSize="12" Padding="10,6" MinimumWidthRequest="100" Text="{Binding ButtonText, Source={x:Reference Root}}"
+            HorizontalOptions="End" VerticalOptions="Center" Grid.Column="2"
+            Command="{Binding ActionCommand, Source={x:Reference Root}}"
+            CommandParameter="{Binding BindingContext, Source={x:Reference Root}}" />
+    </Grid>
+</ContentView>

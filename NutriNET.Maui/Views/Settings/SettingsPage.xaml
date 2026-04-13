@@ -37,7 +37,7 @@
                     <Grid ColumnSpacing="20" HorizontalOptions="Center" ColumnDefinitions="*,*">
                         <Border Style="{StaticResource SectionCard}" Padding="10,10,14,10" HorizontalOptions="Center">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer x:Name="OpenFollowersGesture" CommandParameter="{Binding OpenFollowersCommand}" />
+                                <TapGestureRecognizer x:Name="OpenFollowersGesture" Command="{Binding OpenFollowersCommand}" />
                             </Border.GestureRecognizers>
 
                             <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
@@ -47,7 +47,7 @@
                         </Border>
                         <Border Style="{StaticResource SectionCard}" Padding="14,10,10,10" Grid.Column="1" HorizontalOptions="Center">
                             <Border.GestureRecognizers>
-                                <TapGestureRecognizer x:Name="OpenFollowingGesture" CommandParameter="{Binding OpenFollowingCommand}" />
+                                <TapGestureRecognizer x:Name="OpenFollowingGesture" Command="{Binding OpenFollowingCommand}" />
                             </Border.GestureRecognizers>
                             <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
                                 <Label Text="{Binding FollowingCount}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" />

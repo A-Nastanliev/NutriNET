@@ -10,6 +10,9 @@ namespace NutriNET.Maui
             InitializeComponent();
             Routing.RegisterRoute(nameof(ForgotPasswordPage), typeof(ForgotPasswordPage));
             Routing.RegisterRoute(nameof(ResetCodePage), typeof(ResetCodePage));
+            Routing.RegisterRoute(nameof(FollowersPage), typeof(FollowersPage));
+            Routing.RegisterRoute(nameof(FollowingPage), typeof(FollowingPage));
+            Routing.RegisterRoute(nameof(CreateModeratorRequestPage), typeof(CreateModeratorRequestPage));
         }
     }
 }

@@ -49,6 +49,22 @@
         </Tab>
         <Tab Title="{local:Translate ManagementTabTitle}" Icon="management_icon.png"
             IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource RoleVisibilityConverter}, ConverterParameter='Administrator,Moderator'}">
+            <ShellContent
+                Title="{local:Translate RestrictionsTabPageTitle}"
+                ContentTemplate="{DataTemplate settings:CommentRestrictionsPage}"
+                Route="CommentRestrictionsPage"/>
+
+            <ShellContent
+                Title="{local:Translate ModRequestsTabPageTitle}"
+                IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource EqualsConverter},  ConverterParameter={x:Static role:UserRole.Administrator}}"
+                ContentTemplate="{DataTemplate settings:ModeratorRequestsPage}"
+                Route="ModeratorRequestsPage"/>
+
+            <ShellContent
+                IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource EqualsConverter},  ConverterParameter={x:Static role:UserRole.Administrator}}"
+                Title="{local:Translate ModeratorsTabPageTitle}"
+                ContentTemplate="{DataTemplate settings:ManageModeratorsPage}"
+                Route="ManageModeratorsPage"/>
         </Tab>
     </TabBar>
 

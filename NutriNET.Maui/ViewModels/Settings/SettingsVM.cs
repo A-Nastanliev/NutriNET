@@ -341,16 +341,19 @@ namespace NutriNET.Maui.ViewModels.Settings
         [RelayCommand]
         private async Task OpenFollowers()
         {
+            await Shell.Current.GoToAsync(nameof(FollowersPage));
         }
 
         [RelayCommand]
         private async Task OpenFollowing()
         {
+            await Shell.Current.GoToAsync(nameof(FollowingPage));
         }
 
         [RelayCommand]
         private async Task OpenCreateModeratorRequest()
         {
+            await Shell.Current.GoToAsync(nameof(CreateModeratorRequestPage));
         }
     }
 }

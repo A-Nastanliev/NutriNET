@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
   <data name="ActionNotAllowed" xml:space="preserve">
     <value>Action not allowed</value>
   </data>
@@ -126,8 +129,14 @@
   <data name="AllFieldsRequiredMessage" xml:space="preserve">
     <value>All fields are required.</value>
   </data>
+  <data name="AlreadyHasRestriction" xml:space="preserve">
+    <value>User already has active restriction</value>
+  </data>
   <data name="AlreadyHaveAccountText" xml:space="preserve">
     <value>Already have an account? Log in</value>
+  </data>
+  <data name="BarcodeNotFound" xml:space="preserve">
+    <value>No food with barcode {0} was found</value>
   </data>
   <data name="Breakfast" xml:space="preserve">
     <value>Breakfast</value>
@@ -137,6 +146,9 @@
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="CannotDeleteOtherAdmin" xml:space="preserve">
+    <value>You cannot delete another administrator</value>
   </data>
   <data name="ChangeEmail" xml:space="preserve">
     <value>Change Email</value>
@@ -150,6 +162,18 @@
   <data name="CodeSent" xml:space="preserve">
     <value>Code sent! Check your email!</value>
   </data>
+  <data name="CommentRestrictionNotFound" xml:space="preserve">
+    <value>Comment restriction not found.</value>
+  </data>
+  <data name="CommentRestrictionsEmpty" xml:space="preserve">
+    <value>No restrictions found</value>
+  </data>
+  <data name="CommentRestrictionsPageTitle" xml:space="preserve">
+    <value>Comment Restrictions</value>
+  </data>
+  <data name="CommentRestrictionsPickerTitle" xml:space="preserve">
+    <value>Restriction Status</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
@@ -162,11 +186,17 @@
   <data name="Created" xml:space="preserve">
     <value>{0} created</value>
   </data>
+  <data name="CreateModeratorRequestPageTitle" xml:space="preserve">
+    <value>Request Moderator</value>
+  </data>
   <data name="CurrentEmail" xml:space="preserve">
     <value>Current Email</value>
   </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>Current password</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Decline</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -176,6 +206,18 @@
   </data>
   <data name="DeleteMyAccountConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to delete your account? This action cannot be undone.</value>
+  </data>
+  <data name="Demote" xml:space="preserve">
+    <value>Demote</value>
+  </data>
+  <data name="Demoted" xml:space="preserve">
+    <value>{0} demoted</value>
+  </data>
+  <data name="DemoteMessage" xml:space="preserve">
+    <value>Are you sure you want to demote this moderator to a normal user?</value>
+  </data>
+  <data name="DemoteTitle" xml:space="preserve">
+    <value>Demote {0}</value>
   </data>
   <data name="Dinner" xml:space="preserve">
     <value>Dinner</value>
@@ -189,20 +231,65 @@
   <data name="EmailUpdated" xml:space="preserve">
     <value>Email updated</value>
   </data>
+  <data name="EmailUse" xml:space="preserve">
+    <value>Email is already in use.</value>
+  </data>
   <data name="End" xml:space="preserve">
     <value>End</value>
+  </data>
+  <data name="EndButton" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="EndUserRestrictionConfirmation" xml:space="preserve">
+    <value>Are you sure you want to end {0}'s restriction?</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="FollowBack" xml:space="preserve">
+    <value>Follow Back</value>
+  </data>
+  <data name="FollowersEmpty" xml:space="preserve">
+    <value>You have no followers yet</value>
+  </data>
   <data name="FollowersPageTitle" xml:space="preserve">
     <value>Followers</value>
+  </data>
+  <data name="FollowingEmpty" xml:space="preserve">
+    <value>You’re not following anyone</value>
   </data>
   <data name="FollowingPageTitle" xml:space="preserve">
     <value>Following</value>
   </data>
+  <data name="FoodBarcodeExists" xml:space="preserve">
+    <value>Food with barcode {0} already exists.</value>
+  </data>
+  <data name="FoodNotFound" xml:space="preserve">
+    <value>Food not found</value>
+  </data>
+  <data name="FoodRequestDeniedBarcodeExists" xml:space="preserve">
+    <value>Food with barcode {0} already exists. Food request denied.</value>
+  </data>
+  <data name="FoodRequestNotFound" xml:space="preserve">
+    <value>Food request not found</value>
+  </data>
   <data name="FoodsTabTitle" xml:space="preserve">
     <value>Foods</value>
+  </data>
+  <data name="FoodValidationCalories" xml:space="preserve">
+    <value>Calories must be between 0 and 900</value>
+  </data>
+  <data name="FoodValidationCarbohydrates" xml:space="preserve">
+    <value>Carbohydrates must be between 0 and 100</value>
+  </data>
+  <data name="FoodValidationFats" xml:space="preserve">
+    <value>Fat must be between 0 and 100</value>
+  </data>
+  <data name="FoodValidationProtein" xml:space="preserve">
+    <value>Proteins must be between 0 and 100</value>
   </data>
   <data name="ForbiddenAction" xml:space="preserve">
     <value>You no longer have permission to perform this action.</value>
@@ -222,14 +309,23 @@
   <data name="Handled" xml:space="preserve">
     <value>Handled</value>
   </data>
+  <data name="IncorrectPassword" xml:space="preserve">
+    <value>Incorrect password, please try again.</value>
+  </data>
   <data name="InternalServerError" xml:space="preserve">
     <value>Something went wrong on the server. Please try again later.</value>
+  </data>
+  <data name="InvalidCredentials" xml:space="preserve">
+    <value>The credentials you entered are incorrect.</value>
   </data>
   <data name="InvalidEmailMessage" xml:space="preserve">
     <value>Please, enter a valid email address.</value>
   </data>
   <data name="InvalidEmailTitle" xml:space="preserve">
     <value>Invalid Email</value>
+  </data>
+  <data name="InvalidOrExpiredCode" xml:space="preserve">
+    <value>Invalid or expired code. Please request a new one.</value>
   </data>
   <data name="InvalidPasswordMessage" xml:space="preserve">
     <value>Password must be 8–64 characters and include an uppercase letter, a lowercase letter, and a number.</value>
@@ -261,8 +357,50 @@
   <data name="ManagementTabTitle" xml:space="preserve">
     <value>Management</value>
   </data>
+  <data name="ManageModeratorsPageTitle" xml:space="preserve">
+    <value>Manage Moderators</value>
+  </data>
+  <data name="MaxFoodRequests" xml:space="preserve">
+    <value>You already have 3 pending food requests. Please wait until one is reviewed before submitting a new one.</value>
+  </data>
+  <data name="MealFoodNotFound" xml:space="preserve">
+    <value>Food not found in this meal</value>
+  </data>
+  <data name="MealNotFound" xml:space="preserve">
+    <value>Meal not found</value>
+  </data>
   <data name="MealsTabTitle" xml:space="preserve">
     <value>Meals</value>
+  </data>
+  <data name="ModeratorRequestDescriptionPlaceholder" xml:space="preserve">
+    <value>Describe why you want to become a moderator...</value>
+  </data>
+  <data name="ModeratorRequestNotFound" xml:space="preserve">
+    <value>The moderator request no longer exists.</value>
+  </data>
+  <data name="ModeratorRequestsEmpty" xml:space="preserve">
+    <value>There are no moderator requests</value>
+  </data>
+  <data name="ModeratorRequestsPageTitle" xml:space="preserve">
+    <value>Moderator Requests</value>
+  </data>
+  <data name="ModeratorRequestsPickerTitle" xml:space="preserve">
+    <value>Moderator Request Status</value>
+  </data>
+  <data name="ModeratorRequestSubmitted" xml:space="preserve">
+    <value>Request submitted</value>
+  </data>
+  <data name="ModeratorRequestValidation" xml:space="preserve">
+    <value>Request's description should be at least {0} characters long.</value>
+  </data>
+  <data name="ModeratorsEmpty" xml:space="preserve">
+    <value>No moderators found</value>
+  </data>
+  <data name="ModeratorsTabPageTitle" xml:space="preserve">
+    <value>Moderators</value>
+  </data>
+  <data name="ModRequestsTabPageTitle" xml:space="preserve">
+    <value>Mod Requests</value>
   </data>
   <data name="NewEmail" xml:space="preserve">
     <value>New email</value>
@@ -282,8 +420,14 @@
   <data name="NoEndDate" xml:space="preserve">
     <value>Undefined</value>
   </data>
+  <data name="NotFollowing" xml:space="preserve">
+    <value>You don't follow this user</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="OnlyTemporaryRestrictions" xml:space="preserve">
+    <value>Moderators can apply only temporary restrictions</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -297,11 +441,29 @@
   <data name="ProfilePictureRequired" xml:space="preserve">
     <value>Profile picture required</value>
   </data>
+  <data name="PromoteUserToModeratorMessage" xml:space="preserve">
+    <value>Are you sure you want to promote {0} to moderator?</value>
+  </data>
+  <data name="RecipeAlreadyInList" xml:space="preserve">
+    <value>{0} is already in {1}</value>
+  </data>
+  <data name="RecipeNotFound" xml:space="preserve">
+    <value>Recipe not found</value>
+  </data>
   <data name="RecipesTabTitle" xml:space="preserve">
     <value>Recipes</value>
   </data>
   <data name="RequestModeratorRole" xml:space="preserve">
     <value>Request to become a moderator</value>
+  </data>
+  <data name="RequestStatusAccepted" xml:space="preserve">
+    <value>Accepted</value>
+  </data>
+  <data name="RequestStatusDeclined" xml:space="preserve">
+    <value>Declined</value>
+  </data>
+  <data name="RequestStatusPending" xml:space="preserve">
+    <value>Pending</value>
   </data>
   <data name="ResetCodePageTitle" xml:space="preserve">
     <value>Reset Password</value>
@@ -311,6 +473,18 @@
   </data>
   <data name="ResetPasswordButton" xml:space="preserve">
     <value>Reset password</value>
+  </data>
+  <data name="RestrictionsTabPageTitle" xml:space="preserve">
+    <value>Restrictions</value>
+  </data>
+  <data name="RestrictionStatusActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="RestrictionStatusInactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="RestrictionStatusUndefined" xml:space="preserve">
+    <value>Undefined</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save Changes</value>
@@ -340,17 +514,32 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="SubmitRequest" xml:space="preserve">
+    <value>Submit Request</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Unfollow</value>
+  </data>
   <data name="UnknownUser" xml:space="preserve">
     <value>Unknown User</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="UsernameOrEmailInUse" xml:space="preserve">
+    <value>Username or email is already in use.</value>
+  </data>
   <data name="UsernameTooShort" xml:space="preserve">
     <value>Username must be atleast {0} characters</value>
   </data>
   <data name="UsernameUpdated" xml:space="preserve">
     <value>Username updated</value>
+  </data>
+  <data name="UsernameUse" xml:space="preserve">
+    <value>Username is already in use.</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User not found</value>
   </data>
   <data name="WelcomeText" xml:space="preserve">
     <value>Welcome</value>
