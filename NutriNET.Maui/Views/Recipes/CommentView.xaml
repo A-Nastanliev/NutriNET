@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Recipes.CommentView"
+             xmlns:vm="clr-namespace:NutriNET.Maui.Models.Recipes"
+             x:DataType="vm:RecipeCommentVM"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             x:Name="Root">
+
+    <Border Style="{StaticResource SectionCard}" Padding="20,10">
+        <VerticalStackLayout Spacing="8">
+            <HorizontalStackLayout Spacing="12" VerticalOptions="Center" HorizontalOptions="Start" >
+                <Border WidthRequest="30" HeightRequest="30" StrokeThickness="1" Stroke="LightGray" StrokeShape="RoundRectangle 30" VerticalOptions="Center">
+                    <Image Source="{Binding User.ProfilePictureSource}" Aspect="AspectFill">
+                        <Image.Clip>
+                            <EllipseGeometry Center="15,15" RadiusX="15" RadiusY="15" />
+                        </Image.Clip>
+                    </Image>
+                </Border>
+                <Label Text="{Binding User.Username}" FontAttributes="Bold" FontSize="Small" VerticalOptions="Center" LineBreakMode="TailTruncation"/>
+                <HorizontalStackLayout.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding NameTapCommand, Source={x:Reference Root}}"
+                        CommandParameter="{Binding BindingContext.User, Source={x:Reference Root}}"/>
+                </HorizontalStackLayout.GestureRecognizers>
+            </HorizontalStackLayout>
+
+            <Label Text="{Binding Comment}" FontSize="Small" LineBreakMode="WordWrap">
+                <Label.Behaviors>
+                    <toolkit:TouchBehavior
+                       LongPressDuration="1000"
+                       LongPressCommand="{Binding HoldCommand, Source={x:Reference Root}}"
+                       LongPressCommandParameter="{Binding BindingContext, Source={x:Reference Root}}"/>
+                </Label.Behaviors>
+            </Label>
+            <HorizontalStackLayout Spacing="8" HorizontalOptions="Start" >
+                <Label FontSize="Micro" Text="{local:Translate Sent}" VerticalOptions="Center"/>
+                <Label FontSize="Micro" VerticalOptions="Center"  Text="{Binding Date, Converter={StaticResource TimeConverter}}"/>
+                <HorizontalStackLayout.Behaviors>
+                    <toolkit:TouchBehavior
+                        LongPressDuration="1000"
+                        LongPressCommand="{Binding HoldCommand, Source={x:Reference Root}}"
+                        LongPressCommandParameter="{Binding BindingContext, Source={x:Reference Root}}"/>
+                </HorizontalStackLayout.Behaviors>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Border>
+</ContentView>

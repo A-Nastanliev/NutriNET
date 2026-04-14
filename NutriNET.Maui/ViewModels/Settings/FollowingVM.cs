@@ -5,6 +5,8 @@ using NutriNET.Maui.ApiClients;
 using NutriNET.Maui.Managers;
 using NutriNET.Maui.Messages.Recipes;
 using NutriNET.Maui.Models.User;
+using NutriNET.Maui.ViewModels.Recipes;
+using NutriNET.Maui.Views.Recipes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,6 +29,8 @@ namespace NutriNET.Maui.ViewModels.Settings
         [RelayCommand]
         public async Task VisitProfile(PublicUserVM user)
         {
+            await Shell.Current.GoToAsync(nameof(ProfilePage), true,
+                new Dictionary<string, object> { [nameof(ProfileVM.User)] = user });
         }
 
         [RelayCommand]

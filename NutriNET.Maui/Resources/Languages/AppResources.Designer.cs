@@ -88,6 +88,42 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} added to {1}.
+        /// </summary>
+        internal static string AddedToList {
+            get {
+                return ResourceManager.GetString("AddedToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a name for your new list.
+        /// </summary>
+        internal static string AddListMessage {
+            get {
+                return ResourceManager.GetString("AddListMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add List.
+        /// </summary>
+        internal static string AddListTitle {
+            get {
+                return ResourceManager.GetString("AddListTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to List.
+        /// </summary>
+        internal static string AddToList {
+            get {
+                return ResourceManager.GetString("AddToList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Administrators cannot delete themselves..
         /// </summary>
         internal static string AdminCannotDeleteSelf {
@@ -241,6 +277,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Share your thoughts....
+        /// </summary>
+        internal static string CommentPlaceholder {
+            get {
+                return ResourceManager.GetString("CommentPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment restriction not found..
         /// </summary>
         internal static string CommentRestrictionNotFound {
@@ -273,6 +318,24 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string CommentRestrictionsPickerTitle {
             get {
                 return ResourceManager.GetString("CommentRestrictionsPickerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comments must be at least 4 characters.
+        /// </summary>
+        internal static string CommentTooShort {
+            get {
+                return ResourceManager.GetString("CommentTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Community Rating.
+        /// </summary>
+        internal static string CommunityRating {
+            get {
+                return ResourceManager.GetString("CommunityRating", resourceCulture);
             }
         }
         
@@ -322,6 +385,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recipe {0} created.
+        /// </summary>
+        internal static string CreatedRecipe {
+            get {
+                return ResourceManager.GetString("CreatedRecipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Food.
         /// </summary>
         internal static string CreateFoodTitle {
@@ -336,6 +408,15 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string CreateModeratorRequestPageTitle {
             get {
                 return ResourceManager.GetString("CreateModeratorRequestPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Recipe.
+        /// </summary>
+        internal static string CreateRecipeTitle {
+            get {
+                return ResourceManager.GetString("CreateRecipeTitle", resourceCulture);
             }
         }
         
@@ -358,6 +439,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} days.
+        /// </summary>
+        internal static string days {
+            get {
+                return ResourceManager.GetString("days", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decline.
         /// </summary>
         internal static string Decline {
@@ -376,6 +466,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this comment?.
+        /// </summary>
+        internal static string DeleteCommentMessage {
+            get {
+                return ResourceManager.GetString("DeleteCommentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} deleted.
         /// </summary>
         internal static string DeletedFood {
@@ -385,11 +484,38 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleted {0}.
+        /// </summary>
+        internal static string DeletedRecipe {
+            get {
+                return ResourceManager.GetString("DeletedRecipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} deleted.
+        /// </summary>
+        internal static string DeletedRecipeList {
+            get {
+                return ResourceManager.GetString("DeletedRecipeList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} deleted.
         /// </summary>
         internal static string DeletedUser {
             get {
                 return ResourceManager.GetString("DeletedUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove {0}g of {1}?.
+        /// </summary>
+        internal static string DeleteIngredientMessage {
+            get {
+                return ResourceManager.GetString("DeleteIngredientMessage", resourceCulture);
             }
         }
         
@@ -417,6 +543,33 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string DeleteNameMessage {
             get {
                 return ResourceManager.GetString("DeleteNameMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will permanently delete the recipe.
+        /// </summary>
+        internal static string DeleteRecipeMessage {
+            get {
+                return ResourceManager.GetString("DeleteRecipeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete {0}.
+        /// </summary>
+        internal static string DeleteRecipeTitle {
+            get {
+                return ResourceManager.GetString("DeleteRecipeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete {0}? This action cannot be undone..
+        /// </summary>
+        internal static string DeleteUserConfirmMessage {
+            get {
+                return ResourceManager.GetString("DeleteUserConfirmMessage", resourceCulture);
             }
         }
         
@@ -457,6 +610,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dinner.
         /// </summary>
         internal static string Dinner {
@@ -466,11 +628,29 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        internal static string Duration {
+            get {
+                return ResourceManager.GetString("Duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         internal static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Weight.
+        /// </summary>
+        internal static string EditWeight {
+            get {
+                return ResourceManager.GetString("EditWeight", resourceCulture);
             }
         }
         
@@ -534,6 +714,24 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string EndUserRestrictionConfirmation {
             get {
                 return ResourceManager.GetString("EndUserRestrictionConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter weight in grams for {0}.
+        /// </summary>
+        internal static string EnterWeightMessage {
+            get {
+                return ResourceManager.GetString("EnterWeightMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Weight.
+        /// </summary>
+        internal static string EnterWeightTitle {
+            get {
+                return ResourceManager.GetString("EnterWeightTitle", resourceCulture);
             }
         }
         
@@ -606,6 +804,24 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string FollowingPageTitle {
             get {
                 return ResourceManager.GetString("FollowingPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Following Recipes.
+        /// </summary>
+        internal static string FollowingRecipesPageTitle {
+            get {
+                return ResourceManager.GetString("FollowingRecipesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Following.
+        /// </summary>
+        internal static string FollowingRecipesTabPageTitle {
+            get {
+                return ResourceManager.GetString("FollowingRecipesTabPageTitle", resourceCulture);
             }
         }
         
@@ -889,11 +1105,38 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} hours.
+        /// </summary>
+        internal static string hours {
+            get {
+                return ResourceManager.GetString("hours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incorrect password, please try again..
         /// </summary>
         internal static string IncorrectPassword {
             get {
                 return ResourceManager.GetString("IncorrectPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Added {0} g {1}.
+        /// </summary>
+        internal static string IngredientAdded {
+            get {
+                return ResourceManager.GetString("IngredientAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ingredients.
+        /// </summary>
+        internal static string Ingredients {
+            get {
+                return ResourceManager.GetString("Ingredients", resourceCulture);
             }
         }
         
@@ -979,6 +1222,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to List name should be at least one character.
+        /// </summary>
+        internal static string ListNameTooShort {
+            get {
+                return ResourceManager.GetString("ListNameTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading....
         /// </summary>
         internal static string LoadingText {
@@ -1056,6 +1308,15 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string ManageModeratorsPageTitle {
             get {
                 return ResourceManager.GetString("ManageModeratorsPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage {0}.
+        /// </summary>
+        internal static string ManageRecipeTitle {
+            get {
+                return ResourceManager.GetString("ManageRecipeTitle", resourceCulture);
             }
         }
         
@@ -1204,6 +1465,33 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My Rating.
+        /// </summary>
+        internal static string MyRating {
+            get {
+                return ResourceManager.GetString("MyRating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Recipes.
+        /// </summary>
+        internal static string MyRecipesPageTitle {
+            get {
+                return ResourceManager.GetString("MyRecipesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mine.
+        /// </summary>
+        internal static string MyRecipesTabPageTitle {
+            get {
+                return ResourceManager.GetString("MyRecipesTabPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Requests.
         /// </summary>
         internal static string MyRequestsTabPageTitle {
@@ -1312,6 +1600,42 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1 day.
+        /// </summary>
+        internal static string oneDay {
+            get {
+                return ResourceManager.GetString("oneDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 hour.
+        /// </summary>
+        internal static string oneHour {
+            get {
+                return ResourceManager.GetString("oneHour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 rating.
+        /// </summary>
+        internal static string OneRating {
+            get {
+                return ResourceManager.GetString("OneRating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1 week.
+        /// </summary>
+        internal static string oneWeek {
+            get {
+                return ResourceManager.GetString("oneWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Moderators can apply only temporary restrictions.
         /// </summary>
         internal static string OnlyTemporaryRestrictions {
@@ -1348,6 +1672,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Per 100 g .
+        /// </summary>
+        internal static string Per100g {
+            get {
+                return ResourceManager.GetString("Per100g", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to per {0} g.
         /// </summary>
         internal static string perGrams {
@@ -1362,6 +1695,51 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string PickImage {
             get {
                 return ResourceManager.GetString("PickImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick List.
+        /// </summary>
+        internal static string PickListTitle {
+            get {
+                return ResourceManager.GetString("PickListTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visiblity Level.
+        /// </summary>
+        internal static string PrivacyLevel {
+            get {
+                return ResourceManager.GetString("PrivacyLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Friends.
+        /// </summary>
+        internal static string PrivacyLevelFriendsOnly {
+            get {
+                return ResourceManager.GetString("PrivacyLevelFriendsOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private.
+        /// </summary>
+        internal static string PrivacyLevelPrivate {
+            get {
+                return ResourceManager.GetString("PrivacyLevelPrivate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public.
+        /// </summary>
+        internal static string PrivacyLevelPublic {
+            get {
+                return ResourceManager.GetString("PrivacyLevelPublic", resourceCulture);
             }
         }
         
@@ -1393,11 +1771,101 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ratings.
+        /// </summary>
+        internal static string ratings {
+            get {
+                return ResourceManager.GetString("ratings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} is already in {1}.
         /// </summary>
         internal static string RecipeAlreadyInList {
             get {
                 return ResourceManager.GetString("RecipeAlreadyInList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discover Recipes.
+        /// </summary>
+        internal static string RecipeCatalogPageTitle {
+            get {
+                return ResourceManager.GetString("RecipeCatalogPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search recipes by name, creator, or ingredient.
+        /// </summary>
+        internal static string RecipeCatalogSearch {
+            get {
+                return ResourceManager.GetString("RecipeCatalogSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discover.
+        /// </summary>
+        internal static string RecipeCatalogTabPageTitle {
+            get {
+                return ResourceManager.GetString("RecipeCatalogTabPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description must be at least {0} characters.
+        /// </summary>
+        internal static string RecipeDescriptionTooShort {
+            get {
+                return ResourceManager.GetString("RecipeDescriptionTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image is required when creating a recipe.
+        /// </summary>
+        internal static string RecipeImageMissing {
+            get {
+                return ResourceManager.GetString("RecipeImageMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No recipes in this list.
+        /// </summary>
+        internal static string RecipeListEmpty {
+            get {
+                return ResourceManager.GetString("RecipeListEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No recipe lists found.
+        /// </summary>
+        internal static string RecipeListsEmpty {
+            get {
+                return ResourceManager.GetString("RecipeListsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name must be at least {0} characters.
+        /// </summary>
+        internal static string RecipeNameTooShort {
+            get {
+                return ResourceManager.GetString("RecipeNameTooShort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A recipe must have at least 1 ingredient.
+        /// </summary>
+        internal static string RecipeNeedsIngredients {
+            get {
+                return ResourceManager.GetString("RecipeNeedsIngredients", resourceCulture);
             }
         }
         
@@ -1416,6 +1884,33 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string RecipesTabTitle {
             get {
                 return ResourceManager.GetString("RecipesTabTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removed {0}.
+        /// </summary>
+        internal static string RemovedRecipeListItem {
+            get {
+                return ResourceManager.GetString("RemovedRecipeListItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove {0} from this list?.
+        /// </summary>
+        internal static string RemoveFromListMessage {
+            get {
+                return ResourceManager.GetString("RemoveFromListMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove {0}.
+        /// </summary>
+        internal static string RemoveFromListTitle {
+            get {
+                return ResourceManager.GetString("RemoveFromListTitle", resourceCulture);
             }
         }
         
@@ -1483,6 +1978,51 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restrict.
+        /// </summary>
+        internal static string Restrict {
+            get {
+                return ResourceManager.GetString("Restrict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are restricted from commenting until {0}.
+        /// </summary>
+        internal static string RestrictedMessageWithEndDate {
+            get {
+                return ResourceManager.GetString("RestrictedMessageWithEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are restricted from commenting indefinitely.
+        /// </summary>
+        internal static string RestrictedMessageWithoutEndDate {
+            get {
+                return ResourceManager.GetString("RestrictedMessageWithoutEndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restricted.
+        /// </summary>
+        internal static string RestrictedTitle {
+            get {
+                return ResourceManager.GetString("RestrictedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reason (optional).
+        /// </summary>
+        internal static string RestrictionReasonPlaceholder {
+            get {
+                return ResourceManager.GetString("RestrictionReasonPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restrictions.
         /// </summary>
         internal static string RestrictionsTabPageTitle {
@@ -1519,11 +2059,47 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Restrict User.
+        /// </summary>
+        internal static string RestrictUser {
+            get {
+                return ResourceManager.GetString("RestrictUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save Changes.
         /// </summary>
         internal static string SaveChanges {
             get {
                 return ResourceManager.GetString("SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved Recipes.
+        /// </summary>
+        internal static string SavedRecipesPageTitle {
+            get {
+                return ResourceManager.GetString("SavedRecipesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        internal static string SelectCommentAction {
+            get {
+                return ResourceManager.GetString("SelectCommentAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select recipe visibility.
+        /// </summary>
+        internal static string SelectPrivacyLevelTitle {
+            get {
+                return ResourceManager.GetString("SelectPrivacyLevelTitle", resourceCulture);
             }
         }
         
@@ -1609,6 +2185,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        internal static string Total {
+            get {
+                return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unfollow.
         /// </summary>
         internal static string Unfollow {
@@ -1636,11 +2221,47 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recipe {0} updated.
+        /// </summary>
+        internal static string UpdatedRecipe {
+            get {
+                return ResourceManager.GetString("UpdatedRecipe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit Food.
         /// </summary>
         internal static string UpdateFoodTitle {
             get {
                 return ResourceManager.GetString("UpdateFoodTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a new name for your list.
+        /// </summary>
+        internal static string UpdateListMessage {
+            get {
+                return ResourceManager.GetString("UpdateListMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename List.
+        /// </summary>
+        internal static string UpdateListTitle {
+            get {
+                return ResourceManager.GetString("UpdateListTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Recipe.
+        /// </summary>
+        internal static string UpdateRecipeTitle {
+            get {
+                return ResourceManager.GetString("UpdateRecipeTitle", resourceCulture);
             }
         }
         
@@ -1695,6 +2316,33 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string UserNotFound {
             get {
                 return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} restricted.
+        /// </summary>
+        internal static string UserRestricted {
+            get {
+                return ResourceManager.GetString("UserRestricted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View All.
+        /// </summary>
+        internal static string ViewAll {
+            get {
+                return ResourceManager.GetString("ViewAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} weeks.
+        /// </summary>
+        internal static string weeks {
+            get {
+                return ResourceManager.GetString("weeks", resourceCulture);
             }
         }
         

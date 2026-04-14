@@ -7,9 +7,11 @@ using NutriNET.Maui.Authentication;
 using NutriNET.Maui.Models.User;
 using NutriNET.Maui.ViewModels.Authentication;
 using NutriNET.Maui.ViewModels.Food;
+using NutriNET.Maui.ViewModels.Recipes;
 using NutriNET.Maui.ViewModels.Settings;
 using NutriNET.Maui.Views.Authentication;
 using NutriNET.Maui.Views.Food;
+using NutriNET.Maui.Views.Recipes;
 using NutriNET.Maui.Views.Settings;
 using Syncfusion.Maui.Toolkit.Hosting;
 using ZXing.Net.Maui.Controls;
@@ -109,6 +111,30 @@ namespace NutriNET.Maui
 
             builder.Services.AddSingleton<FoodRequestsVM>();
             builder.Services.AddSingleton<FoodRequestsPage>();
+
+            builder.Services.AddTransient<RecipeCatalogVM>();
+            builder.Services.AddSingleton<RecipeCatalogPage>();
+
+            builder.Services.AddSingleton<FollowingRecipesVM>();
+            builder.Services.AddSingleton<FollowingRecipesPage>();
+
+            builder.Services.AddTransient<MyRecipesVM>();
+            builder.Services.AddSingleton<MyRecipesPage>();
+
+            builder.Services.AddTransient<RecipeFormVM>();
+            builder.Services.AddTransient<RecipeFormPage>();
+
+            builder.Services.AddTransient<RecipeDetailVM>();
+            builder.Services.AddTransient<RecipeDetailPage>();
+
+            builder.Services.AddTransient<ProfilePage>();
+            builder.Services.AddTransient<ProfileVM>();
+
+            builder.Services.AddSingleton<SavedRecipesVM>();
+            builder.Services.AddSingleton<SavedRecipesPage>();
+
+            builder.Services.AddTransient<RecipeListLoaderVM>();
+            builder.Services.AddTransient<RecipeListPage>();
 
             return builder.Build();
         }

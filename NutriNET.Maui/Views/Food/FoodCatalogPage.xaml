@@ -74,7 +74,7 @@
                     <Grid RowDefinitions="Auto, Auto">
                         <Image Aspect="AspectFill" HeightRequest="340" Source="{Binding SelectedFood.ImageSource}" />
                         <VerticalStackLayout Padding="16, 8, 16, 8" Spacing="4" Background="{StaticResource PrimaryOverlay}" HorizontalOptions="Fill" VerticalOptions="End">
-                            <Label Text="{Binding SelectedFood.Name}" FontSize="Medium" LineBreakMode="TailTruncation"/>
+                            <Label Text="{Binding SelectedFood.Name}" FontSize="Medium" LineBreakMode="WordWrap"/>
                             <Label Text="{Binding SelectedFood.ExtraInfo}" LineBreakMode="TailTruncation" FontSize="Small" 
                                 IsVisible="{Binding SelectedFood.ExtraInfo, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Null}}"/>
                             <Label Text="{local:Translate NoBrandText}" LineBreakMode="TailTruncation" FontSize="Small" 

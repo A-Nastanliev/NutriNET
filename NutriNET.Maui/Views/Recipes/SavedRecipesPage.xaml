@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Recipes.SavedRecipesPage"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             Title="{local:Translate SavedRecipesPageTitle}"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Recipes"
+             x:DataType="vm:SavedRecipesVM"
+             x:Name="PageRoot"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:foodViews="clr-namespace:NutriNET.Maui.Views.Food"
+             xmlns:recipeViews="clr-namespace:NutriNET.Maui.Views.Recipes">
+
+    <AbsoluteLayout>
+        <RefreshView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsRefreshing="{Binding IsRefreshing}"
+                        Command="{Binding RefreshCommand}" >
+            <CollectionView VerticalOptions="Fill" Margin="0"
+                        ItemsSource="{Binding RecipeLists}" VerticalScrollBarVisibility="Never">
+
+                <CollectionView.EmptyView>
+                    <Label  Text="{local:Translate RecipeListsEmpty}"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center"/>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:RecipeListLoaderVM" x:Name="RecipeListLoader">
+                        <Grid RowDefinitions="Auto, Auto, Auto">
+                            <Grid Grid.Row="0" ColumnDefinitions="*, auto" Margin="10,6,10,0" ColumnSpacing="10">
+                                <Label Text="{Binding RecipeList.Name}" FontSize="Medium" HorizontalTextAlignment="Start" LineBreakMode="WordWrap"
+                                       VerticalTextAlignment="Center">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding UpdateNameCommand}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                                <buttons:SfButton VerticalOptions="Center" Command="{Binding Source={x:Reference PageRoot}, Path=BindingContext.DeleteListCommand}"
+                                    CommandParameter="{Binding .}" ImageSource="delete_icon.png" ShowIcon="True" Grid.Column="1"
+                                    CornerRadius="15" WidthRequest="30" HeightRequest="30" Padding="0"  ImageAlignment="Default" Text="">
+                                    <buttons:SfButton.Style>
+                                        <Style TargetType="buttons:SfButton">
+                                            <Setter Property="Background" Value="Red" />
+                                        </Style>
+                                    </buttons:SfButton.Style>
+                                </buttons:SfButton>
+                            </Grid>
+                            <CollectionView ItemsSource="{Binding Recipes}"  VerticalOptions="Fill" Grid.Row="1" Margin="0,0,0,0"
+                               RemainingItemsThreshold="3" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never"
+                               RemainingItemsThresholdReachedCommand="{Binding LoadCommand}" MinimumHeightRequest="60" >
+                                <CollectionView.EmptyView>
+                                    <Label  Text="{local:Translate RecipeListEmpty}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </CollectionView.EmptyView>
+                                <CollectionView.ItemsLayout>
+                                    <LinearItemsLayout Orientation="Horizontal"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <foodViews:FoodView WidthRequest="150"
+                                         TapCommand="{Binding Source={RelativeSource AncestorType={x:Type vm:RecipeListLoaderVM}}, Path=SelectFoodCommand}"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                            <Label Text="{local:Translate ViewAll}" Grid.Row="2" FontSize="Small" Margin="10,0,10,6" HorizontalOptions="Start">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ViewRecipeListCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+        <VerticalStackLayout AbsoluteLayout.LayoutBounds="0.95,0.97,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Spacing="20">
+            <Grid HeightRequest="40" WidthRequest="40" >
+                <Button x:Name="PlusButtonBase" CornerRadius="36" Command="{Binding AddListCommand}"/>
+                <Image Source="plus_icon.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="24" WidthRequest="24">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White" />
+                    </Image.Behaviors>
+                </Image>
+            </Grid>
+        </VerticalStackLayout>
+    </AbsoluteLayout>
+</ContentPage>

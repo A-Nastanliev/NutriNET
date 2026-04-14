@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Recipes.RecipeDetailPage"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Recipes"
+             x:DataType="vm:RecipeDetailVM"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             xmlns:recipeViews="clr-namespace:NutriNET.Maui.Views.Recipes"
+             xmlns:chart="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
+             Title="{Binding Recipe.Name}"
+             x:Name="Root">
+
+    <ContentPage.Resources>
+        <x:Int32 x:Key="One">1</x:Int32>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout SafeAreaEdges="Container">
+        <RefreshView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1"
+                 Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+            <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+                <VerticalStackLayout Spacing="16" Padding="0">
+                    <Image Source="{Binding Recipe.ImageSource}" Aspect="AspectFill" HeightRequest="340"/>
+                    <Label Text="{Binding Recipe.Name}"  FontSize="Medium" Margin="10,0" LineBreakMode="WordWrap"/>
+                    <HorizontalStackLayout Spacing="12" VerticalOptions="Center" HorizontalOptions="Start" Margin="10,0" >
+                        <Label Text="{local:Translate By}" VerticalTextAlignment="Center" FontSize="Medium"/>
+                        <Border WidthRequest="30" HeightRequest="30" StrokeThickness="1" Stroke="LightGray" StrokeShape="RoundRectangle 30" VerticalOptions="Center">
+                            <Image Source="{Binding Recipe.Creator.ProfilePictureSource}" Aspect="AspectFill">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="15,15" RadiusX="15" RadiusY="15" />
+                                </Image.Clip>
+                            </Image>
+                        </Border>
+                        <Label Text="{Binding Recipe.Creator.Username}" FontSize="Medium" VerticalOptions="Center" LineBreakMode="TailTruncation">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer
+                                Command="{Binding BindingContext.VisitProfileCommand, Source={x:Reference Root}}"
+                                CommandParameter="{Binding BindingContext.Recipe.Creator, Source={x:Reference Root}}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout Margin="10,0" Spacing="10">
+                        <Label Text="{local:Translate PrivacyLevel}"  FontSize="Medium"/>
+                        <Label Text="{Binding PrivacyLevel}" TextColor="{StaticResource SecondaryDarkText}"
+                        VerticalOptions="Center" HorizontalOptions="Fill" LineBreakMode="WordWrap"
+                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
+                    </HorizontalStackLayout>
+                    <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto, Auto" HorizontalOptions="Center"
+                      ColumnSpacing="20" RowSpacing="4">
+                        <Label Grid.Row="0" Grid.Column="0" Text="{local:Translate CommunityRating}" Grid.ColumnSpan="3"
+                        FontSize="Medium" HorizontalOptions="Center"/>
+                        <Label FontSize="Small" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center"
+                        IsVisible="{Binding RatingCount, Converter={StaticResource NotEqualsConverter}, ConverterParameter={StaticResource One}}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding RatingCount}"/>
+                                    <Span Text=" "/>
+                                    <Span Text="{local:Translate ratings}"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label FontSize="Small" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" Text="{local:Translate OneRating}" VerticalOptions="Center"
+                        IsVisible="{Binding RatingCount, Converter={StaticResource EqualsConverter}, ConverterParameter={StaticResource One}}"/>
+                        <Label Text="{Binding DisplaybleAverageRating}" FontSize="Small" VerticalOptions="Center"
+                          Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"/>
+                        <toolkit:RatingView VerticalOptions="Center" Shape="Star" HorizontalOptions="Center" Grid.Row="1" Grid.Column="0"
+                            IsReadOnly="True" FillColor="{StaticResource Primary}" Rating="{Binding AverageRating, Mode=OneWay}" 
+                            ShapeBorderColor="{StaticResource PrimaryDark}" MaximumRating="5" EmptyShapeColor="White"/>
+                    </Grid>
+                    <Grid Margin="10,0 " ColumnDefinitions="Auto, Auto" RowDefinitions="Auto, Auto" 
+                      ColumnSpacing="20" RowSpacing="4" HorizontalOptions="Center">
+                        <Label Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="{local:Translate MyRating}"
+                           FontSize="Medium" HorizontalOptions="Center"/>
+                        <toolkit:RatingView Shape="Star" HorizontalOptions="Center" VerticalOptions="Fill" Grid.Column="0" Grid.Row="1"
+                        IsReadOnly="False" FillColor="{StaticResource Primary}" Rating="{Binding MyRating, Mode=TwoWay}"
+                        ShapeBorderColor="{StaticResource PrimaryDark}" MaximumRating="5" EmptyShapeColor="White" Margin="10,0"/>
+                        <buttons:SfButton Command="{Binding ClearRatingCommand}" FontSize="Small" ImageSource="delete_icon.png" Text=""
+                        CornerRadius="15" WidthRequest="30" HeightRequest="30" VerticalOptions="Center"
+                        ShowIcon="True" ImageAlignment="Default" TextColor="White" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" Padding="0">
+                            <buttons:SfButton.Style>
+                                <Style TargetType="buttons:SfButton">
+                                    <Setter Property="Background" Value="{StaticResource SecondaryDarkText}" />
+                                </Style>
+                            </buttons:SfButton.Style>
+                        </buttons:SfButton>
+                    </Grid>
+                    <Border Padding="0" Style="{StaticResource SectionCard}" Stroke="Transparent" Margin="10,0">
+                        <Grid RowDefinitions="Auto, Auto"> 
+                            <Grid ColumnDefinitions="30*,75*" Grid.Row="0">
+                                <chart:ChartView Chart="{Binding MacroChart}" VerticalOptions="Fill"
+                                    Grid.Column="0" Background="Transparent" BackgroundColor="Transparent"/>
+                                <Grid Grid.Column="1" ColumnDefinitions="*,*" ColumnSpacing="8"
+                                      RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="6"
+                                      VerticalOptions="Center" Padding="8,6,8,6">
+                                    <Label Grid.Row="0" Grid.Column="0" FontSize="Small"
+                                        HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{local:Translate Total}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{Binding Recipe.TotalWeight}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{local:Translate grams}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{local:Translate Per100g}" FontSize="Small"
+                                        HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
+                                    <Label Grid.Row="1" Grid.Column="0" FontSize="Small" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}"
+                                        VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Recipe.TotalCalories}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{local:Translate kcal}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="1" Grid.Column="1" FontSize="Micro" TextColor="{StaticResource SecondaryDark}"
+                                        VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Recipe.NormalizedCalories}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{local:Translate kcal}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="2" Grid.Column="0" FontSize="Small" TextColor="{StaticResource ProteinColor}"
+                                        VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Recipe.TotalProteins}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{local:Translate grams}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="2" Grid.Column="1" FontSize="Micro" TextColor="{StaticResource ProteinColorSecondary}"
+                                        VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Recipe.NormalizedProteins}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{local:Translate grams}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="3" Grid.Column="0" FontSize="Small" TextColor="{StaticResource CarbsColor}"
+                                        VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Recipe.TotalCarbohydrates}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{local:Translate grams}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="3" Grid.Column="1" FontSize="Micro" TextColor="{StaticResource CarbsColorSecondary}"
+                                        VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Recipe.NormalizedCarbohydrates}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{local:Translate grams}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="4" Grid.Column="0" FontSize="Small" TextColor="{StaticResource FatColor}"
+                                        VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Recipe.TotalFats}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{local:Translate grams}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="4" Grid.Column="1" FontSize="Micro" TextColor="{StaticResource FatColorSecondary}"
+                                        VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Recipe.NormalizedFats}"/>
+                                                <Span Text=" "/>
+                                                <Span Text="{local:Translate grams}"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                            </Grid>
+                            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Start" Grid.Row="1" Padding="16,4,16,8" HorizontalOptions="Center">
+                                <HorizontalStackLayout Spacing="5" Margin="0,0,12,0" VerticalOptions="Center">
+                                    <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
+                                         Color="{StaticResource PrimaryDark}" BackgroundColor="Transparent"
+                                         VerticalOptions="Center"/>
+                                    <Label Text="{local:Translate Calories}" FontSize="Micro" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="5" Margin="0,0,12,0" VerticalOptions="Center">
+                                    <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
+                                         Color="{StaticResource ProteinColor}" BackgroundColor="Transparent"
+                                         VerticalOptions="Center"/>
+                                    <Label Text="{local:Translate Protein}" FontSize="Micro" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="5" Margin="0,0,12,0" VerticalOptions="Center">
+                                    <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
+                                         Color="{StaticResource CarbsColor}" BackgroundColor="Transparent"
+                                         VerticalOptions="Center"/>
+                                    <Label Text="{local:Translate Carbohydrates}" FontSize="Micro" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                                    <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
+                                         Color="{StaticResource FatColor}" BackgroundColor="Transparent"
+                                         VerticalOptions="Center"/>
+                                    <Label Text="{local:Translate Fat}" FontSize="Micro" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </FlexLayout>
+                        </Grid>
+                    </Border>
+                    <VerticalStackLayout>
+                        <Label Text="{local:Translate Ingredients}" FontSize="Medium" Grid.Column="0" VerticalTextAlignment="Center" Margin="10,0"/>
+                        <CollectionView VerticalOptions="Fill" Margin="4,0"
+                        ItemsSource="{Binding Recipe.Ingredients}" VerticalScrollBarVisibility="Never">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <recipeViews:RecipeIngredientView/>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="4" Margin="10,0">
+                        <Label Text="{local:Translate Description}" FontSize="Medium"/>
+                        <Label LineBreakMode="WordWrap" FontSize="Small" Text="{Binding Recipe.Description}" />
+                    </VerticalStackLayout>
+                    <buttons:SfButton Command="{Binding AddToRecipeListCommand}" FontSize="Small" ImageSource="plus_icon.png" VerticalOptions="Center"
+                  ShowIcon="True" ImageAlignment="Right" TextColor="White"
+                    Text="{local:Translate AddToList}"  HorizontalOptions="Center" Padding="0">
+                        <buttons:SfButton.Style>
+                            <Style TargetType="buttons:SfButton">
+                                <Setter Property="Background" Value="{StaticResource SecondaryDarkText}" />
+                            </Style>
+                        </buttons:SfButton.Style>
+                    </buttons:SfButton>
+                    <Border Style="{StaticResource SectionCard}" Margin="10,0" Padding="10,10">
+                        <Grid ColumnDefinitions="*, Auto" ColumnSpacing="4">
+                            <Editor Margin="6,0" Text="{Binding NewComment, Mode=TwoWay}" Placeholder="{local:Translate CommentPlaceholder}" 
+                            AutoSize="TextChanges" MaxLength="500"/>
+                            <buttons:SfButton Grid.Column="1"
+                            Command="{Binding CreateCommentCommand}" ImageSource="send_icon.png" ShowIcon="True" 
+                            CornerRadius="15" WidthRequest="30" HeightRequest="30" Padding="0"  ImageAlignment="Default" Text="">
+                                <buttons:SfButton.Style>
+                                    <Style TargetType="buttons:SfButton">
+                                        <Setter Property="Background" Value="{StaticResource Primary}" />
+                                    </Style>
+                                </buttons:SfButton.Style>
+                            </buttons:SfButton>
+                        </Grid>
+                    </Border>
+                    <CollectionView VerticalOptions="Fill" Margin="10,0,10,10" ItemsSource="{Binding Comments}" 
+                    RemainingItemsThreshold="3" VerticalScrollBarVisibility="Never"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadCommand}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <recipeViews:CommentView Margin="0,4"
+                                NameTapCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.VisitProfileCommand}"
+                                HoldCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectCommentCommand}"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </ScrollView>
+        </RefreshView>
+        <Grid
+         x:Name="Overlay" IsVisible="False" BackgroundColor="#771A1A1A" RowDefinitions="*, 2*"
+         AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <BoxView  BackgroundColor="#80000000" Grid.RowSpan="2">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOverlayTapped"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            <Grid  x:Name="BottomSheetContent" RowDefinitions="*" Grid.Row="1" HorizontalOptions="Fill" 
+             VerticalOptions="End">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0" Padding="0">
+                    <Grid VerticalOptions="End" Padding="10">
+                        <Grid x:Name="EditCommentGrid" IsVisible="{Binding IsEditingComment, Mode=TwoWay}"
+                            RowDefinitions="Auto, Auto, *, Auto">
+                            <Editor Margin="6,0" Text="{Binding EditComment, Mode=TwoWay}" Placeholder="{local:Translate CommentPlaceholder}" 
+                                AutoSize="TextChanges" MaxLength="500" x:Name="EditCommentEditor"/>
+                            <Button Text="{local:Translate SaveChanges}" Command="{Binding UpdateCommentCommand}" Grid.Row="1"/>
+                        </Grid>
+                        <Grid x:Name="RestrictUserGrid" IsVisible="{Binding IsRestricting, Mode=TwoWay}"
+                            RowDefinitions="Auto, *, Auto" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="20">
+                            <HorizontalStackLayout Spacing="12" VerticalOptions="Center" HorizontalOptions="Start" Grid.Row="0" Grid.ColumnSpan="3">
+                                <Border WidthRequest="34" HeightRequest="34" StrokeThickness="1" Stroke="LightGray" StrokeShape="RoundRectangle 34" VerticalOptions="Center">
+                                    <Image Source="{Binding SelectedComment.User.ProfilePictureSource}" Aspect="AspectFill">
+                                        <Image.Clip>
+                                            <EllipseGeometry Center="17,17" RadiusX="17" RadiusY="17" />
+                                        </Image.Clip>
+                                    </Image>
+                                </Border>
+                                <Label Text="{Binding SelectedComment.User.Username}" FontAttributes="Bold" FontSize="Small" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <Label FontSize="Small" Text="{local:Translate Duration}" Grid.Row="2" Grid.Column="0" HorizontalOptions="Fill" HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center" Margin="10,0,0,0"/>
+                            <Label FontSize="Small" Grid.Row="2" Grid.Column="1" Text="{Binding SelectedRestrictionOption.Key}" HorizontalOptions="Fill" 
+                                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectRestrictionDurationCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Editor Margin="6,0" Text="{Binding RestrictionReason, Mode=TwoWay}" Placeholder="{local:Translate RestrictionReasonPlaceholder}" 
+                                AutoSize="TextChanges" MaxLength="500" x:Name="RestrictionEditor" Grid.ColumnSpan="3" Grid.Row="1"/>
+                            <buttons:SfButton Grid.Column="2" Grid.Row="2" Command="{Binding RestrictUserCommand }" ImageSource="restrict_icon.png" Margin="0,0,10,0"
+                                ShowIcon="True" Padding="0" ImageAlignment="Right" Text="{local:Translate Restrict}" VerticalOptions="Center" HorizontalOptions="Center">
+                                <buttons:SfButton.Style>
+                                    <Style TargetType="buttons:SfButton">
+                                        <Setter Property="Background" Value="{StaticResource Primary}" />
+                                    </Style>
+                                </buttons:SfButton.Style>
+                            </buttons:SfButton>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </AbsoluteLayout>
+</ContentPage>

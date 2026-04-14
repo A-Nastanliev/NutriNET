@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Recipes.RecipeIngredientView"           
+             xmlns:vm="clr-namespace:NutriNET.Maui.Models.Recipes"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="vm:RecipeIngredientVM"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             x:Name="Root">
+
+    <ContentView.GestureRecognizers>
+        <TapGestureRecognizer  Command="{Binding EditCommand, Source={x:Reference Root}}"
+          CommandParameter="{Binding BindingContext, Source={x:Reference Root}}"/>
+    </ContentView.GestureRecognizers>
+
+    <ContentView.Behaviors>
+        <toolkit:TouchBehavior
+          LongPressDuration="1000"
+          LongPressCommand="{Binding DeleteCommand, Source={x:Reference Root}}"
+          LongPressCommandParameter="{Binding BindingContext, Source={x:Reference Root}}"/>
+    </ContentView.Behaviors>
+
+    <Border
+      Margin="6" StrokeShape="RoundRectangle 10"
+      Padding="0,1" HorizontalOptions="Fill" >
+        <Grid ColumnDefinitions="*,4*">
+            <Image
+                  Aspect="AspectFill" HeightRequest="62"
+                  Grid.Row="0" Grid.Column="0"
+                  Source="{Binding Food.ImageSource}" />
+            <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="1.3*,*,*,*" Grid.Column="1">
+                <Label
+                   Text="{Binding Food.Name}" FontSize="Small" Padding="8,0"
+                   LineBreakMode="TailTruncation" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                <Label Text="{Binding Food.ExtraInfo}" Padding="8,0" LineBreakMode="TailTruncation" FontSize="Micro"  Grid.Row="1" Grid.ColumnSpan="3" 
+                     Grid.Column="0" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+                      IsVisible="{Binding Food.ExtraInfo, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Null}}"/>
+                <Label Text="{local:Translate NoBrandText}" Padding="8,0" LineBreakMode="TailTruncation" FontSize="Micro" Grid.Row="1" Grid.ColumnSpan="3" 
+                     Grid.Column="0" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"
+                  IsVisible="{Binding Food.ExtraInfo, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Null}}"/>
+                <Label Grid.Row="0" Grid.Column="3" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="Small" Grid.RowSpan="2">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Weight}" />
+                            <Span Text=" " />
+                            <Span Text="{local:Translate grams}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label  FontSize="Small" Grid.Row="2" LineBreakMode="TailTruncation"
+                   HorizontalOptions="Center" Grid.Column="0" VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Calories}" />
+                            <Span Text=" " />
+                            <Span Text="{local:Translate kcal}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label FontSize="Small" TextColor="{StaticResource ProteinColor}" Grid.Row="2" LineBreakMode="TailTruncation"
+              Grid.Column="1" HorizontalOptions="Center" VerticalTextAlignment="Center" VerticalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Proteins}" />
+                            <Span Text=" " />
+                            <Span Text="{local:Translate grams}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label FontSize="Small" TextColor="{StaticResource CarbsColor}" VerticalTextAlignment="Center" VerticalOptions="Center"
+                  Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" LineBreakMode="TailTruncation">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Carbohydrates}" />
+                            <Span Text=" " />
+                            <Span Text="{local:Translate grams}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label FontSize="Small" TextColor="{StaticResource FatColor}" Grid.Row="2" LineBreakMode="TailTruncation"
+                  Grid.Column="3" HorizontalOptions="Center"  VerticalTextAlignment="Center" VerticalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Fats}" />
+                            <Span Text=" " />
+                            <Span Text="{local:Translate grams}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Grid>
+        </Grid>
+    </Border>
+</ContentView>

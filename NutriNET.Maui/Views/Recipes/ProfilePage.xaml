@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Recipes.ProfilePage"
+             Title="{Binding User.Username}"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Recipes"
+             x:DataType="vm:ProfileVM" 
+             x:Name="PageRoot"
+             xmlns:role="clr-namespace:NutriNET.Maui.Authentication"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:catalog="clr-namespace:NutriNET.Maui.Views.Recipes"
+             xmlns:foodView="clr-namespace:NutriNET.Maui.Views.Food">
+
+    <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+        <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+            <Grid  RowSpacing="4" RowDefinitions="Auto, *">
+                <Border Style="{StaticResource SectionCard}" Margin="10,10,10,0" Padding="12">
+                    <Grid ColumnDefinitions="Auto, *, *" RowDefinitions="Auto, Auto, Auto"
+                 ColumnSpacing="12" RowSpacing="8">
+                        <Border Grid.Column="0" Grid.RowSpan="3"
+                        Stroke="{StaticResource Primary}" StrokeThickness="2" StrokeShape="RoundRectangle 60"
+                        WidthRequest="80" HeightRequest="80" VerticalOptions="Center">
+                            <ImageButton
+                        Source="{Binding User.ProfilePictureSource}" Aspect="AspectFill">
+                                <ImageButton.Clip>
+                                    <EllipseGeometry Center="40,40" RadiusX="40" RadiusY="40" />
+                                </ImageButton.Clip>
+                            </ImageButton>
+                        </Border>
+                        <Grid Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                          ColumnDefinitions="*, auto">
+                            <Label 
+                            Text="{Binding User.Username}" FontSize="Medium" FontAttributes="Bold" TextColor="White"
+                            VerticalOptions="Center"  Grid.Column="0"/>
+                            <buttons:SfButton Command="{Binding DeleteUserCommand}" FontSize="Small" ImageSource="delete_icon.png" 
+                             CornerRadius="15" WidthRequest="30" HeightRequest="30" VerticalOptions="Center"
+                             ShowIcon="True" ImageAlignment="Default" TextColor="White" Grid.Column="1" HorizontalOptions="Center" Padding="0"
+                             IsVisible="{Binding CanDeleteUser}">
+                                <buttons:SfButton.Style>
+                                    <Style TargetType="buttons:SfButton">
+                                        <Setter Property="Background" Value="Red" />
+                                    </Style>
+                                </buttons:SfButton.Style>
+                            </buttons:SfButton>
+                        </Grid>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                            <Label Text="{Binding Followers}" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Start" Margin="2,0"/>
+                            <Label Text="{local:Translate FollowersPageTitle}" FontSize="Micro" TextColor="White" HorizontalOptions="Start" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="2" Spacing="2" VerticalOptions="Center">
+                            <Label Text="{Binding Following}" FontSize="Small" FontAttributes="Bold" HorizontalOptions="Start" Margin="2,0"/>
+                            <Label Text="{local:Translate FollowingPageTitle}" FontSize="Micro" TextColor="White" HorizontalOptions="Start" />
+                        </VerticalStackLayout>
+
+                        <Button Grid.Row="2" Grid.Column="2"
+                        Text="{Binding User.FollowButtonText}" Command="{Binding ToggleFollowCommand}"
+                        FontSize="Micro" HorizontalOptions="End" Margin="2,0"
+                        IsVisible="{Binding ShowFollowButton}"/>
+
+                    </Grid>
+                </Border>
+                <CollectionView VerticalOptions="Fill" Margin="6,0" Grid.Row="1"
+                 ItemsSource="{Binding CurrentRecipes}"
+                 RemainingItemsThreshold="3" VerticalScrollBarVisibility="Never"
+                 RemainingItemsThresholdReachedCommand="{Binding LoadCommand}">
+
+                    <CollectionView.EmptyView>
+                        <Label  Text="{local:Translate RecipeCatalogEmpty}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="2" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate >
+                            <foodView:FoodView
+                            TapCommand="{Binding BindingContext.SelectFoodCommand, Source={x:Reference PageRoot}}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

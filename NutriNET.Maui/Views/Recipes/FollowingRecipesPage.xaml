@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Recipes.FollowingRecipesPage"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             Title="{local:Translate FollowingRecipesPageTitle}"             
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Recipes"
+             x:DataType="vm:FollowingRecipesVM"
+             xmlns:catalog="clr-namespace:NutriNET.Maui.Views.Recipes"
+             xmlns:foodView="clr-namespace:NutriNET.Maui.Views.Food">
+
+    <catalog:RecipeCatalogView x:Name="RecipeCatalog" Span="2" ItemTapCommand="{Binding SelectFoodCommand}" CanSearch="True">
+        <catalog:RecipeCatalogView.ItemTemplate>
+            <DataTemplate>
+                <foodView:FoodView
+                        TapCommand="{Binding Source={RelativeSource AncestorType={x:Type catalog:RecipeCatalogView}}, Path=ItemTapCommand}" />
+            </DataTemplate>
+        </catalog:RecipeCatalogView.ItemTemplate>
+    </catalog:RecipeCatalogView>
+</ContentPage>  

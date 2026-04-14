@@ -1,5 +1,6 @@
 ﻿using NutriNET.Maui.Views.Authentication;
 using NutriNET.Maui.Views.Food;
+using NutriNET.Maui.Views.Recipes;
 using NutriNET.Maui.Views.Settings;
 
 namespace NutriNET.Maui
@@ -15,6 +16,11 @@ namespace NutriNET.Maui
             Routing.RegisterRoute(nameof(FollowingPage), typeof(FollowingPage));
             Routing.RegisterRoute(nameof(CreateModeratorRequestPage), typeof(CreateModeratorRequestPage));
             Routing.RegisterRoute(nameof(FoodFormPage), typeof(FoodFormPage));
+            Routing.RegisterRoute(nameof(RecipeFormPage), typeof(RecipeFormPage));
+            Routing.RegisterRoute(nameof(RecipeDetailPage), typeof(RecipeDetailPage));
+            Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
+            Routing.RegisterRoute(nameof(RecipeListPage), typeof(RecipeListPage));
+            Routing.RegisterRoute(nameof(SavedRecipesPage), typeof(SavedRecipesPage));
         }
     }
 }

@@ -126,6 +126,18 @@
   <data name="Add" xml:space="preserve">
     <value>Добави</value>
   </data>
+  <data name="AddedToList" xml:space="preserve">
+    <value>{0} добавена в {1}</value>
+  </data>
+  <data name="AddListMessage" xml:space="preserve">
+    <value>Въведете име за новия ви списък</value>
+  </data>
+  <data name="AddListTitle" xml:space="preserve">
+    <value>Добавяне на списък</value>
+  </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Добави в списък</value>
+  </data>
   <data name="AdminCannotDeleteSelf" xml:space="preserve">
     <value>Администраторите не могат да изтриват собствените си профили.</value>
   </data>
@@ -177,6 +189,9 @@
   <data name="CodeSent" xml:space="preserve">
     <value>Кодът е изпратен! Провери имейла си!</value>
   </data>
+  <data name="CommentPlaceholder" xml:space="preserve">
+    <value>Сподели мнението си...</value>
+  </data>
   <data name="CommentRestrictionNotFound" xml:space="preserve">
     <value>Ограничението за коментари не е намерено.</value>
   </data>
@@ -188,6 +203,12 @@
   </data>
   <data name="CommentRestrictionsPickerTitle" xml:space="preserve">
     <value>Статус на ограниченията</value>
+  </data>
+  <data name="CommentTooShort" xml:space="preserve">
+    <value>Коментарите трябва да са с дължина от поне 4 символа</value>
+  </data>
+  <data name="CommunityRating" xml:space="preserve">
+    <value>Обща оценка</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Потвърди</value>
@@ -204,11 +225,17 @@
   <data name="CreatedFood" xml:space="preserve">
     <value>Храната {0} бе добавена</value>
   </data>
+  <data name="CreatedRecipe" xml:space="preserve">
+    <value>Рецепта {0} създадена</value>
+  </data>
   <data name="CreateFoodTitle" xml:space="preserve">
     <value>Създаване на храна</value>
   </data>
   <data name="CreateModeratorRequestPageTitle" xml:space="preserve">
     <value>Заявка за модератор</value>
+  </data>
+  <data name="CreateRecipeTitle" xml:space="preserve">
+    <value>Създаване на рецепта</value>
   </data>
   <data name="CurrentEmail" xml:space="preserve">
     <value>Настоящ имейл</value>
@@ -216,17 +243,32 @@
   <data name="CurrentPassword" xml:space="preserve">
     <value>Текуща парола</value>
   </data>
+  <data name="days" xml:space="preserve">
+    <value>{0} дни</value>
+  </data>
   <data name="Decline" xml:space="preserve">
     <value>Откажи</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Изтрий</value>
   </data>
+  <data name="DeleteCommentMessage" xml:space="preserve">
+    <value>Сигурен ли си, че искаш да изтриеш този коментар?</value>
+  </data>
   <data name="DeletedFood" xml:space="preserve">
     <value>Храната {0} бе изтрита</value>
   </data>
+  <data name="DeletedRecipe" xml:space="preserve">
+    <value>Изтрихте {0}</value>
+  </data>
+  <data name="DeletedRecipeList" xml:space="preserve">
+    <value>Изтрихте {0} </value>
+  </data>
   <data name="DeletedUser" xml:space="preserve">
     <value>{0} бе изтрит</value>
+  </data>
+  <data name="DeleteIngredientMessage" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да премахнете {0}г от {1}?</value>
   </data>
   <data name="DeleteMyAccountConfirmMessage" xml:space="preserve">
     <value>Сигурни ли сте, че искате да изтриете акаунта си? Това действие не може да бъде отменено.</value>
@@ -236,6 +278,15 @@
   </data>
   <data name="DeleteNameMessage" xml:space="preserve">
     <value>Сигурни ли сте, че искате да изтриете {0}?</value>
+  </data>
+  <data name="DeleteRecipeMessage" xml:space="preserve">
+    <value>Рецептата ще бъде изтрита завинаги</value>
+  </data>
+  <data name="DeleteRecipeTitle" xml:space="preserve">
+    <value>Изтриване на {0}</value>
+  </data>
+  <data name="DeleteUserConfirmMessage" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете {0}? Това действие не може да бъде отменено.</value>
   </data>
   <data name="Demote" xml:space="preserve">
     <value>Понижи</value>
@@ -249,11 +300,20 @@
   <data name="DemoteTitle" xml:space="preserve">
     <value>Понижи {0}</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
   <data name="Dinner" xml:space="preserve">
     <value>Вечеря</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Времетраене</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Редактирай</value>
+  </data>
+  <data name="EditWeight" xml:space="preserve">
+    <value>Промяна на тегло</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Имейл</value>
@@ -275,6 +335,12 @@
   </data>
   <data name="EndUserRestrictionConfirmation" xml:space="preserve">
     <value>Сигурни ли сте, че искате да премахнете ограничението на {0}?</value>
+  </data>
+  <data name="EnterWeightMessage" xml:space="preserve">
+    <value>Въведете теглото в грамове за {0}</value>
+  </data>
+  <data name="EnterWeightTitle" xml:space="preserve">
+    <value>Въведете тегло</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Грешка</value>
@@ -298,6 +364,12 @@
     <value>Не следвате никого</value>
   </data>
   <data name="FollowingPageTitle" xml:space="preserve">
+    <value>Следвани</value>
+  </data>
+  <data name="FollowingRecipesPageTitle" xml:space="preserve">
+    <value>Рецепти от следваните</value>
+  </data>
+  <data name="FollowingRecipesTabPageTitle" xml:space="preserve">
     <value>Следвани</value>
   </data>
   <data name="FoodBarcodeExists" xml:space="preserve">
@@ -393,8 +465,17 @@
   <data name="Handled" xml:space="preserve">
     <value>Обработено</value>
   </data>
+  <data name="hours" xml:space="preserve">
+    <value>{0} часове</value>
+  </data>
   <data name="IncorrectPassword" xml:space="preserve">
     <value>Въвели сте грешна парола, моля опитайте отново.</value>
+  </data>
+  <data name="IngredientAdded" xml:space="preserve">
+    <value>Добавени {0} г {1}</value>
+  </data>
+  <data name="Ingredients" xml:space="preserve">
+    <value>Съставки</value>
   </data>
   <data name="InternalServerError" xml:space="preserve">
     <value>Възникна грешка на сървъра. Моля, опитайте отново по-късно.</value>
@@ -423,6 +504,9 @@
   <data name="Language" xml:space="preserve">
     <value>Език</value>
   </data>
+  <data name="ListNameTooShort" xml:space="preserve">
+    <value>Името трябва да е поне един символ</value>
+  </data>
   <data name="LoadingText" xml:space="preserve">
     <value>Зарежда...</value>
   </data>
@@ -449,6 +533,9 @@
   </data>
   <data name="ManageModeratorsPageTitle" xml:space="preserve">
     <value>Управление на модератори</value>
+  </data>
+  <data name="ManageRecipeTitle" xml:space="preserve">
+    <value>Действия за {0}</value>
   </data>
   <data name="MaxFoodRequests" xml:space="preserve">
     <value>Имате 3 чакащи заявки. Изчакайте поне една да бъде прегледана, преди да изпратите нова</value>
@@ -498,6 +585,15 @@
   <data name="MyFoodRequestsPageTitle" xml:space="preserve">
     <value>Моите заявки за храни</value>
   </data>
+  <data name="MyRating" xml:space="preserve">
+    <value>Моята оценка</value>
+  </data>
+  <data name="MyRecipesPageTitle" xml:space="preserve">
+    <value>Моите рецепти</value>
+  </data>
+  <data name="MyRecipesTabPageTitle" xml:space="preserve">
+    <value>Моите</value>
+  </data>
   <data name="MyRequestsTabPageTitle" xml:space="preserve">
     <value>Моите заявки</value>
   </data>
@@ -534,6 +630,18 @@
   <data name="Ok" xml:space="preserve">
     <value>ОК</value>
   </data>
+  <data name="oneDay" xml:space="preserve">
+    <value>1 ден</value>
+  </data>
+  <data name="oneHour" xml:space="preserve">
+    <value>1 час</value>
+  </data>
+  <data name="OneRating" xml:space="preserve">
+    <value>1 оценка</value>
+  </data>
+  <data name="oneWeek" xml:space="preserve">
+    <value>1 седмица</value>
+  </data>
   <data name="OnlyTemporaryRestrictions" xml:space="preserve">
     <value>Модераторите могат да налагат само временни ограничения</value>
   </data>
@@ -546,11 +654,29 @@
   <data name="PasswordUpdated" xml:space="preserve">
     <value>Паролата беше променена</value>
   </data>
+  <data name="Per100g" xml:space="preserve">
+    <value>На 100 г</value>
+  </data>
   <data name="perGrams" xml:space="preserve">
     <value>на {0} г</value>
   </data>
   <data name="PickImage" xml:space="preserve">
     <value>Избери снимка</value>
+  </data>
+  <data name="PickListTitle" xml:space="preserve">
+    <value>Избери списък</value>
+  </data>
+  <data name="PrivacyLevel" xml:space="preserve">
+    <value>Ниво на видимост</value>
+  </data>
+  <data name="PrivacyLevelFriendsOnly" xml:space="preserve">
+    <value>Приятели</value>
+  </data>
+  <data name="PrivacyLevelPrivate" xml:space="preserve">
+    <value>Лично</value>
+  </data>
+  <data name="PrivacyLevelPublic" xml:space="preserve">
+    <value>Публично</value>
   </data>
   <data name="ProfilePictureRequired" xml:space="preserve">
     <value>Профилната снимка е задължителна</value>
@@ -561,14 +687,53 @@
   <data name="Protein" xml:space="preserve">
     <value>Белтъци</value>
   </data>
+  <data name="ratings" xml:space="preserve">
+    <value>оценки</value>
+  </data>
   <data name="RecipeAlreadyInList" xml:space="preserve">
     <value>{0} вече е в {1}</value>
+  </data>
+  <data name="RecipeCatalogPageTitle" xml:space="preserve">
+    <value>Разгледай рецепти</value>
+  </data>
+  <data name="RecipeCatalogSearch" xml:space="preserve">
+    <value>Търсете рецепта по име, автор или съставка</value>
+  </data>
+  <data name="RecipeCatalogTabPageTitle" xml:space="preserve">
+    <value>Разгледай</value>
+  </data>
+  <data name="RecipeDescriptionTooShort" xml:space="preserve">
+    <value>Описанието трябва да е поне {0} символа</value>
+  </data>
+  <data name="RecipeImageMissing" xml:space="preserve">
+    <value>Задължително е да изберете снимка при създаването на рецепта</value>
+  </data>
+  <data name="RecipeListEmpty" xml:space="preserve">
+    <value>Няма рецепти в този списък</value>
+  </data>
+  <data name="RecipeListsEmpty" xml:space="preserve">
+    <value>Нямате списъци с рецепти</value>
+  </data>
+  <data name="RecipeNameTooShort" xml:space="preserve">
+    <value>Името трябва да е поне {0} символа</value>
+  </data>
+  <data name="RecipeNeedsIngredients" xml:space="preserve">
+    <value>Рецептата трябва да има поне 1 съставка</value>
   </data>
   <data name="RecipeNotFound" xml:space="preserve">
     <value>Рецептата не беше намерена</value>
   </data>
   <data name="RecipesTabTitle" xml:space="preserve">
     <value>Рецепти</value>
+  </data>
+  <data name="RemovedRecipeListItem" xml:space="preserve">
+    <value>Премахнахте {0}</value>
+  </data>
+  <data name="RemoveFromListMessage" xml:space="preserve">
+    <value>Премахване на {0} от списъка?</value>
+  </data>
+  <data name="RemoveFromListTitle" xml:space="preserve">
+    <value>Премахнете {0}</value>
   </data>
   <data name="RequestModeratorRole" xml:space="preserve">
     <value>Подай заявка, за да станеш модератор</value>
@@ -591,6 +756,21 @@
   <data name="ResetPasswordButton" xml:space="preserve">
     <value>Смени паролата</value>
   </data>
+  <data name="Restrict" xml:space="preserve">
+    <value>Ограничи</value>
+  </data>
+  <data name="RestrictedMessageWithEndDate" xml:space="preserve">
+    <value>Нямаш право да коментираш до {0}</value>
+  </data>
+  <data name="RestrictedMessageWithoutEndDate" xml:space="preserve">
+    <value>Нямате право да коментирате за неопределено време</value>
+  </data>
+  <data name="RestrictedTitle" xml:space="preserve">
+    <value>Ограничен</value>
+  </data>
+  <data name="RestrictionReasonPlaceholder" xml:space="preserve">
+    <value>Причина (незадължително)</value>
+  </data>
   <data name="RestrictionsTabPageTitle" xml:space="preserve">
     <value>Ограничения</value>
   </data>
@@ -603,8 +783,20 @@
   <data name="RestrictionStatusUndefined" xml:space="preserve">
     <value>Неопределени</value>
   </data>
+  <data name="RestrictUser" xml:space="preserve">
+    <value>Ограничи потребителя</value>
+  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Запази промените</value>
+  </data>
+  <data name="SavedRecipesPageTitle" xml:space="preserve">
+    <value>Запазени рецепти</value>
+  </data>
+  <data name="SelectCommentAction" xml:space="preserve">
+    <value>Действия</value>
+  </data>
+  <data name="SelectPrivacyLevelTitle" xml:space="preserve">
+    <value>Изберете нивото на видимост на рецептата</value>
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Изпрати код</value>
@@ -633,6 +825,9 @@
   <data name="SubmitRequest" xml:space="preserve">
     <value>Изпрати заявка</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>Общо</value>
+  </data>
   <data name="Unfollow" xml:space="preserve">
     <value>Отследвай</value>
   </data>
@@ -642,8 +837,20 @@
   <data name="UpdatedFood" xml:space="preserve">
     <value>Храната {0} бе обновена</value>
   </data>
+  <data name="UpdatedRecipe" xml:space="preserve">
+    <value>Рецепта {0} обновена</value>
+  </data>
   <data name="UpdateFoodTitle" xml:space="preserve">
     <value>Редактиране на храна</value>
+  </data>
+  <data name="UpdateListMessage" xml:space="preserve">
+    <value>Въведете ново име за списъка</value>
+  </data>
+  <data name="UpdateListTitle" xml:space="preserve">
+    <value>Преименувай списъка</value>
+  </data>
+  <data name="UpdateRecipeTitle" xml:space="preserve">
+    <value>Редактиране на рецепта</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Потребителско име</value>
@@ -662,6 +869,15 @@
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>Потребителят не бе намерен</value>
+  </data>
+  <data name="UserRestricted" xml:space="preserve">
+    <value>{0} ограничен</value>
+  </data>
+  <data name="ViewAll" xml:space="preserve">
+    <value>Виж всички</value>
+  </data>
+  <data name="weeks" xml:space="preserve">
+    <value>{0} седмици</value>
   </data>
   <data name="WelcomeText" xml:space="preserve">
     <value>Добре дошли</value>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Recipes.MyRecipesPage"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="{local:Translate MyRecipesPageTitle}"     
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Recipes"
+             x:DataType="vm:MyRecipesVM"
+             xmlns:catalog="clr-namespace:NutriNET.Maui.Views.Recipes"
+             xmlns:foodView="clr-namespace:NutriNET.Maui.Views.Food">
+
+    <AbsoluteLayout>
+        <catalog:RecipeCatalogView x:Name="RecipeCatalog" Span="2" ItemTapCommand="{Binding SelectFoodCommand}" CanSearch="False"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"  AbsoluteLayout.LayoutFlags="All">
+            <catalog:RecipeCatalogView.ItemTemplate>
+                <DataTemplate>
+                    <foodView:FoodView
+                        HoldCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.HoldMyRecipeCommand}"
+                        TapCommand="{Binding Source={RelativeSource AncestorType={x:Type catalog:RecipeCatalogView}}, Path=ItemTapCommand}" />
+                </DataTemplate>
+            </catalog:RecipeCatalogView.ItemTemplate>
+        </catalog:RecipeCatalogView>
+        <VerticalStackLayout AbsoluteLayout.LayoutBounds="0.95,0.97,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Spacing="20">
+            <Grid HeightRequest="40" WidthRequest="40">
+                <Button x:Name="PlusButtonBase" CornerRadius="20" Command="{Binding AddRecipeCommand}"/>
+                <Image Source="plus_icon.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="24" WidthRequest="24">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White" />
+                    </Image.Behaviors>
+                </Image>
+            </Grid>
+            <Grid HeightRequest="40" WidthRequest="40">
+                <Button CornerRadius="20" Command="{Binding OpenSavedRecipesCommand}"/>
+                <Image Source="saved_icon.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="24" WidthRequest="24">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White" />
+                    </Image.Behaviors>
+                </Image>
+            </Grid>
+        </VerticalStackLayout>
+    </AbsoluteLayout>
+</ContentPage>

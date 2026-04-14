@@ -126,6 +126,18 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="AddedToList" xml:space="preserve">
+    <value>{0} added to {1}</value>
+  </data>
+  <data name="AddListMessage" xml:space="preserve">
+    <value>Enter a name for your new list</value>
+  </data>
+  <data name="AddListTitle" xml:space="preserve">
+    <value>Add List</value>
+  </data>
+  <data name="AddToList" xml:space="preserve">
+    <value>Add to List</value>
+  </data>
   <data name="AdminCannotDeleteSelf" xml:space="preserve">
     <value>Administrators cannot delete themselves.</value>
   </data>
@@ -177,6 +189,9 @@
   <data name="CodeSent" xml:space="preserve">
     <value>Code sent! Check your email!</value>
   </data>
+  <data name="CommentPlaceholder" xml:space="preserve">
+    <value>Share your thoughts...</value>
+  </data>
   <data name="CommentRestrictionNotFound" xml:space="preserve">
     <value>Comment restriction not found.</value>
   </data>
@@ -188,6 +203,12 @@
   </data>
   <data name="CommentRestrictionsPickerTitle" xml:space="preserve">
     <value>Restriction Status</value>
+  </data>
+  <data name="CommentTooShort" xml:space="preserve">
+    <value>Comments must be at least 4 characters</value>
+  </data>
+  <data name="CommunityRating" xml:space="preserve">
+    <value>Community Rating</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
@@ -204,11 +225,17 @@
   <data name="CreatedFood" xml:space="preserve">
     <value>{0} created</value>
   </data>
+  <data name="CreatedRecipe" xml:space="preserve">
+    <value>Recipe {0} created</value>
+  </data>
   <data name="CreateFoodTitle" xml:space="preserve">
     <value>Create Food</value>
   </data>
   <data name="CreateModeratorRequestPageTitle" xml:space="preserve">
     <value>Request Moderator</value>
+  </data>
+  <data name="CreateRecipeTitle" xml:space="preserve">
+    <value>Create Recipe</value>
   </data>
   <data name="CurrentEmail" xml:space="preserve">
     <value>Current Email</value>
@@ -216,17 +243,32 @@
   <data name="CurrentPassword" xml:space="preserve">
     <value>Current password</value>
   </data>
+  <data name="days" xml:space="preserve">
+    <value>{0} days</value>
+  </data>
   <data name="Decline" xml:space="preserve">
     <value>Decline</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="DeleteCommentMessage" xml:space="preserve">
+    <value>Are you sure you want to delete this comment?</value>
+  </data>
   <data name="DeletedFood" xml:space="preserve">
+    <value>{0} deleted</value>
+  </data>
+  <data name="DeletedRecipe" xml:space="preserve">
+    <value>Deleted {0}</value>
+  </data>
+  <data name="DeletedRecipeList" xml:space="preserve">
     <value>{0} deleted</value>
   </data>
   <data name="DeletedUser" xml:space="preserve">
     <value>{0} deleted</value>
+  </data>
+  <data name="DeleteIngredientMessage" xml:space="preserve">
+    <value>Are you sure you want to remove {0}g of {1}?</value>
   </data>
   <data name="DeleteMyAccountConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to delete your account? This action cannot be undone.</value>
@@ -236,6 +278,15 @@
   </data>
   <data name="DeleteNameMessage" xml:space="preserve">
     <value>Are you sure you want to delete {0}?</value>
+  </data>
+  <data name="DeleteRecipeMessage" xml:space="preserve">
+    <value>This will permanently delete the recipe</value>
+  </data>
+  <data name="DeleteRecipeTitle" xml:space="preserve">
+    <value>Delete {0}</value>
+  </data>
+  <data name="DeleteUserConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to delete {0}? This action cannot be undone.</value>
   </data>
   <data name="Demote" xml:space="preserve">
     <value>Demote</value>
@@ -249,11 +300,20 @@
   <data name="DemoteTitle" xml:space="preserve">
     <value>Demote {0}</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
   <data name="Dinner" xml:space="preserve">
     <value>Dinner</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="EditWeight" xml:space="preserve">
+    <value>Edit Weight</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
@@ -275,6 +335,12 @@
   </data>
   <data name="EndUserRestrictionConfirmation" xml:space="preserve">
     <value>Are you sure you want to end {0}'s restriction?</value>
+  </data>
+  <data name="EnterWeightMessage" xml:space="preserve">
+    <value>Enter weight in grams for {0}</value>
+  </data>
+  <data name="EnterWeightTitle" xml:space="preserve">
+    <value>Enter Weight</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
@@ -298,6 +364,12 @@
     <value>You’re not following anyone</value>
   </data>
   <data name="FollowingPageTitle" xml:space="preserve">
+    <value>Following</value>
+  </data>
+  <data name="FollowingRecipesPageTitle" xml:space="preserve">
+    <value>Following Recipes</value>
+  </data>
+  <data name="FollowingRecipesTabPageTitle" xml:space="preserve">
     <value>Following</value>
   </data>
   <data name="FoodBarcodeExists" xml:space="preserve">
@@ -394,8 +466,17 @@
   <data name="Handled" xml:space="preserve">
     <value>Handled</value>
   </data>
+  <data name="hours" xml:space="preserve">
+    <value>{0} hours</value>
+  </data>
   <data name="IncorrectPassword" xml:space="preserve">
     <value>Incorrect password, please try again.</value>
+  </data>
+  <data name="IngredientAdded" xml:space="preserve">
+    <value>Added {0} g {1}</value>
+  </data>
+  <data name="Ingredients" xml:space="preserve">
+    <value>Ingredients</value>
   </data>
   <data name="InternalServerError" xml:space="preserve">
     <value>Something went wrong on the server. Please try again later.</value>
@@ -424,6 +505,9 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="ListNameTooShort" xml:space="preserve">
+    <value>List name should be at least one character</value>
+  </data>
   <data name="LoadingText" xml:space="preserve">
     <value>Loading...</value>
   </data>
@@ -450,6 +534,9 @@
   </data>
   <data name="ManageModeratorsPageTitle" xml:space="preserve">
     <value>Manage Moderators</value>
+  </data>
+  <data name="ManageRecipeTitle" xml:space="preserve">
+    <value>Manage {0}</value>
   </data>
   <data name="MaxFoodRequests" xml:space="preserve">
     <value>You already have 3 pending food requests. Please wait until one is reviewed before submitting a new one.</value>
@@ -499,6 +586,15 @@
   <data name="MyFoodRequestsPageTitle" xml:space="preserve">
     <value>My Food Requests</value>
   </data>
+  <data name="MyRating" xml:space="preserve">
+    <value>My Rating</value>
+  </data>
+  <data name="MyRecipesPageTitle" xml:space="preserve">
+    <value>My Recipes</value>
+  </data>
+  <data name="MyRecipesTabPageTitle" xml:space="preserve">
+    <value>Mine</value>
+  </data>
   <data name="MyRequestsTabPageTitle" xml:space="preserve">
     <value>My Requests</value>
   </data>
@@ -535,6 +631,18 @@
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="oneDay" xml:space="preserve">
+    <value>1 day</value>
+  </data>
+  <data name="oneHour" xml:space="preserve">
+    <value>1 hour</value>
+  </data>
+  <data name="OneRating" xml:space="preserve">
+    <value>1 rating</value>
+  </data>
+  <data name="oneWeek" xml:space="preserve">
+    <value>1 week</value>
+  </data>
   <data name="OnlyTemporaryRestrictions" xml:space="preserve">
     <value>Moderators can apply only temporary restrictions</value>
   </data>
@@ -547,11 +655,29 @@
   <data name="PasswordUpdated" xml:space="preserve">
     <value>Password updated</value>
   </data>
+  <data name="Per100g" xml:space="preserve">
+    <value>Per 100 g </value>
+  </data>
   <data name="perGrams" xml:space="preserve">
     <value>per {0} g</value>
   </data>
   <data name="PickImage" xml:space="preserve">
     <value>Pick Image</value>
+  </data>
+  <data name="PickListTitle" xml:space="preserve">
+    <value>Pick List</value>
+  </data>
+  <data name="PrivacyLevel" xml:space="preserve">
+    <value>Visiblity Level</value>
+  </data>
+  <data name="PrivacyLevelFriendsOnly" xml:space="preserve">
+    <value>Friends</value>
+  </data>
+  <data name="PrivacyLevelPrivate" xml:space="preserve">
+    <value>Private</value>
+  </data>
+  <data name="PrivacyLevelPublic" xml:space="preserve">
+    <value>Public</value>
   </data>
   <data name="ProfilePictureRequired" xml:space="preserve">
     <value>Profile picture required</value>
@@ -562,14 +688,53 @@
   <data name="Protein" xml:space="preserve">
     <value>Protein</value>
   </data>
+  <data name="ratings" xml:space="preserve">
+    <value>ratings</value>
+  </data>
   <data name="RecipeAlreadyInList" xml:space="preserve">
     <value>{0} is already in {1}</value>
+  </data>
+  <data name="RecipeCatalogPageTitle" xml:space="preserve">
+    <value>Discover Recipes</value>
+  </data>
+  <data name="RecipeCatalogSearch" xml:space="preserve">
+    <value>Search recipes by name, creator, or ingredient</value>
+  </data>
+  <data name="RecipeCatalogTabPageTitle" xml:space="preserve">
+    <value>Discover</value>
+  </data>
+  <data name="RecipeDescriptionTooShort" xml:space="preserve">
+    <value>Description must be at least {0} characters</value>
+  </data>
+  <data name="RecipeImageMissing" xml:space="preserve">
+    <value>Image is required when creating a recipe</value>
+  </data>
+  <data name="RecipeListEmpty" xml:space="preserve">
+    <value>No recipes in this list</value>
+  </data>
+  <data name="RecipeListsEmpty" xml:space="preserve">
+    <value>No recipe lists found</value>
+  </data>
+  <data name="RecipeNameTooShort" xml:space="preserve">
+    <value>Name must be at least {0} characters</value>
+  </data>
+  <data name="RecipeNeedsIngredients" xml:space="preserve">
+    <value>A recipe must have at least 1 ingredient</value>
   </data>
   <data name="RecipeNotFound" xml:space="preserve">
     <value>Recipe not found</value>
   </data>
   <data name="RecipesTabTitle" xml:space="preserve">
     <value>Recipes</value>
+  </data>
+  <data name="RemovedRecipeListItem" xml:space="preserve">
+    <value>Removed {0}</value>
+  </data>
+  <data name="RemoveFromListMessage" xml:space="preserve">
+    <value>Remove {0} from this list?</value>
+  </data>
+  <data name="RemoveFromListTitle" xml:space="preserve">
+    <value>Remove {0}</value>
   </data>
   <data name="RequestModeratorRole" xml:space="preserve">
     <value>Request to become a moderator</value>
@@ -592,6 +757,21 @@
   <data name="ResetPasswordButton" xml:space="preserve">
     <value>Reset password</value>
   </data>
+  <data name="Restrict" xml:space="preserve">
+    <value>Restrict</value>
+  </data>
+  <data name="RestrictedMessageWithEndDate" xml:space="preserve">
+    <value>You are restricted from commenting until {0}</value>
+  </data>
+  <data name="RestrictedMessageWithoutEndDate" xml:space="preserve">
+    <value>You are restricted from commenting indefinitely</value>
+  </data>
+  <data name="RestrictedTitle" xml:space="preserve">
+    <value>Restricted</value>
+  </data>
+  <data name="RestrictionReasonPlaceholder" xml:space="preserve">
+    <value>Reason (optional)</value>
+  </data>
   <data name="RestrictionsTabPageTitle" xml:space="preserve">
     <value>Restrictions</value>
   </data>
@@ -604,8 +784,20 @@
   <data name="RestrictionStatusUndefined" xml:space="preserve">
     <value>Undefined</value>
   </data>
+  <data name="RestrictUser" xml:space="preserve">
+    <value>Restrict User</value>
+  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save Changes</value>
+  </data>
+  <data name="SavedRecipesPageTitle" xml:space="preserve">
+    <value>Saved Recipes</value>
+  </data>
+  <data name="SelectCommentAction" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="SelectPrivacyLevelTitle" xml:space="preserve">
+    <value>Select recipe visibility</value>
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Send Code</value>
@@ -635,6 +827,9 @@
   <data name="SubmitRequest" xml:space="preserve">
     <value>Submit Request</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
   <data name="Unfollow" xml:space="preserve">
     <value>Unfollow</value>
   </data>
@@ -644,8 +839,20 @@
   <data name="UpdatedFood" xml:space="preserve">
     <value>{0} updated</value>
   </data>
+  <data name="UpdatedRecipe" xml:space="preserve">
+    <value>Recipe {0} updated</value>
+  </data>
   <data name="UpdateFoodTitle" xml:space="preserve">
     <value>Edit Food</value>
+  </data>
+  <data name="UpdateListMessage" xml:space="preserve">
+    <value>Enter a new name for your list</value>
+  </data>
+  <data name="UpdateListTitle" xml:space="preserve">
+    <value>Rename List</value>
+  </data>
+  <data name="UpdateRecipeTitle" xml:space="preserve">
+    <value>Update Recipe</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
@@ -664,6 +871,15 @@
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>User not found</value>
+  </data>
+  <data name="UserRestricted" xml:space="preserve">
+    <value>{0} restricted</value>
+  </data>
+  <data name="ViewAll" xml:space="preserve">
+    <value>View All</value>
+  </data>
+  <data name="weeks" xml:space="preserve">
+    <value>{0} weeks</value>
   </data>
   <data name="WelcomeText" xml:space="preserve">
     <value>Welcome</value>

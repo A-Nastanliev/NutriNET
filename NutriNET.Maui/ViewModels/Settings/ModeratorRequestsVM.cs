@@ -7,6 +7,8 @@ using NutriNET.Maui.Authentication;
 using NutriNET.Maui.Managers;
 using NutriNET.Maui.Models;
 using NutriNET.Maui.Models.User;
+using NutriNET.Maui.ViewModels.Recipes;
+using NutriNET.Maui.Views.Recipes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -78,7 +80,8 @@ namespace NutriNET.Maui.ViewModels.Settings
         {
             if (user.Id == 0) return;
 
-    
+            await Shell.Current.GoToAsync(nameof(ProfilePage), true,
+                new Dictionary<string, object> { [nameof(ProfileVM.User)] = user });
         }
 
         [RelayCommand]
