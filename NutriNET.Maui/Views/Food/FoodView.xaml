@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:NutriNET.Maui.Models.Food"
+             x:DataType="vm:FoodVM"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="NutriNET.Maui.Views.Food.FoodView"
+             xmlns:foodType="clr-namespace:NutriNET.Maui.Models.Food"
+             x:Name="Root">
+    <Border
+        Margin="6" StrokeShape="RoundRectangle 10"
+        Padding="0" HorizontalOptions="Fill" >
+        <Border.Behaviors>
+            <toolkit:TouchBehavior
+               LongPressDuration="1000"
+               LongPressCommand="{Binding HoldCommand, Source={x:Reference Root}}"
+               LongPressCommandParameter="{Binding BindingContext, Source={x:Reference Root}}"/>
+        </Border.Behaviors>
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer
+               Command="{Binding TapCommand, Source={x:Reference Root}}"
+               CommandParameter="{Binding BindingContext, Source={x:Reference Root}}"/>
+        </Border.GestureRecognizers>
+        <Grid>
+            <Image
+                Aspect="AspectFill"
+                HeightRequest="180"
+                Source="{Binding ImageSource}" />
+
+            <VerticalStackLayout Padding="10, 4, 10, 4" Spacing="4" Background="{StaticResource PrimaryOverlay}" HorizontalOptions="Fill" VerticalOptions="End">
+                <Label
+                    Text="{Binding Name}" FontSize="Small"
+                    LineBreakMode="TailTruncation"/>
+                <Label Text="{Binding ExtraInfo}" LineBreakMode="TailTruncation" FontSize="Micro" >
+                    <Label.IsVisible>
+                        <MultiBinding Converter="{StaticResource AllTrueMultiConverter}">
+                            <Binding Path="FoodType" Converter="{StaticResource EqualsConverter}" 
+                                     ConverterParameter="{x:Static foodType:FoodType.Food}" />
+                            <Binding Path="ExtraInfo" Converter="{StaticResource NotEqualsConverter}"
+                                    ConverterParameter="{x:Null}" />
+                        </MultiBinding>
+                    </Label.IsVisible>
+                </Label>
+                <Label Text="{local:Translate NoBrandText}" LineBreakMode="TailTruncation" FontSize="Micro" >
+                    <Label.IsVisible>
+                        <MultiBinding Converter="{StaticResource AllTrueMultiConverter}">
+                            <Binding Path="FoodType" Converter="{StaticResource EqualsConverter}" 
+                                     ConverterParameter="{x:Static foodType:FoodType.Food}" />
+                            <Binding Path="ExtraInfo"  Converter="{StaticResource EqualsConverter}"  ConverterParameter="{x:Null}" />
+                        </MultiBinding>
+                    </Label.IsVisible>
+                </Label>
+                <HorizontalStackLayout Spacing="4">
+                    <HorizontalStackLayout.IsVisible>
+                        <Binding Path="FoodType" Converter="{StaticResource EqualsConverter}" ConverterParameter="{x:Static foodType:FoodType.RecipeFood}" />
+                    </HorizontalStackLayout.IsVisible>
+                    <Label Text="{local:Translate By}" FontSize="Micro" />
+                    <Label Text="{Binding ExtraInfo}" FontSize="Micro" LineBreakMode="TailTruncation">
+                        <Label.IsVisible>
+                            <Binding Path="ExtraInfo" Converter="{StaticResource NotEqualsConverter}" ConverterParameter="{x:Null}" />
+                        </Label.IsVisible>
+                    </Label>
+                    <Label Text="{local:Translate UnknownUser}" FontSize="Micro" LineBreakMode="TailTruncation">
+                        <Label.IsVisible>
+                            <Binding Path="ExtraInfo" Converter="{StaticResource EqualsConverter}" ConverterParameter="{x:Null}" />
+                        </Label.IsVisible>
+                    </Label>
+                </HorizontalStackLayout>
+                <Label FontSize="Micro">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Calories}" />
+                            <Span Text=" " />
+                            <Span Text="{local:Translate kcal}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+            </VerticalStackLayout>
+        </Grid>
+    </Border>
+</ContentView>

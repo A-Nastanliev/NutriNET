@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Food.FoodFormPage"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Food"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             x:DataType="vm:FoodFormVM"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             Title="{Binding Title}">
+    
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding GoBackCommand}" />
+    </Shell.BackButtonBehavior>
+
+    <AbsoluteLayout SafeAreaEdges="Container">
+        <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+            <VerticalStackLayout Spacing="20" Padding="0">
+                <Grid >
+                    <ImageButton Source="{Binding Food.ImageSource}" Aspect="AspectFill" Command="{Binding PickFoodImageCommand}" HeightRequest="340"/>
+                    <Label Text="{local:Translate PickImage}" TextColor="White"  FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" 
+                           IsVisible="{Binding Food.ImageSource, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Null}}" />
+                </Grid>
+                <VerticalStackLayout Spacing="4" Margin="10,0">
+                    <Label Text="{local:Translate Name}"  FontSize="Medium"/>
+                    <Entry Placeholder=""
+                       Text="{Binding Food.Name, Mode=TwoWay}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="4" Margin="10,0">
+                    <Label Text="{local:Translate Brand}" FontSize="Medium"/>
+                    <Entry Placeholder=""
+                       Text="{Binding Food.ExtraInfo, Mode=TwoWay}" />
+                </VerticalStackLayout>
+                <Grid RowSpacing="4" ColumnDefinitions="*,auto" RowDefinitions="Auto, Auto" ColumnSpacing="12" Margin="10,0">
+                    <Label Text="{local:Translate Barcode}" FontSize="Medium"/>
+                    <Entry Grid.Column="0" Grid.Row="1" Placeholder=""  Keyboard="Numeric" Text="{Binding Food.Barcode, Mode=TwoWay}" MaxLength="13"/>
+                    <Grid Grid.Column="1" HeightRequest="60" WidthRequest="60" Grid.RowSpan="2">
+                        <Button CornerRadius="30" Clicked="ScanButtonBase_Clicked"/>
+                        <Image Source="barcode_icon.png" HeightRequest="36" WidthRequest="36" Aspect="AspectFit" 
+                                HorizontalOptions="Center" VerticalOptions="Center">
+                            <Image.Behaviors>
+                                <toolkit:IconTintColorBehavior TintColor="White" />
+                            </Image.Behaviors>
+                        </Image>
+                    </Grid>
+                </Grid>
+                <VerticalStackLayout Spacing="4" Margin="10,0">
+                    <Label FontSize="Medium">
+                        <Label.Text>
+                            <local:Translate Name="NutritionLabel">
+                                <local:Translate.X0>
+                                    <local:Translate Name="Calories"/>
+                                </local:Translate.X0>
+                                <local:Translate.X1>
+                                    <local:Translate Name="perGrams" X0="100"/>
+                                </local:Translate.X1>
+                            </local:Translate>
+                        </Label.Text>
+                    </Label>
+                    <Entry Placeholder="" Keyboard="Numeric"
+                       Text="{Binding Food.Calories, Mode=TwoWay, Converter={StaticResource StringToDoubleConverter}}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="4" Margin="10,0">
+                    <Label FontSize="Medium">
+                        <Label.Text>
+                            <local:Translate Name="NutritionLabel">
+                                <local:Translate.X0>
+                                    <local:Translate Name="Macronutrients"/>
+                                </local:Translate.X0>
+                                <local:Translate.X1>
+                                    <local:Translate Name="perGrams" X0="100"/>
+                                </local:Translate.X1>
+                            </local:Translate>
+                        </Label.Text>
+                    </Label>
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                        <Entry Grid.Column="0" Placeholder="{local:Translate Protein}" Keyboard="Numeric"
+                            Text="{Binding Food.Proteins, Mode=TwoWay, Converter={StaticResource StringToDoubleConverter}}" />
+                        <Entry Grid.Column="1" Placeholder="{local:Translate Carbohydrates}" Keyboard="Numeric" 
+                            Text="{Binding Food.Carbohydrates, Mode=TwoWay, Converter={StaticResource StringToDoubleConverter}}" />
+                        <Entry Grid.Column="2" Placeholder="{local:Translate Fat}" Keyboard="Numeric"
+                            Text="{Binding Food.Fats, Mode=TwoWay, Converter={StaticResource StringToDoubleConverter}}" />
+                    </Grid>
+                </VerticalStackLayout>
+                <Button Text="{Binding SubmitButtonText}" Command="{Binding SubmitCommand}" Margin="10,0,10,10"/>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Grid
+            x:Name="Overlay" IsVisible="False" BackgroundColor="#771A1A1A"
+            AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <BoxView BackgroundColor="#80000000">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOverlayTapped"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            <Grid  x:Name="ScannerPanel"  SafeAreaEdges="None"
+                VerticalOptions="End" BackgroundColor="Red">
+                <zxing:CameraBarcodeReaderView IsTorchOn="False" HeightRequest="300" IsDetecting="False" IsEnabled="False"
+                     x:Name="barcodeReaderView" HorizontalOptions="Fill" VerticalOptions="End" BarcodesDetected="barcodeReaderView_BarcodesDetected"/>
+            </Grid>
+        </Grid>
+    </AbsoluteLayout>
+</ContentPage>

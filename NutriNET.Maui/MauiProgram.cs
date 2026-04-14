@@ -6,8 +6,10 @@ using NutriNET.Maui.ApiClients;
 using NutriNET.Maui.Authentication;
 using NutriNET.Maui.Models.User;
 using NutriNET.Maui.ViewModels.Authentication;
+using NutriNET.Maui.ViewModels.Food;
 using NutriNET.Maui.ViewModels.Settings;
 using NutriNET.Maui.Views.Authentication;
+using NutriNET.Maui.Views.Food;
 using NutriNET.Maui.Views.Settings;
 using Syncfusion.Maui.Toolkit.Hosting;
 using ZXing.Net.Maui.Controls;
@@ -95,6 +97,18 @@ namespace NutriNET.Maui
 
             builder.Services.AddSingleton<ManageModeratorsVM>();
             builder.Services.AddSingleton<ManageModeratorsPage>();
+
+            builder.Services.AddTransient<FoodCatalogVM>();
+            builder.Services.AddSingleton<FoodCatalogPage>();
+
+            builder.Services.AddTransient<FoodFormVM>();
+            builder.Services.AddTransient<FoodFormPage>();
+
+            builder.Services.AddSingleton<MyFoodRequestsVM>();
+            builder.Services.AddSingleton<MyFoodRequestsPage>();
+
+            builder.Services.AddSingleton<FoodRequestsVM>();
+            builder.Services.AddSingleton<FoodRequestsPage>();
 
             return builder.Build();
         }

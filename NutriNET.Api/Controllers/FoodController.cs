@@ -64,7 +64,7 @@ namespace NutriNET.Api.Controllers
             catch (DbUpdateException ex)
             {
                 _imageStorageService.DeleteImage(imagePath);
-                return Conflict("FoodBarcodeExists");
+                return Conflict(new { error = "FoodBarcodeExists" });
             }
         }
 
@@ -91,7 +91,7 @@ namespace NutriNET.Api.Controllers
             barcode = barcode?.Trim();
             var food = await _service.GetFoodByBarcodeAsync(barcode);
             if (food == null)
-                return NotFound("BarcodeNotFound");
+                return NotFound(new { error = "BarcodeNotFound" });
 
             var baseUrl = _configuration["App:BaseUrl"];
             return Ok(food.ToDto(baseUrl));
@@ -135,7 +135,7 @@ namespace NutriNET.Api.Controllers
                     {
                         _imageStorageService.DeleteImage(newImagePath);
                     }
-                    return BadRequest(error);
+                    return BadRequest(new { error = error });
                 }
 
                 if (imageUpdated && !string.IsNullOrWhiteSpace(oldImagePath))
@@ -150,7 +150,7 @@ namespace NutriNET.Api.Controllers
             catch (DbUpdateException ex)
             {
                 _imageStorageService.DeleteImage(newImagePath);
-                return Conflict("FoodBarcodeExists");
+                return Conflict(new { erro = "FoodBarcodeExists" });
             }
 
         }
@@ -161,7 +161,7 @@ namespace NutriNET.Api.Controllers
         {
             var food = await _service.GetFoodAsync(id);
             if (food == null)
-                return NotFound("FoodNotFound");
+                return NotFound(new { error = "FoodNotFound" });
 
             string path = food.Image;
 
@@ -174,7 +174,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return NotFound(new { error = ex.Message });
             }
         }
 
@@ -190,7 +190,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                return Conflict(ex.Message);
+                return Conflict(new { error = ex.Message });
             }
         }
 
@@ -213,11 +213,11 @@ namespace NutriNET.Api.Controllers
             }
             catch (KeyNotFoundException)
             {
-                return NotFound("FoodRequestNotFound");
+                return NotFound(new { error = "FoodRequestNotFound" });
             }
             catch (InvalidOperationException)
             {
-                return Conflict("FoodRequestDeniedBarcodeExists");
+                return Conflict(new { error = "FoodRequestDeniedBarcodeExists"});
             }
         }
 

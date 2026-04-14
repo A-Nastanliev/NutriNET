@@ -146,7 +146,7 @@ namespace NutriNET.Api.Controllers
         {
             var existing = await _service.GetRecipeAsync(id);
             if (existing == null || existing?.CreatorId != UserId)
-                return NotFound("RecipeNotFound");
+                return NotFound(new { error = "RecipeNotFound" });
 
             string? oldImagePath = existing.Image;
             string? newImagePath = null;
@@ -193,7 +193,7 @@ namespace NutriNET.Api.Controllers
                 if (imageUpdated && newImagePath != null)
                     _imageStorageService.DeleteImage(newImagePath);
 
-                return NotFound(e.Message);
+                return NotFound(new { error = e.Message });
             }
             catch (UnauthorizedAccessException)
             {
@@ -218,7 +218,7 @@ namespace NutriNET.Api.Controllers
             {
                 var recipe = await _service.GetRecipeAsync(id);
                 if (recipe == null || recipe?.CreatorId != UserId)
-                    return NotFound("RecipeNotFound");
+                    return NotFound(new { error = "RecipeNotFound" });
 
                 string imagePath = recipe.Image;
 
@@ -238,7 +238,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                return NotFound(new { error = ex.Message });
             }
             catch (Exception ex)
             {
@@ -414,7 +414,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new { error = e.Message });
             }
         }
 
@@ -428,7 +428,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new { error = e.Message });
             }
         }
 
@@ -448,7 +448,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new { error = e.Message });
             }
         }
 
@@ -462,7 +462,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new { error = e.Message });
             }
         }
 
@@ -509,7 +509,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new { error = e.Message });
             }
         }
     }

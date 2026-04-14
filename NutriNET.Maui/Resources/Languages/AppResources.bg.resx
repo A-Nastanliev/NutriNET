@@ -123,6 +123,9 @@
   <data name="ActionNotAllowed" xml:space="preserve">
     <value>Действието не е разрешено</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Добави</value>
+  </data>
   <data name="AdminCannotDeleteSelf" xml:space="preserve">
     <value>Администраторите не могат да изтриват собствените си профили.</value>
   </data>
@@ -135,8 +138,14 @@
   <data name="AlreadyHaveAccountText" xml:space="preserve">
     <value>Вече имате акаунт? Влезте</value>
   </data>
+  <data name="Barcode" xml:space="preserve">
+    <value>Баркод</value>
+  </data>
   <data name="BarcodeNotFound" xml:space="preserve">
     <value>Не беше намерена храна с баркод {0}</value>
+  </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Марка</value>
   </data>
   <data name="Breakfast" xml:space="preserve">
     <value>Закуска</value>
@@ -144,11 +153,17 @@
   <data name="By" xml:space="preserve">
     <value>От</value>
   </data>
+  <data name="Calories" xml:space="preserve">
+    <value>Калории</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Откажи</value>
   </data>
   <data name="CannotDeleteOtherAdmin" xml:space="preserve">
     <value>Не можете да изтриете профила на друг администратор</value>
+  </data>
+  <data name="Carbohydrates" xml:space="preserve">
+    <value>Въглехидрати</value>
   </data>
   <data name="ChangeEmail" xml:space="preserve">
     <value>Промяна на имейл</value>
@@ -186,6 +201,12 @@
   <data name="Created" xml:space="preserve">
     <value>{0} създаден</value>
   </data>
+  <data name="CreatedFood" xml:space="preserve">
+    <value>Храната {0} бе добавена</value>
+  </data>
+  <data name="CreateFoodTitle" xml:space="preserve">
+    <value>Създаване на храна</value>
+  </data>
   <data name="CreateModeratorRequestPageTitle" xml:space="preserve">
     <value>Заявка за модератор</value>
   </data>
@@ -201,11 +222,20 @@
   <data name="Delete" xml:space="preserve">
     <value>Изтрий</value>
   </data>
+  <data name="DeletedFood" xml:space="preserve">
+    <value>Храната {0} бе изтрита</value>
+  </data>
   <data name="DeletedUser" xml:space="preserve">
     <value>{0} бе изтрит</value>
   </data>
   <data name="DeleteMyAccountConfirmMessage" xml:space="preserve">
     <value>Сигурни ли сте, че искате да изтриете акаунта си? Това действие не може да бъде отменено.</value>
+  </data>
+  <data name="DeleteName" xml:space="preserve">
+    <value>Изтрий {0}</value>
+  </data>
+  <data name="DeleteNameMessage" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете {0}?</value>
   </data>
   <data name="Demote" xml:space="preserve">
     <value>Понижи</value>
@@ -221,6 +251,9 @@
   </data>
   <data name="Dinner" xml:space="preserve">
     <value>Вечеря</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактирай</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Имейл</value>
@@ -246,6 +279,9 @@
   <data name="Error" xml:space="preserve">
     <value>Грешка</value>
   </data>
+  <data name="Fat" xml:space="preserve">
+    <value>Мазнини</value>
+  </data>
   <data name="Follow" xml:space="preserve">
     <value>Последвай</value>
   </data>
@@ -267,8 +303,23 @@
   <data name="FoodBarcodeExists" xml:space="preserve">
     <value>Храна с баркод {0} вече съществува.</value>
   </data>
+  <data name="FoodCatalogEmpty" xml:space="preserve">
+    <value>Не бяха намерени храни</value>
+  </data>
+  <data name="FoodCatalogPageTitle" xml:space="preserve">
+    <value>Каталог с храни</value>
+  </data>
+  <data name="FoodCatalogSearch" xml:space="preserve">
+    <value>Търсене на храна по име или марка</value>
+  </data>
+  <data name="FoodCatalogTabPageTitle" xml:space="preserve">
+    <value>Каталог</value>
+  </data>
   <data name="FoodNotFound" xml:space="preserve">
     <value>Храната не беше намерена</value>
+  </data>
+  <data name="FoodRequestCreated" xml:space="preserve">
+    <value>Заявката за {0} беше създадена</value>
   </data>
   <data name="FoodRequestDeniedBarcodeExists" xml:space="preserve">
     <value>Храна с баркод {0} вече съществува. Заяквата беше отказана.</value>
@@ -276,8 +327,32 @@
   <data name="FoodRequestNotFound" xml:space="preserve">
     <value>Заявката за храна не беше намерена</value>
   </data>
+  <data name="FoodRequestsEmpty" xml:space="preserve">
+    <value>Не бяха намерени заявки за храни</value>
+  </data>
+  <data name="FoodRequestsPageTitle" xml:space="preserve">
+    <value>Заявки за храни</value>
+  </data>
+  <data name="FoodRequestsPickerTitle" xml:space="preserve">
+    <value>Статус на заявките за храни</value>
+  </data>
+  <data name="FoodRequestsTabPageTitle" xml:space="preserve">
+    <value>Заявки</value>
+  </data>
+  <data name="FoodRequestValidationBarcode" xml:space="preserve">
+    <value>Баркодът трябва да е поне 8 символа</value>
+  </data>
+  <data name="FoodRequestValidationBrand" xml:space="preserve">
+    <value>Марката е задължителна</value>
+  </data>
+  <data name="FoodRequestValidationName" xml:space="preserve">
+    <value>Името е задължително</value>
+  </data>
   <data name="FoodsTabTitle" xml:space="preserve">
     <value>Храна</value>
+  </data>
+  <data name="FoodValidationBarcode" xml:space="preserve">
+    <value>Баркодът трябва да е празен или между 8 и 13 символа</value>
   </data>
   <data name="FoodValidationCalories" xml:space="preserve">
     <value>Калориите трябва да са между 0 и 900</value>
@@ -287,6 +362,12 @@
   </data>
   <data name="FoodValidationFats" xml:space="preserve">
     <value>Мазнините трябва да са между 0 и 100</value>
+  </data>
+  <data name="FoodValidationImage" xml:space="preserve">
+    <value>Задължителна е снимка при създаването на храна</value>
+  </data>
+  <data name="FoodValidationName" xml:space="preserve">
+    <value>Името е задължително</value>
   </data>
   <data name="FoodValidationProtein" xml:space="preserve">
     <value>Белтъците трябва да се между 0 и 100</value>
@@ -305,6 +386,9 @@
   </data>
   <data name="GenericErrorMessage" xml:space="preserve">
     <value>Възникна грешка. Моля, опитайте отново.</value>
+  </data>
+  <data name="grams" xml:space="preserve">
+    <value>г</value>
   </data>
   <data name="Handled" xml:space="preserve">
     <value>Обработено</value>
@@ -333,6 +417,9 @@
   <data name="InvalidPasswordTitle" xml:space="preserve">
     <value>Невалидна парола</value>
   </data>
+  <data name="kcal" xml:space="preserve">
+    <value>ккал</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Език</value>
   </data>
@@ -353,6 +440,9 @@
   </data>
   <data name="Lunch" xml:space="preserve">
     <value>Обяд</value>
+  </data>
+  <data name="Macronutrients" xml:space="preserve">
+    <value>Макронутриенти</value>
   </data>
   <data name="ManagementTabTitle" xml:space="preserve">
     <value>Администрация</value>
@@ -402,6 +492,18 @@
   <data name="ModRequestsTabPageTitle" xml:space="preserve">
     <value>Заявки за модератор</value>
   </data>
+  <data name="MyFoodRequestsEmpty" xml:space="preserve">
+    <value>Не бяха намерени ограничения</value>
+  </data>
+  <data name="MyFoodRequestsPageTitle" xml:space="preserve">
+    <value>Моите заявки за храни</value>
+  </data>
+  <data name="MyRequestsTabPageTitle" xml:space="preserve">
+    <value>Моите заявки</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Име</value>
+  </data>
   <data name="NewEmail" xml:space="preserve">
     <value>Нов имейл</value>
   </data>
@@ -417,11 +519,17 @@
   <data name="NoAccountText" xml:space="preserve">
     <value>Нямате акаунт? Регистрирайте се!</value>
   </data>
+  <data name="NoBrandText" xml:space="preserve">
+    <value>Без марка</value>
+  </data>
   <data name="NoEndDate" xml:space="preserve">
     <value>Без крайна дата</value>
   </data>
   <data name="NotFollowing" xml:space="preserve">
     <value>Не следвате този потребител</value>
+  </data>
+  <data name="NutritionLabel" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>ОК</value>
@@ -438,11 +546,20 @@
   <data name="PasswordUpdated" xml:space="preserve">
     <value>Паролата беше променена</value>
   </data>
+  <data name="perGrams" xml:space="preserve">
+    <value>на {0} г</value>
+  </data>
+  <data name="PickImage" xml:space="preserve">
+    <value>Избери снимка</value>
+  </data>
   <data name="ProfilePictureRequired" xml:space="preserve">
     <value>Профилната снимка е задължителна</value>
   </data>
   <data name="PromoteUserToModeratorMessage" xml:space="preserve">
     <value>Сигурни ли сте, че искате да направите {0} модератор?</value>
+  </data>
+  <data name="Protein" xml:space="preserve">
+    <value>Белтъци</value>
   </data>
   <data name="RecipeAlreadyInList" xml:space="preserve">
     <value>{0} вече е в {1}</value>
@@ -521,6 +638,12 @@
   </data>
   <data name="UnknownUser" xml:space="preserve">
     <value>Неизвестен потребител</value>
+  </data>
+  <data name="UpdatedFood" xml:space="preserve">
+    <value>Храната {0} бе обновена</value>
+  </data>
+  <data name="UpdateFoodTitle" xml:space="preserve">
+    <value>Редактиране на храна</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Потребителско име</value>

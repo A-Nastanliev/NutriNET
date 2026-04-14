@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Food.MyFoodRequestsPage"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             Title="{local:Translate MyFoodRequestsPageTitle}"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Food"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             x:DataType="vm:MyFoodRequestsVM"
+             xmlns:views="clr-namespace:NutriNET.Maui.Views.Food">
+
+    <AbsoluteLayout >
+        <CollectionView VerticalOptions="Fill" Margin="10" x:Name="FoodRequestsCollection" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"
+                        ItemsSource="{Binding MyFoodRequests}" VerticalScrollBarVisibility="Never"
+                            SelectionMode="None">
+            <CollectionView.EmptyView>
+                <Label  Text="{local:Translate MyFoodRequestsEmpty}"
+                            HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <views:FoodRequestView Margin="8"/>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical"
+                       Span="1" />
+            </CollectionView.ItemsLayout>
+        </CollectionView>
+        <VerticalStackLayout AbsoluteLayout.LayoutBounds="0.95,0.97,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Spacing="20">
+            <Grid HeightRequest="40" WidthRequest="40"  
+                IsVisible="{Binding CanRequest}">
+                <Button x:Name="PlusButtonBase" CornerRadius="20" Clicked="PlusButtonBase_Clicked"/>
+                <Image Source="plus_icon.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="24" WidthRequest="24">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White" />
+                    </Image.Behaviors>
+                </Image>
+            </Grid>
+        </VerticalStackLayout>
+        <Grid
+            x:Name="BottomSheetOverlay" IsVisible="False" BackgroundColor="#771A1A1A" RowDefinitions="*, auto"
+            AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <BoxView BackgroundColor="Transparent">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBottomSheetOverlayTapped"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            <BoxView  BackgroundColor="#80000000" Grid.RowSpan="2"/>
+            <Grid  x:Name="BottomSheetContent"  SafeAreaEdges="None" Grid.Row="1"
+                VerticalOptions="End">
+                <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0">
+                    <VerticalStackLayout Spacing="10">
+                        <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, *, Auto" ColumnSpacing="10">
+                            <Label Text="{local:Translate Name}" FontSize="Small" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center"/>
+                            <Label Text="{local:Translate Brand}" FontSize="Small" Grid.Row="1" Grid.Column="0" VerticalTextAlignment="Center"/>
+                            <Label Text="{local:Translate Barcode}" FontSize="Small" Grid.Row="2" Grid.Column="0" VerticalTextAlignment="Center"/>
+                            <Entry Text="{Binding FoodRequest.Name, Mode=TwoWay}" MaxLength="50" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"/>
+                            <Entry Text="{Binding FoodRequest.Brand, Mode=TwoWay}" MaxLength="30" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+                            <Entry x:Name="BarcodeEntry"  Text="{Binding FoodRequest.Barcode, Mode=TwoWay}" MaxLength="14" Grid.Row="2" Grid.Column="1" />
+                            <Grid HeightRequest="40" WidthRequest="40" Grid.Row="2" Grid.Column="2" >
+                                <Button x:Name="ScanButtonBase" CornerRadius="20" Clicked="ScanButtonBase_Clicked"/>
+                                <Image Source="barcode_icon.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="24" WidthRequest="24">
+                                    <Image.Behaviors>
+                                        <toolkit:IconTintColorBehavior TintColor="White" />
+                                    </Image.Behaviors>
+                                </Image>
+                            </Grid>
+                        </Grid>
+                        <Grid x:Name="ScannerHost" HorizontalOptions="Fill" HeightRequest="300"
+                              VerticalOptions="End" IsVisible="False"    IsClippedToBounds="True"/>
+                        <Button Text="{local:Translate SubmitRequest}" Command="{Binding CreateFoodRequestCommand}"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+        </Grid>
+    </AbsoluteLayout>
+</ContentPage>

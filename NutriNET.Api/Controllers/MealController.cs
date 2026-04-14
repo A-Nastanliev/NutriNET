@@ -80,7 +80,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
         }
 
@@ -94,7 +94,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
         }
 
@@ -124,7 +124,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
         }
 
@@ -139,7 +139,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
         }
 
@@ -153,7 +153,7 @@ namespace NutriNET.Api.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { error = ex.Message });
             }
         }
     }

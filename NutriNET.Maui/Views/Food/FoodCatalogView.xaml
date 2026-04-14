@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Food.FoodCatalogView"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Food"
+             x:DataType="vm:FoodCatalogVM" 
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             xmlns:views="clr-namespace:NutriNET.Maui.Views.Food"
+             x:Name="Root">
+    
+    <Grid Margin="6,0" RowDefinitions="Auto, *" RowSpacing="0">
+        <SearchBar Text="{Binding EntrySearch, Mode=TwoWay}" Placeholder="{local:Translate FoodCatalogSearch}" 
+                       BackgroundColor="Transparent" HorizontalOptions="Fill"  />
+        <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                    Command="{Binding RefreshCommand}" Grid.Row="1">
+            <CollectionView VerticalOptions="Fill" Margin="0" x:Name="FoodCollection"
+                    ItemsSource="{Binding CurrentFoods}"
+                    RemainingItemsThreshold="3" VerticalScrollBarVisibility="Never"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadCommand}"
+                    ItemTemplate="{Binding Source={x:Reference Root}, Path=ItemTemplate}">
+
+                <CollectionView.EmptyView>
+                    <Label  Text="{local:Translate FoodCatalogEmpty}"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="{Binding Source={x:Reference Root}, Path=Span}" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+        </RefreshView>
+    </Grid>
+</ContentView>

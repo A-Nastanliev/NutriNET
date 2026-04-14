@@ -123,6 +123,9 @@
   <data name="ActionNotAllowed" xml:space="preserve">
     <value>Action not allowed</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="AdminCannotDeleteSelf" xml:space="preserve">
     <value>Administrators cannot delete themselves.</value>
   </data>
@@ -135,8 +138,14 @@
   <data name="AlreadyHaveAccountText" xml:space="preserve">
     <value>Already have an account? Log in</value>
   </data>
+  <data name="Barcode" xml:space="preserve">
+    <value>Barcode</value>
+  </data>
   <data name="BarcodeNotFound" xml:space="preserve">
     <value>No food with barcode {0} was found</value>
+  </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Brand</value>
   </data>
   <data name="Breakfast" xml:space="preserve">
     <value>Breakfast</value>
@@ -144,11 +153,17 @@
   <data name="By" xml:space="preserve">
     <value>By</value>
   </data>
+  <data name="Calories" xml:space="preserve">
+    <value>Calories</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="CannotDeleteOtherAdmin" xml:space="preserve">
     <value>You cannot delete another administrator</value>
+  </data>
+  <data name="Carbohydrates" xml:space="preserve">
+    <value>Carbs</value>
   </data>
   <data name="ChangeEmail" xml:space="preserve">
     <value>Change Email</value>
@@ -186,6 +201,12 @@
   <data name="Created" xml:space="preserve">
     <value>{0} created</value>
   </data>
+  <data name="CreatedFood" xml:space="preserve">
+    <value>{0} created</value>
+  </data>
+  <data name="CreateFoodTitle" xml:space="preserve">
+    <value>Create Food</value>
+  </data>
   <data name="CreateModeratorRequestPageTitle" xml:space="preserve">
     <value>Request Moderator</value>
   </data>
@@ -201,11 +222,20 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="DeletedFood" xml:space="preserve">
+    <value>{0} deleted</value>
+  </data>
   <data name="DeletedUser" xml:space="preserve">
     <value>{0} deleted</value>
   </data>
   <data name="DeleteMyAccountConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to delete your account? This action cannot be undone.</value>
+  </data>
+  <data name="DeleteName" xml:space="preserve">
+    <value>Delete {0}</value>
+  </data>
+  <data name="DeleteNameMessage" xml:space="preserve">
+    <value>Are you sure you want to delete {0}?</value>
   </data>
   <data name="Demote" xml:space="preserve">
     <value>Demote</value>
@@ -221,6 +251,9 @@
   </data>
   <data name="Dinner" xml:space="preserve">
     <value>Dinner</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
@@ -246,6 +279,9 @@
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
+  <data name="Fat" xml:space="preserve">
+    <value>Fat</value>
+  </data>
   <data name="Follow" xml:space="preserve">
     <value>Follow</value>
   </data>
@@ -267,8 +303,24 @@
   <data name="FoodBarcodeExists" xml:space="preserve">
     <value>Food with barcode {0} already exists.</value>
   </data>
+  <data name="FoodCatalogEmpty" xml:space="preserve">
+    <value>No foods found</value>
+  </data>
+  <data name="FoodCatalogPageTitle" xml:space="preserve">
+    <value>Food Catalog</value>
+  </data>
+  <data name="FoodCatalogSearch" xml:space="preserve">
+    <value>Search food by name or brand</value>
+    <comment>Placeholder of the SearchBar in the FoodCatalogView</comment>
+  </data>
+  <data name="FoodCatalogTabPageTitle" xml:space="preserve">
+    <value>Catalog</value>
+  </data>
   <data name="FoodNotFound" xml:space="preserve">
     <value>Food not found</value>
+  </data>
+  <data name="FoodRequestCreated" xml:space="preserve">
+    <value>Request for {0} created</value>
   </data>
   <data name="FoodRequestDeniedBarcodeExists" xml:space="preserve">
     <value>Food with barcode {0} already exists. Food request denied.</value>
@@ -276,8 +328,32 @@
   <data name="FoodRequestNotFound" xml:space="preserve">
     <value>Food request not found</value>
   </data>
+  <data name="FoodRequestsEmpty" xml:space="preserve">
+    <value>No food requests found</value>
+  </data>
+  <data name="FoodRequestsPageTitle" xml:space="preserve">
+    <value>Food Requests</value>
+  </data>
+  <data name="FoodRequestsPickerTitle" xml:space="preserve">
+    <value>Food Request Status</value>
+  </data>
+  <data name="FoodRequestsTabPageTitle" xml:space="preserve">
+    <value>Requests</value>
+  </data>
+  <data name="FoodRequestValidationBarcode" xml:space="preserve">
+    <value>Barcode must be at least 8 characters long</value>
+  </data>
+  <data name="FoodRequestValidationBrand" xml:space="preserve">
+    <value>Brand is required</value>
+  </data>
+  <data name="FoodRequestValidationName" xml:space="preserve">
+    <value>Name is required</value>
+  </data>
   <data name="FoodsTabTitle" xml:space="preserve">
     <value>Foods</value>
+  </data>
+  <data name="FoodValidationBarcode" xml:space="preserve">
+    <value>Barcode must be empty or between 8 and 13 characters</value>
   </data>
   <data name="FoodValidationCalories" xml:space="preserve">
     <value>Calories must be between 0 and 900</value>
@@ -287,6 +363,12 @@
   </data>
   <data name="FoodValidationFats" xml:space="preserve">
     <value>Fat must be between 0 and 100</value>
+  </data>
+  <data name="FoodValidationImage" xml:space="preserve">
+    <value>Image is required when creating a food</value>
+  </data>
+  <data name="FoodValidationName" xml:space="preserve">
+    <value>Name is required</value>
   </data>
   <data name="FoodValidationProtein" xml:space="preserve">
     <value>Proteins must be between 0 and 100</value>
@@ -305,6 +387,9 @@
   </data>
   <data name="GenericErrorMessage" xml:space="preserve">
     <value>Something went wrong. Please try again.</value>
+  </data>
+  <data name="grams" xml:space="preserve">
+    <value>g</value>
   </data>
   <data name="Handled" xml:space="preserve">
     <value>Handled</value>
@@ -333,6 +418,9 @@
   <data name="InvalidPasswordTitle" xml:space="preserve">
     <value>Invalid Password</value>
   </data>
+  <data name="kcal" xml:space="preserve">
+    <value>kcal</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
@@ -353,6 +441,9 @@
   </data>
   <data name="Lunch" xml:space="preserve">
     <value>Lunch</value>
+  </data>
+  <data name="Macronutrients" xml:space="preserve">
+    <value>Macronutrients</value>
   </data>
   <data name="ManagementTabTitle" xml:space="preserve">
     <value>Management</value>
@@ -402,6 +493,18 @@
   <data name="ModRequestsTabPageTitle" xml:space="preserve">
     <value>Mod Requests</value>
   </data>
+  <data name="MyFoodRequestsEmpty" xml:space="preserve">
+    <value>You don't have pending food requests</value>
+  </data>
+  <data name="MyFoodRequestsPageTitle" xml:space="preserve">
+    <value>My Food Requests</value>
+  </data>
+  <data name="MyRequestsTabPageTitle" xml:space="preserve">
+    <value>My Requests</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="NewEmail" xml:space="preserve">
     <value>New email</value>
   </data>
@@ -417,11 +520,17 @@
   <data name="NoAccountText" xml:space="preserve">
     <value>Don't have an account? Sign up</value>
   </data>
+  <data name="NoBrandText" xml:space="preserve">
+    <value>Generic</value>
+  </data>
   <data name="NoEndDate" xml:space="preserve">
     <value>Undefined</value>
   </data>
   <data name="NotFollowing" xml:space="preserve">
     <value>You don't follow this user</value>
+  </data>
+  <data name="NutritionLabel" xml:space="preserve">
+    <value>{0} ({1})</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
@@ -438,11 +547,20 @@
   <data name="PasswordUpdated" xml:space="preserve">
     <value>Password updated</value>
   </data>
+  <data name="perGrams" xml:space="preserve">
+    <value>per {0} g</value>
+  </data>
+  <data name="PickImage" xml:space="preserve">
+    <value>Pick Image</value>
+  </data>
   <data name="ProfilePictureRequired" xml:space="preserve">
     <value>Profile picture required</value>
   </data>
   <data name="PromoteUserToModeratorMessage" xml:space="preserve">
     <value>Are you sure you want to promote {0} to moderator?</value>
+  </data>
+  <data name="Protein" xml:space="preserve">
+    <value>Protein</value>
   </data>
   <data name="RecipeAlreadyInList" xml:space="preserve">
     <value>{0} is already in {1}</value>
@@ -522,6 +640,12 @@
   </data>
   <data name="UnknownUser" xml:space="preserve">
     <value>Unknown User</value>
+  </data>
+  <data name="UpdatedFood" xml:space="preserve">
+    <value>{0} updated</value>
+  </data>
+  <data name="UpdateFoodTitle" xml:space="preserve">
+    <value>Edit Food</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>

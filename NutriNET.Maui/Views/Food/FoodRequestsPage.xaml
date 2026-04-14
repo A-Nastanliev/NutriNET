@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Food.FoodRequestsPage"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Food"
+             x:DataType="vm:FoodRequestsVM"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             xmlns:views="clr-namespace:NutriNET.Maui.Views.Food"
+             xmlns:status="clr-namespace:NutriNET.Maui.Models"
+             Title="{local:Translate FoodRequestsPageTitle}">
+
+    <ContentPage.Resources>
+        <x:Int32 x:Key="Zero">0</x:Int32>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout>
+        <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"  
+            Padding="16,16,16,0" RowSpacing="8" RowDefinitions="Auto, *">
+            <Label Text="{Binding SelectedRequestStatus.Key}" TextColor="{StaticResource SecondaryDarkText}" VerticalOptions="Center" HorizontalOptions="Fill"
+                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SelectRequestStatusCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+            <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                Command="{Binding RefreshCommand}"  Grid.Row="1">
+                <CollectionView x:Name="FoodRequestsCollection" VerticalOptions="Fill"
+                        ItemsSource="{Binding FoodRequests}"
+                        RemainingItemsThreshold="3" VerticalScrollBarVisibility="Never"
+                        RemainingItemsThresholdReachedCommand="{Binding LoadCommand}">
+
+                    <CollectionView.EmptyView>
+                        <Label  Text="{local:Translate FoodRequestsEmpty}"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"/>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate >
+                            <views:FoodRequestView
+                                x:DataType="views:FoodRequestView" Margin="6,10" 
+                                TapCommand="{Binding Source={RelativeSource FindAncestor, AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectFoodRequestCommand}"
+                                NameTapCommand="{Binding Source={RelativeSource FindAncestor, AncestorType={x:Type ContentPage}}, Path=BindingContext.VisitProfileCommand}"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+            </RefreshView>
+        </Grid>
+        <Grid
+            x:Name="Overlay" IsVisible="False" BackgroundColor="#771A1A1A" RowDefinitions="*, Auto"
+            AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <BoxView BackgroundColor="Transparent">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOverlayTapped"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            <BoxView  BackgroundColor="#80000000" Grid.RowSpan="2"/>
+            <Grid  x:Name="BottomSheetContent" RowDefinitions="Auto" Grid.Row="1" HorizontalOptions="Fill" 
+                VerticalOptions="End" MaximumHeightRequest="500">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0" Padding="20,20,20,10">
+                    <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
+                        <VerticalStackLayout Spacing="8" Background="Transparent" >
+                            <HorizontalStackLayout Spacing="12" VerticalOptions="Center" HorizontalOptions="Start">
+                                <Border WidthRequest="50" HeightRequest="50" StrokeThickness="1" Stroke="LightGray"
+                                        StrokeShape="RoundRectangle 50" VerticalOptions="Center">
+                                    <Image Source="{Binding SelectedRequest.Sender.ProfilePictureSource}" Aspect="AspectFill">
+                                        <Image.Clip>
+                                            <EllipseGeometry Center="25,25" RadiusX="25" RadiusY="25" />
+                                        </Image.Clip>
+                                    </Image>
+                                </Border>
+                                <Label Text="{Binding SelectedRequest.Sender.Username}" FontAttributes="Bold" FontSize="Medium" VerticalOptions="Center"
+                                     IsVisible="{Binding SelectedRequest.Sender.Id, Converter={StaticResource NotEqualsConverter},ConverterParameter={StaticResource Zero}}"/>
+                                <Label Text="{local:Translate UnknownUser}" FontAttributes="Bold" FontSize="Medium" VerticalOptions="Center"
+                                     IsVisible="{Binding SelectedRequest.Sender.Id, Converter={StaticResource EqualsConverter},ConverterParameter={StaticResource Zero}}"/>
+                                <HorizontalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding VisitProfileCommand}"
+                                        CommandParameter="{Binding SelectedRequest.Sender}"/>
+                                </HorizontalStackLayout.GestureRecognizers>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="8">
+                                <VerticalStackLayout Spacing="8">
+                                    <Label FontSize="Small" TextColor="White" VerticalOptions="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{local:Translate Name}" />
+                                                <Span Text=":" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label FontSize="Small" TextColor="White" VerticalOptions="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{local:Translate Brand}" />
+                                                <Span Text=":" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label FontSize="Small" TextColor="White" VerticalOptions="Center" >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{local:Translate Barcode}" />
+                                                <Span Text=":" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Spacing="8">
+                                    <Label Text="{Binding SelectedRequest.Name}" FontSize="Small" LineBreakMode="WordWrap" VerticalOptions="Center" />
+                                    <Label Text="{Binding SelectedRequest.Brand}" FontSize="Small"  LineBreakMode="WordWrap"  VerticalOptions="Center" />
+                                    <Label Text="{Binding SelectedRequest.Barcode}" FontSize="Small" LineBreakMode="WordWrap" VerticalOptions="Center" />
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="8">
+                                <VerticalStackLayout Spacing="8">
+                                    <Label
+                                        FontSize="Micro" TextColor="White" VerticalOptions="Center" >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{local:Translate Sent}" />
+                                                <Span Text=":" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label FontSize="Micro" TextColor="White" VerticalOptions="Center"
+                                        IsVisible="{Binding SelectedRequest.ActionDate, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Null}}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{local:Translate Handled}" />
+                                                <Span Text=":" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Spacing="8">
+                                    <Label
+                                        Text="{Binding SelectedRequest.DateSent, Converter={StaticResource TimeConverter}}" FontSize="Micro"
+                                        TextColor="White" VerticalOptions="Center" HorizontalOptions="Start" />
+                                    <Label  IsVisible="{Binding SelectedRequest.ActionDate, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Null}}"
+                                        Text="{Binding SelectedRequest.ActionDate, Converter={StaticResource TimeConverter}}"
+                                        FontSize="Micro" VerticalOptions="Center" TextColor="White" HorizontalOptions="Start" />
+                                </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="6" HorizontalOptions="Start" VerticalOptions="Center" 
+                                IsVisible="{Binding SelectedRequest.ActionDate, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Null}}">
+                                <Label  Text="{local:Translate By}" FontSize="Micro" VerticalOptions="Center" />
+                                <Border WidthRequest="25" HeightRequest="25" StrokeThickness="1" Stroke="LightGray" 
+                                        StrokeShape="RoundRectangle 25" VerticalOptions="Center">
+                                    <Image Source="{Binding SelectedRequest.ActionUser.ProfilePictureSource}" Aspect="AspectFill" VerticalOptions="Center">
+                                        <Image.Clip>
+                                            <EllipseGeometry  Center="12.5,12.5" RadiusX="12.5" RadiusY="12.5" />
+                                        </Image.Clip>
+                                    </Image>
+                                </Border>
+                                <Label Text="{Binding SelectedRequest.ActionUser.Username}" FontSize="Small" VerticalOptions="Center"
+                                    FontAttributes="Bold" LineBreakMode="TailTruncation" MaxLines="1"
+                                     IsVisible="{Binding SelectedRequest.ActionUser.Id, Converter={StaticResource NotEqualsConverter},ConverterParameter={StaticResource Zero}}"/>
+                                <Label Text="{local:Translate UnknownUser}" FontSize="Small" VerticalOptions="Center"
+                                      FontAttributes="Bold" LineBreakMode="TailTruncation" MaxLines="1"
+                                       IsVisible="{Binding SelectedRequest.ActionUser.Id, Converter={StaticResource EqualsConverter},ConverterParameter={StaticResource Zero}}"/>
+                                <HorizontalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding VisitProfileCommand}"
+                                        CommandParameter="{Binding SelectedRequest.ActionUser}"/>
+                                </HorizontalStackLayout.GestureRecognizers>
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="20" HorizontalOptions="Center"
+                                 IsVisible="{Binding SelectedRequest.Status, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static status:RequestStatus.Pending}}">
+                                <Button Text="{local:Translate Accept}" Command="{Binding AcceptFoodRequestCommand}"/>
+                                <Button Text="{local:Translate Decline}" Command="{Binding DeclineFoodRequestCommand}"/>
+                            </HorizontalStackLayout>
+                        </VerticalStackLayout>
+                    </ScrollView>
+                </Border>
+            </Grid>
+        </Grid>
+    </AbsoluteLayout>
+</ContentPage>

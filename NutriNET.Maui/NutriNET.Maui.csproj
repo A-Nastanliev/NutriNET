@@ -83,6 +83,30 @@
 	  <MauiXaml Update="Views\Authentication\ResetCodePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Food\CompactFoodView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Food\FoodCatalogPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Food\FoodCatalogView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Food\FoodFormPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Food\FoodRequestsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Food\FoodRequestView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Food\FoodView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Food\MyFoodRequestsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\OtpInput.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -131,10 +155,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="ViewModels\Food\" />
 	  <Folder Include="ViewModels\Meals\" />
 	  <Folder Include="ViewModels\Recipes\" />
-	  <Folder Include="Views\Food\" />
 	  <Folder Include="Views\Meals\" />
 	  <Folder Include="Views\Recipes\" />
 	</ItemGroup>

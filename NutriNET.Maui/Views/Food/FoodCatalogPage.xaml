@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Food.FoodCatalogPage"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Food"
+             xmlns:bottomSheet="clr-namespace:Syncfusion.Maui.Toolkit.BottomSheet;assembly=Syncfusion.Maui.Toolkit"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:views="clr-namespace:NutriNET.Maui.Views.Food"
+             xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
+             x:DataType="vm:FoodCatalogVM"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             Title="{local:Translate FoodCatalogPageTitle}">
+    
+    <AbsoluteLayout>
+        <views:FoodCatalogView AbsoluteLayout.LayoutBounds="0,0,1,1" x:Name="FoodCatalog" AbsoluteLayout.LayoutFlags="All" Span="2" ItemTapCommand="{Binding SelectFoodCommand}">
+            <views:FoodCatalogView.ItemTemplate>
+                <DataTemplate>
+                    <views:FoodView
+                        TapCommand="{Binding Source={RelativeSource AncestorType={x:Type views:FoodCatalogView}}, Path=ItemTapCommand}" />
+                </DataTemplate>
+            </views:FoodCatalogView.ItemTemplate>
+        </views:FoodCatalogView>
+        <VerticalStackLayout AbsoluteLayout.LayoutBounds="0.95,0.97,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Spacing="20">           
+            <Grid HeightRequest="40" WidthRequest="40"  
+                IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource RoleVisibilityConverter}, ConverterParameter='Administrator,Moderator'}">
+                <Button x:Name="PlusButtonBase" CornerRadius="20"/>
+                <Image Source="plus_icon.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="24" WidthRequest="24">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White" />
+                    </Image.Behaviors>
+                </Image>
+            </Grid>
+            <Grid HeightRequest="40" WidthRequest="40"  >
+                <Button x:Name="ScanButtonBase" CornerRadius="20" Clicked="ScanButtonBase_Clicked"/>
+                <Image Source="barcode_icon.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="24" WidthRequest="24">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White" />
+                    </Image.Behaviors>
+                </Image>
+            </Grid>
+        </VerticalStackLayout>
+        <Grid
+            x:Name="Overlay" IsVisible="False"
+            AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" RowDefinitions="*,*">
+            <BoxView BackgroundColor="#9F0D0D0D" Grid.RowSpan="2">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOverlayTapped"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            <Grid  x:Name="ScannerPanel"  SafeAreaEdges="None" Grid.Row="1"
+                VerticalOptions="End" BackgroundColor="Red" IsClippedToBounds="True">
+                <Grid x:Name="ScannerHost" SafeAreaEdges="None" HorizontalOptions="Fill" VerticalOptions="End" />
+            </Grid>
+        </Grid>
+        <Grid
+            x:Name="FoodSheetOverlay" IsVisible="False" BackgroundColor="#771A1A1A" RowDefinitions="*, auto"
+            AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <BoxView BackgroundColor="Transparent">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnFoodSheetOverlayTapped"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+
+            <BoxView  BackgroundColor="#80000000" Grid.RowSpan="2"/>
+
+            <Grid  x:Name="FoodSheetContent"  SafeAreaEdges="None" Grid.Row="1"
+                VerticalOptions="End" InputTransparent="False">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0" Padding="0">
+                    <Grid RowDefinitions="Auto, Auto">
+                        <Image Aspect="AspectFill" HeightRequest="340" Source="{Binding SelectedFood.ImageSource}" />
+                        <VerticalStackLayout Padding="16, 8, 16, 8" Spacing="4" Background="{StaticResource PrimaryOverlay}" HorizontalOptions="Fill" VerticalOptions="End">
+                            <Label Text="{Binding SelectedFood.Name}" FontSize="Medium" LineBreakMode="TailTruncation"/>
+                            <Label Text="{Binding SelectedFood.ExtraInfo}" LineBreakMode="TailTruncation" FontSize="Small" 
+                                IsVisible="{Binding SelectedFood.ExtraInfo, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Null}}"/>
+                            <Label Text="{local:Translate NoBrandText}" LineBreakMode="TailTruncation" FontSize="Small" 
+                                IsVisible="{Binding SelectedFood.ExtraInfo, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Null}}"/>
+                            <Label FontSize="Small" HorizontalOptions="Start">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding SelectedFood.Calories}" />
+                                        <Span Text=" " />
+                                        <Span Text="{local:Translate kcal}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto" ColumnSpacing="8" >
+                                <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="2">
+                                    <Label FontSize="Small" TextColor="{StaticResource ProteinColor}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding SelectedFood.Proteins}" />
+                                                <Span Text=" " />
+                                                <Span Text="{local:Translate grams}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Text="{local:Translate Protein}" FontSize="Micro" VerticalOptions="Center"/>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="2">
+                                    <Label FontSize="Small" TextColor="{StaticResource CarbsColor}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding SelectedFood.Carbohydrates}" />
+                                                <Span Text=" " />
+                                                <Span Text="{local:Translate grams}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Text="{local:Translate Carbohydrates}" FontSize="Micro" VerticalOptions="Center"/>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="2">
+                                    <Label FontSize="Small" TextColor="{StaticResource FatColor}">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding SelectedFood.Fats}" />
+                                                <Span Text=" " />
+                                                <Span Text="{local:Translate grams}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Text="{local:Translate Fat}" FontSize="Micro" VerticalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Grid>
+                            <Border Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                                <FlexLayout Direction="Row" HeightRequest="10">
+                                    <BoxView BackgroundColor="{StaticResource ProteinColor}" FlexLayout.Grow="{Binding SelectedFood.ProteinRatio}" />
+                                    <BoxView BackgroundColor="{StaticResource CarbsColor}" FlexLayout.Grow="{Binding SelectedFood.CarbsRatio}" />
+                                    <BoxView BackgroundColor="{StaticResource FatColor}" FlexLayout.Grow="{Binding SelectedFood.FatRatio}"/>
+                                </FlexLayout>
+                            </Border> 
+                        </VerticalStackLayout>
+                        <Grid Grid.Row="1" Background="{StaticResource PrimaryOverlay}"> 
+                            <HorizontalStackLayout Spacing="20" Margin="8" HorizontalOptions="End"
+                                 IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource RoleVisibilityConverter}, ConverterParameter='Administrator,Moderator'}">
+                                <buttons:SfButton Text="{local:Translate Edit}" Command="{Binding EditFoodCommand}" FontSize="Small" ImageSource="edit_icon.png"
+                                    ShowIcon="True" ImageAlignment="Right" TextColor="White" IsCheckable="False"
+                                    IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource RoleVisibilityConverter}, ConverterParameter='Administrator,Moderator'}">
+                                    <buttons:SfButton.Style>
+                                        <Style TargetType="buttons:SfButton">
+                                            <Setter Property="Background" Value="{StaticResource Gray500}" />
+                                        </Style>
+                                    </buttons:SfButton.Style>
+                                </buttons:SfButton>
+                                <buttons:SfButton Text="{local:Translate Delete}" Command="{Binding DeleteFoodCommand}" FontSize="Small" ImageSource="delete_icon.png"
+                                    ShowIcon="True" ImageAlignment="Right" TextColor="White"
+                                      IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource RoleVisibilityConverter}, ConverterParameter='Administrator'}">
+                                    <buttons:SfButton.Style>
+                                        <Style TargetType="buttons:SfButton">
+                                            <Setter Property="Background" Value="Red" />
+                                        </Style>
+                                    </buttons:SfButton.Style>
+                                </buttons:SfButton>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </AbsoluteLayout>
+</ContentPage>

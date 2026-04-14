@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:NutriNET.Maui"
     xmlns:authentication="clr-namespace:NutriNET.Maui.Views.Authentication"
     xmlns:settings="clr-namespace:NutriNET.Maui.Views.Settings"
+    xmlns:foods="clr-namespace:NutriNET.Maui.Views.Food"
     Title="NutriNET.Maui"
     xmlns:role="clr-namespace:NutriNET.Maui.Authentication"
     Shell.FlyoutBehavior="Disabled">
@@ -39,6 +40,17 @@
         <Tab Title="{local:Translate MealsTabTitle}" Icon="home_icon.png">
         </Tab>
         <Tab Title="{local:Translate FoodsTabTitle}" Icon="food_icon.png">
+            <ShellContent Title="{local:Translate FoodCatalogTabPageTitle}"
+             ContentTemplate="{DataTemplate foods:FoodCatalogPage}"
+             Route="FoodCatalogPage"/>
+            <ShellContent Title="{local:Translate MyRequestsTabPageTitle}"
+               ContentTemplate="{DataTemplate foods:MyFoodRequestsPage}"
+               IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource EqualsConverter},  ConverterParameter={x:Static role:UserRole.User}}"
+               Route="MyFoodRequestsPage"/>
+            <ShellContent Title="{local:Translate FoodRequestsTabPageTitle}"
+              ContentTemplate="{DataTemplate foods:FoodRequestsPage}"
+              IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource NotEqualsConverter},  ConverterParameter={x:Static role:UserRole.User}}"
+              Route="FoodRequestsPage"/>
         </Tab>
         <Tab Title="{local:Translate RecipesTabTitle}" Icon="recipes_icon.png">
         </Tab>
