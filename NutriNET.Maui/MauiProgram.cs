@@ -7,10 +7,12 @@ using NutriNET.Maui.Authentication;
 using NutriNET.Maui.Models.User;
 using NutriNET.Maui.ViewModels.Authentication;
 using NutriNET.Maui.ViewModels.Food;
+using NutriNET.Maui.ViewModels.Meals;
 using NutriNET.Maui.ViewModels.Recipes;
 using NutriNET.Maui.ViewModels.Settings;
 using NutriNET.Maui.Views.Authentication;
 using NutriNET.Maui.Views.Food;
+using NutriNET.Maui.Views.Meals;
 using NutriNET.Maui.Views.Recipes;
 using NutriNET.Maui.Views.Settings;
 using Syncfusion.Maui.Toolkit.Hosting;
@@ -135,6 +137,12 @@ namespace NutriNET.Maui
 
             builder.Services.AddTransient<RecipeListLoaderVM>();
             builder.Services.AddTransient<RecipeListPage>();
+
+            builder.Services.AddSingleton<TodayVM>();
+            builder.Services.AddSingleton<TodayPage>();
+
+            builder.Services.AddSingleton<HistoryVM>();
+            builder.Services.AddSingleton<HistoryPage>();
 
             return builder.Build();
         }

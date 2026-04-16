@@ -135,6 +135,9 @@
   <data name="AddListTitle" xml:space="preserve">
     <value>Добавяне на списък</value>
   </data>
+  <data name="AddMeal" xml:space="preserve">
+    <value>Добави хранене</value>
+  </data>
   <data name="AddToList" xml:space="preserve">
     <value>Добави в списък</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Промяна на парола</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Изчисти</value>
   </data>
   <data name="Code" xml:space="preserve">
     <value>Код</value>
@@ -258,6 +264,9 @@
   <data name="DeletedFood" xml:space="preserve">
     <value>Храната {0} бе изтрита</value>
   </data>
+  <data name="DeletedMeal" xml:space="preserve">
+    <value>Премахнато хранене {0} в {1} </value>
+  </data>
   <data name="DeletedRecipe" xml:space="preserve">
     <value>Изтрихте {0}</value>
   </data>
@@ -269,6 +278,12 @@
   </data>
   <data name="DeleteIngredientMessage" xml:space="preserve">
     <value>Сигурни ли сте, че искате да премахнете {0}г от {1}?</value>
+  </data>
+  <data name="DeleteMealFoodMessage" xml:space="preserve">
+    <value>Сигурни ли сте, че искате да изтриете {0}г от {1}?</value>
+  </data>
+  <data name="DeleteMealMessage" xml:space="preserve">
+    <value>Искате да премахнете {0} в {1}?</value>
   </data>
   <data name="DeleteMyAccountConfirmMessage" xml:space="preserve">
     <value>Сигурни ли сте, че искате да изтриете акаунта си? Това действие не може да бъде отменено.</value>
@@ -420,6 +435,9 @@
   <data name="FoodRequestValidationName" xml:space="preserve">
     <value>Името е задължително</value>
   </data>
+  <data name="FoodSelectionTitle" xml:space="preserve">
+    <value>Как искате да изберете храната?</value>
+  </data>
   <data name="FoodsTabTitle" xml:space="preserve">
     <value>Храна</value>
   </data>
@@ -464,6 +482,15 @@
   </data>
   <data name="Handled" xml:space="preserve">
     <value>Обработено</value>
+  </data>
+  <data name="HistoryEmpty" xml:space="preserve">
+    <value>Нямате история</value>
+  </data>
+  <data name="HistoryPageTitle" xml:space="preserve">
+    <value>История на храненията</value>
+  </data>
+  <data name="HistoryTabPageTitle" xml:space="preserve">
+    <value>История</value>
   </data>
   <data name="hours" xml:space="preserve">
     <value>{0} часове</value>
@@ -543,8 +570,14 @@
   <data name="MealFoodNotFound" xml:space="preserve">
     <value>Храната не е намерена в храненето.</value>
   </data>
+  <data name="MealFoodsEmpty" xml:space="preserve">
+    <value>Няма храни към това хранене</value>
+  </data>
   <data name="MealNotFound" xml:space="preserve">
     <value>Храненето не бе намерено</value>
+  </data>
+  <data name="MealsEmpty" xml:space="preserve">
+    <value>Няма добавени хранения днес</value>
   </data>
   <data name="MealsTabTitle" xml:space="preserve">
     <value>Хранене</value>
@@ -587,6 +620,9 @@
   </data>
   <data name="MyRating" xml:space="preserve">
     <value>Моята оценка</value>
+  </data>
+  <data name="MyRecipesMessage" xml:space="preserve">
+    <value>Избери от моите рецепти</value>
   </data>
   <data name="MyRecipesPageTitle" xml:space="preserve">
     <value>Моите рецепти</value>
@@ -693,6 +729,9 @@
   <data name="RecipeAlreadyInList" xml:space="preserve">
     <value>{0} вече е в {1}</value>
   </data>
+  <data name="RecipeCatalogEmpty" xml:space="preserve">
+    <value>Не бяха намерени рецепти</value>
+  </data>
   <data name="RecipeCatalogPageTitle" xml:space="preserve">
     <value>Разгледай рецепти</value>
   </data>
@@ -789,14 +828,38 @@
   <data name="SaveChanges" xml:space="preserve">
     <value>Запази промените</value>
   </data>
+  <data name="SavedRecipesMessage" xml:space="preserve">
+    <value>Избери от запазените рецепти</value>
+  </data>
   <data name="SavedRecipesPageTitle" xml:space="preserve">
     <value>Запазени рецепти</value>
+  </data>
+  <data name="SavedRecipesTabPageTitle" xml:space="preserve">
+    <value>Запазени</value>
+  </data>
+  <data name="SearchRecipesMessage" xml:space="preserve">
+    <value>Търси рецепта</value>
+  </data>
+  <data name="SelectBarcodeScanMessage" xml:space="preserve">
+    <value>Сканирайте баркод</value>
   </data>
   <data name="SelectCommentAction" xml:space="preserve">
     <value>Действия</value>
   </data>
+  <data name="SelectFoodMessage" xml:space="preserve">
+    <value>Изберете храна</value>
+  </data>
+  <data name="SelectMealType" xml:space="preserve">
+    <value>Избери тип на храненето</value>
+  </data>
   <data name="SelectPrivacyLevelTitle" xml:space="preserve">
     <value>Изберете нивото на видимост на рецептата</value>
+  </data>
+  <data name="SelectRecipeMessage" xml:space="preserve">
+    <value>Изберете рецепта</value>
+  </data>
+  <data name="SelectRecipeTitle" xml:space="preserve">
+    <value>Избери източник на рецепти</value>
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Изпрати код</value>
@@ -824,6 +887,12 @@
   </data>
   <data name="SubmitRequest" xml:space="preserve">
     <value>Изпрати заявка</value>
+  </data>
+  <data name="TodayPageTitle" xml:space="preserve">
+    <value>Днешните хранения</value>
+  </data>
+  <data name="TodayTabPageTitle" xml:space="preserve">
+    <value>Днес</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Общо</value>

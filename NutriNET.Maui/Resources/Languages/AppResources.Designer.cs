@@ -115,6 +115,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Meal.
+        /// </summary>
+        internal static string AddMeal {
+            get {
+                return ResourceManager.GetString("AddMeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add to List.
         /// </summary>
         internal static string AddToList {
@@ -255,6 +264,15 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string ChangePassword {
             get {
                 return ResourceManager.GetString("ChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string Clear {
+            get {
+                return ResourceManager.GetString("Clear", resourceCulture);
             }
         }
         
@@ -484,6 +502,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} at {1} deleted.
+        /// </summary>
+        internal static string DeletedMeal {
+            get {
+                return ResourceManager.GetString("DeletedMeal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleted {0}.
         /// </summary>
         internal static string DeletedRecipe {
@@ -516,6 +543,24 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string DeleteIngredientMessage {
             get {
                 return ResourceManager.GetString("DeleteIngredientMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete {0}g of {1}?.
+        /// </summary>
+        internal static string DeleteMealFoodMessage {
+            get {
+                return ResourceManager.GetString("DeleteMealFoodMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete {0} at {1}?.
+        /// </summary>
+        internal static string DeleteMealMessage {
+            get {
+                return ResourceManager.GetString("DeleteMealMessage", resourceCulture);
             }
         }
         
@@ -970,6 +1015,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to How do you want to select the food?.
+        /// </summary>
+        internal static string FoodSelectionTitle {
+            get {
+                return ResourceManager.GetString("FoodSelectionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Foods.
         /// </summary>
         internal static string FoodsTabTitle {
@@ -1101,6 +1155,33 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string Handled {
             get {
                 return ResourceManager.GetString("Handled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your history is empty.
+        /// </summary>
+        internal static string HistoryEmpty {
+            get {
+                return ResourceManager.GetString("HistoryEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meal History.
+        /// </summary>
+        internal static string HistoryPageTitle {
+            get {
+                return ResourceManager.GetString("HistoryPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to History.
+        /// </summary>
+        internal static string HistoryTabPageTitle {
+            get {
+                return ResourceManager.GetString("HistoryTabPageTitle", resourceCulture);
             }
         }
         
@@ -1339,11 +1420,29 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No foods in this meal.
+        /// </summary>
+        internal static string MealFoodsEmpty {
+            get {
+                return ResourceManager.GetString("MealFoodsEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meal not found.
         /// </summary>
         internal static string MealNotFound {
             get {
                 return ResourceManager.GetString("MealNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No meals added today.
+        /// </summary>
+        internal static string MealsEmpty {
+            get {
+                return ResourceManager.GetString("MealsEmpty", resourceCulture);
             }
         }
         
@@ -1470,6 +1569,15 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string MyRating {
             get {
                 return ResourceManager.GetString("MyRating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose from my recipes.
+        /// </summary>
+        internal static string MyRecipesMessage {
+            get {
+                return ResourceManager.GetString("MyRecipesMessage", resourceCulture);
             }
         }
         
@@ -1789,6 +1897,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No recipes found.
+        /// </summary>
+        internal static string RecipeCatalogEmpty {
+            get {
+                return ResourceManager.GetString("RecipeCatalogEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Discover Recipes.
         /// </summary>
         internal static string RecipeCatalogPageTitle {
@@ -2077,11 +2194,47 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose from saved recipes.
+        /// </summary>
+        internal static string SavedRecipesMessage {
+            get {
+                return ResourceManager.GetString("SavedRecipesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saved Recipes.
         /// </summary>
         internal static string SavedRecipesPageTitle {
             get {
                 return ResourceManager.GetString("SavedRecipesPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saved.
+        /// </summary>
+        internal static string SavedRecipesTabPageTitle {
+            get {
+                return ResourceManager.GetString("SavedRecipesTabPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search a recipe.
+        /// </summary>
+        internal static string SearchRecipesMessage {
+            get {
+                return ResourceManager.GetString("SearchRecipesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan Barcode.
+        /// </summary>
+        internal static string SelectBarcodeScanMessage {
+            get {
+                return ResourceManager.GetString("SelectBarcodeScanMessage", resourceCulture);
             }
         }
         
@@ -2095,11 +2248,47 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Food.
+        /// </summary>
+        internal static string SelectFoodMessage {
+            get {
+                return ResourceManager.GetString("SelectFoodMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Meal Type.
+        /// </summary>
+        internal static string SelectMealType {
+            get {
+                return ResourceManager.GetString("SelectMealType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select recipe visibility.
         /// </summary>
         internal static string SelectPrivacyLevelTitle {
             get {
                 return ResourceManager.GetString("SelectPrivacyLevelTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Recipe.
+        /// </summary>
+        internal static string SelectRecipeMessage {
+            get {
+                return ResourceManager.GetString("SelectRecipeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose recipe source.
+        /// </summary>
+        internal static string SelectRecipeTitle {
+            get {
+                return ResourceManager.GetString("SelectRecipeTitle", resourceCulture);
             }
         }
         
@@ -2181,6 +2370,24 @@ namespace NutriNET.Maui.Resources.Languages {
         internal static string SubmitRequest {
             get {
                 return ResourceManager.GetString("SubmitRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today&apos;s Meals.
+        /// </summary>
+        internal static string TodayPageTitle {
+            get {
+                return ResourceManager.GetString("TodayPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Today.
+        /// </summary>
+        internal static string TodayTabPageTitle {
+            get {
+                return ResourceManager.GetString("TodayTabPageTitle", resourceCulture);
             }
         }
         

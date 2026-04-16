@@ -8,6 +8,7 @@
     xmlns:settings="clr-namespace:NutriNET.Maui.Views.Settings"
     xmlns:foods="clr-namespace:NutriNET.Maui.Views.Food"
     xmlns:recipes="clr-namespace:NutriNET.Maui.Views.Recipes"
+    xmlns:meals="clr-namespace:NutriNET.Maui.Views.Meals"
     Title="NutriNET.Maui"
     xmlns:role="clr-namespace:NutriNET.Maui.Authentication"
     Shell.FlyoutBehavior="Disabled">
@@ -39,6 +40,12 @@
 
     <TabBar>
         <Tab Title="{local:Translate MealsTabTitle}" Icon="home_icon.png">
+            <ShellContent Title="{local:Translate TodayTabPageTitle}"
+                 ContentTemplate="{DataTemplate meals:TodayPage}"
+                 Route="TodayPage"/>
+            <ShellContent Title="{local:Translate HistoryTabPageTitle}"
+               ContentTemplate="{DataTemplate meals:HistoryPage}"
+               Route="HistoryPage"/>
         </Tab>
         <Tab Title="{local:Translate FoodsTabTitle}" Icon="food_icon.png">
             <ShellContent Title="{local:Translate FoodCatalogTabPageTitle}"

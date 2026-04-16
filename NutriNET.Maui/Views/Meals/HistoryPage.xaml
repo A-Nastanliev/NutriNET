@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Meals.HistoryPage"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             Title="{local:Translate HistoryPageTitle}"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Meals"
+             x:DataType="vm:HistoryVM"
+             xmlns:mealViews="clr-namespace:NutriNET.Maui.Views.Meals">
+
+    <AbsoluteLayout>
+        <RefreshView IsRefreshing="{Binding IsRefreshing}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"
+                    Command="{Binding RefreshCommand}">
+            <CollectionView VerticalOptions="Fill" Margin="0"
+                    ItemsSource="{Binding MealDays}"
+                    RemainingItemsThreshold="3" VerticalScrollBarVisibility="Never"
+                    RemainingItemsThresholdReachedCommand="{Binding LoadCommand}">
+
+                <CollectionView.EmptyView>
+                    <Label  Text="{local:Translate HistoryEmpty}"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <mealViews:MealDayView x:DataType="mealViews:MealDayView"
+                            MealTapCommand="{Binding Source={RelativeSource FindAncestor, AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectMealCommand}"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+        <Grid x:Name="Overlay" IsVisible="False" BackgroundColor="#771A1A1A" RowDefinitions="*, 2*"  
+              AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <BoxView  BackgroundColor="#80000000" Grid.RowSpan="2">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOverlayTapped"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            <Grid  x:Name="BottomSheetContent" RowDefinitions="*" Grid.Row="1" HorizontalOptions="Fill"  VerticalOptions="End">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0" Padding="0">
+                    <Grid RowDefinitions="Auto, Auto, *" VerticalOptions="End">
+                        <Grid ColumnSpacing="20" RowDefinitions="Auto, Auto" RowSpacing="6" Padding="16,16,16,0">
+                            <Label Text="{Binding SelectedMeal.Type, Converter={StaticResource MealTypeConverter}}" FontSize="Medium" 
+                                HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Label Text="{Binding SelectedMeal.DateTime, Converter={StaticResource TimeConverter}}" 
+                                FontSize="Micro" Grid.Row="1" HorizontalOptions="Center"/>
+                        </Grid>
+                        <Grid RowSpacing="4" x:Name="MacrosGrid" Padding="8,0" Grid.Row="1"
+                            ColumnDefinitions="*,*,*,*" ColumnSpacing="2">
+                            <Label FontSize="Small" HorizontalOptions="Center" Grid.Column="0" VerticalOptions="Center" LineBreakMode="TailTruncation">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding SelectedMeal.Calories}" />
+                                        <Span Text=" " />
+                                        <Span Text="{local:Translate kcal}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label FontSize="Small" TextColor="{StaticResource ProteinColor}" Grid.Row="1" 
+                                Grid.Column="1" HorizontalOptions="Center" VerticalTextAlignment="Center" VerticalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding SelectedMeal.Proteins}" />
+                                        <Span Text=" " />
+                                        <Span Text="{local:Translate grams}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label FontSize="Small" TextColor="{StaticResource CarbsColor}" VerticalTextAlignment="Center" VerticalOptions="Center"
+                                Grid.Row="1" Grid.Column="2" HorizontalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding SelectedMeal.Carbohydrates}" />
+                                        <Span Text=" " />
+                                        <Span Text="{local:Translate grams}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label FontSize="Small" TextColor="{StaticResource FatColor}" Grid.Row="1" 
+                                Grid.Column="3" HorizontalOptions="Center"  VerticalTextAlignment="Center" VerticalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding SelectedMeal.Fats}" />
+                                        <Span Text=" " />
+                                        <Span Text="{local:Translate grams}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                        <CollectionView VerticalOptions="Fill" Margin="4,0" Grid.Row="2" 
+                            ItemsSource="{Binding SelectedMeal.MealFoods}" VerticalScrollBarVisibility="Never">
+
+                            <CollectionView.EmptyView>
+                                <Label Text="{local:Translate MealFoodsEmpty}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </CollectionView.EmptyView>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <mealViews:MealFoodView x:DataType="mealViews:MealFoodView" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+
+                        </CollectionView>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </AbsoluteLayout>
+</ContentPage>

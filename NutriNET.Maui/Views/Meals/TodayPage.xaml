@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Meals.TodayPage"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Meals"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:foodViews="clr-namespace:NutriNET.Maui.Views.Food"
+             xmlns:mealViews="clr-namespace:NutriNET.Maui.Views.Meals"
+             x:DataType="vm:TodayVM"
+             xmlns:recipeViews="clr-namespace:NutriNET.Maui.Views.Recipes"
+             xmlns:chart="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             Title="{local:Translate TodayPageTitle}">
+
+    <AbsoluteLayout>
+        <Grid Padding="0,10,0,0" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" RowDefinitions="3*,10*" RowSpacing="4">
+            <Border Padding="0" Margin="10,0" Grid.Row="0" Style="{StaticResource SectionCard}" Stroke="Transparent">
+                <Grid ColumnDefinitions="35*,75*">
+                    <chart:ChartView Chart="{Binding MacroChart}" VerticalOptions="Fill"
+                            Grid.Column="0" Background="Transparent" BackgroundColor="Transparent">
+                        </chart:ChartView>
+                    <Grid Grid.Column="1" RowDefinitions="Auto, Auto" VerticalOptions="Center" RowSpacing="8">
+                        <Label FontSize="Large" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding MealDay.Calories}" />
+                                    <Span Text=" " />
+                                    <Span Text="{local:Translate kcal}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Grid Grid.Row="1" RowSpacing="8" RowDefinitions="*,*,*" Padding="8,0" VerticalOptions="Center">
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8" Grid.Row="0">
+                                <BoxView Grid.Column="0" CornerRadius="4" HeightRequest="8" WidthRequest="8" 
+                                         Color="{StaticResource ProteinColor}" VerticalOptions="Center" BackgroundColor="Transparent"/>
+                                <Label Grid.Column="1"  Text="{local:Translate Protein}"  FontSize="Small" 
+                                       VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                                <Label Grid.Column="2" FontSize="Small" TextColor="{StaticResource ProteinColor}"  
+                                       VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalOptions="End">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding MealDay.Proteins}" />
+                                            <Span Text=" " />
+                                            <Span Text="{local:Translate grams}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8" Grid.Row="1" VerticalOptions="Center">
+                                <BoxView Grid.Column="0" CornerRadius="4" HeightRequest="8" WidthRequest="8" 
+                                    Color="{StaticResource CarbsColor}"  VerticalOptions="Center" BackgroundColor="Transparent"/>
+                                <Label Grid.Column="1" Text="{local:Translate Carbohydrates}" 
+                                       FontSize="Small"  VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                                <Label Grid.Column="2" FontSize="Small" TextColor="{StaticResource CarbsColor}" 
+                                       VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalOptions="End">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding MealDay.Carbohydrates}" />
+                                            <Span Text=" " />
+                                            <Span Text="{local:Translate grams}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8" Grid.Row="2" VerticalOptions="Center">
+                                <BoxView Grid.Column="0"  CornerRadius="4" HeightRequest="8" WidthRequest="8" 
+                                         Color="{StaticResource FatColor}" VerticalOptions="Center" BackgroundColor="Transparent"/>
+                                <Label Grid.Column="1" Text="{local:Translate Fat}" FontSize="Small"  
+                                       VerticalOptions="Center" VerticalTextAlignment="Center"/>
+                                <Label Grid.Column="2"  FontSize="Small"  TextColor="{StaticResource FatColor}" 
+                                       VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalOptions="End">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding MealDay.Fats}" />
+                                            <Span Text=" " />
+                                            <Span Text="{local:Translate grams}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+            <mealViews:MealDayView BindingContext="{Binding MealDay}" IsToday="True" Grid.Row="1"
+                        MealTapCommand="{Binding Source={RelativeSource FindAncestor, AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectMealCommand}"/>
+        </Grid>
+        <VerticalStackLayout AbsoluteLayout.LayoutBounds="0.95,0.97,AutoSize,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional" Spacing="20">
+            <Grid HeightRequest="40" WidthRequest="40">
+                <Button x:Name="PlusButtonBase" CornerRadius="24" Command="{Binding AddMealCommand}"/>
+                <Image Source="plus_icon.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="24" WidthRequest="24">
+                    <Image.Behaviors>
+                        <toolkit:IconTintColorBehavior TintColor="White" />
+                    </Image.Behaviors>
+                </Image>
+            </Grid>
+        </VerticalStackLayout>
+        <Grid
+            x:Name="Overlay" IsVisible="False" BackgroundColor="#771A1A1A" RowDefinitions="*, 8*"
+            AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <BoxView  BackgroundColor="#80000000" Grid.RowSpan="2">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOverlayTapped"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            <Grid  x:Name="BottomSheetContent" RowDefinitions="*" Grid.Row="1" HorizontalOptions="Fill" 
+                VerticalOptions="End">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0" Padding="0">
+                    <Grid RowDefinitions="Auto, Auto, *, *, Auto" VerticalOptions="End">
+                        <Grid ColumnSpacing="20" ColumnDefinitions="*, auto" RowDefinitions="Auto, Auto" RowSpacing="6" Padding="16,16,16,0">
+                            <Label Text="{Binding SelectedMeal.Type, Converter={StaticResource MealTypeConverter}}" FontSize="Medium" 
+                                HorizontalOptions="Center" VerticalOptions="Center" Grid.ColumnSpan="2" Grid.Column="0">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding UpdateMealCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <Grid HeightRequest="40" WidthRequest="40" Grid.Column="1" Grid.RowSpan="2" VerticalOptions="Center">
+                                <Button CornerRadius="20" Command="{Binding DeleteMealCommand}" BackgroundColor="Red" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Image Source="delete_icon.png" Aspect="AspectFit" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="25" WidthRequest="25">
+                                    <Image.Behaviors>
+                                        <toolkit:IconTintColorBehavior TintColor="White" />
+                                    </Image.Behaviors>
+                                </Image>
+                            </Grid>
+                            <Label Text="{Binding SelectedMeal.DateTime, Converter={StaticResource TimeConverter}}" 
+                                FontSize="Micro" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2"/>
+                        </Grid>
+                        <Grid RowSpacing="4" x:Name="MacrosGrid" Padding="8,0" Grid.Row="1"
+                            ColumnDefinitions="*,*,*,*" ColumnSpacing="2">
+                            <Label FontSize="Small" HorizontalOptions="Center" Grid.Column="0" VerticalOptions="Center" LineBreakMode="TailTruncation">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding SelectedMeal.Calories}" />
+                                        <Span Text=" " />
+                                        <Span Text="{local:Translate kcal}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label FontSize="Small" TextColor="{StaticResource ProteinColor}" Grid.Row="1" 
+                            Grid.Column="1" HorizontalOptions="Center" VerticalTextAlignment="Center" VerticalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding SelectedMeal.Proteins}" />
+                                        <Span Text=" " />
+                                        <Span Text="{local:Translate grams}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label FontSize="Small" TextColor="{StaticResource CarbsColor}" VerticalTextAlignment="Center" VerticalOptions="Center"
+                                Grid.Row="1" Grid.Column="2" HorizontalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding SelectedMeal.Carbohydrates}" />
+                                        <Span Text=" " />
+                                        <Span Text="{local:Translate grams}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label FontSize="Small" TextColor="{StaticResource FatColor}" Grid.Row="1" 
+                                Grid.Column="3" HorizontalOptions="Center"  VerticalTextAlignment="Center" VerticalOptions="Center">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding SelectedMeal.Fats}" />
+                                        <Span Text=" " />
+                                        <Span Text="{local:Translate grams}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                        <CollectionView VerticalOptions="Fill" Margin="4,0" Grid.Row="2"
+                            ItemsSource="{Binding SelectedMeal.MealFoods}" VerticalScrollBarVisibility="Never">
+
+                            <CollectionView.EmptyView>
+                                <Label  Text="{local:Translate MealFoodsEmpty}"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center"/>
+                            </CollectionView.EmptyView>
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <mealViews:MealFoodView
+                                        x:DataType="mealViews:MealFoodView"                                            
+                                        EditCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditMealFoodCommand}"
+                                        DeleteCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteMealFoodCommand}" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+
+                        </CollectionView>
+                        <Button Text="{local:Translate Add}" x:Name="AddMealFoodButton" Command="{Binding ChooseSelectionCommand}" Margin="8,4,8,8" VerticalOptions="Center" Grid.Row="4"
+                            IsVisible="{Binding IsSelecting, Converter={StaticResource NotEqualsConverter}, ConverterParameter={StaticResource TrueBool}}"/>
+                        <Button Text="{local:Translate Cancel}" x:Name="CancelButton" Command="{Binding CancelCommand}" Margin="9,4,9,8" VerticalOptions="Center" Grid.Row="4" BorderWidth="1"
+                            IsVisible="{Binding IsSelecting}" TextColor="{StaticResource SecondaryDarkText}" BackgroundColor="{StaticResource Gray600}" BorderColor="{StaticResource SecondaryDarkText}"/>
+                        <foodViews:FoodCatalogView x:Name="FoodCatalog" Span="1" Grid.Row="3"
+                             ItemTapCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectFoodCommand}"
+                             IsVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsSelectingFood, Mode=TwoWay}" >
+                            <foodViews:FoodCatalogView.ItemTemplate>
+                                <DataTemplate>
+                                    <foodViews:CompactFoodView
+                                        TapCommand="{Binding Source={x:Reference FoodCatalog}, Path=ItemTapCommand}"/>
+                                </DataTemplate>
+                            </foodViews:FoodCatalogView.ItemTemplate>
+                        </foodViews:FoodCatalogView>
+                        <Grid x:Name="BarcodeScannerHost" Grid.Row="3" IsVisible="{Binding IsBarcodeScanning, Mode=TwoWay}" IsClippedToBounds="True"/>
+                        <Grid x:Name="SavedRecipesCatalog" Grid.Row="3" IsVisible="{Binding IsSelectingSavedRecipe, Mode=TwoWay}"
+                              RowDefinitions="Auto, *">
+                            <Label Text="{Binding RecipeListLoader.RecipeList.Name}" HorizontalTextAlignment="Center" Grid.Row="0"
+                                FontSize="Small" TextColor="{StaticResource SecondaryDarkText}">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding PickRecipeListCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                            <CollectionView ItemsSource="{Binding RecipeListLoader.Recipes}"  VerticalOptions="Fill" Grid.Row="1" Margin="6"
+                                    RemainingItemsThreshold="3" VerticalScrollBarVisibility="Never" HorizontalScrollBarVisibility="Never"
+                                    RemainingItemsThresholdReachedCommand="{Binding RecipeListLoader.LoadCommand}">
+                                <CollectionView.EmptyView>
+                                    <Label  Text="{local:Translate RecipeListEmpty}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </CollectionView.EmptyView>
+                                <CollectionView.ItemsLayout>
+                                    <GridItemsLayout Orientation="Vertical" Span="1"/>
+                                </CollectionView.ItemsLayout>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <foodViews:CompactFoodView
+                                          TapCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectFoodCommand}"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Grid>
+                        <recipeViews:RecipeCatalogView x:Name="RecipeCatalog" Span="1" Grid.Row="3" CanSearch="True"
+                               ItemTapCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectFoodCommand}"
+                               IsVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsSelectingRecipe, Mode=TwoWay}" >
+                            <recipeViews:RecipeCatalogView.ItemTemplate>
+                                <DataTemplate>
+                                    <foodViews:CompactFoodView
+                                    TapCommand="{Binding Source={x:Reference FoodCatalog}, Path=ItemTapCommand}"/>
+                                </DataTemplate>
+                            </recipeViews:RecipeCatalogView.ItemTemplate>
+                        </recipeViews:RecipeCatalogView>
+                        <recipeViews:RecipeCatalogView x:Name="MyRecipeCatalog" Span="1" Grid.Row="3"
+                           ItemTapCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectFoodCommand}"
+                           IsVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsSelectingPersonalRecipe, Mode=TwoWay}" >
+                            <recipeViews:RecipeCatalogView.ItemTemplate>
+                                <DataTemplate>
+                                    <foodViews:CompactFoodView
+                                TapCommand="{Binding Source={x:Reference FoodCatalog}, Path=ItemTapCommand}"/>
+                                </DataTemplate>
+                            </recipeViews:RecipeCatalogView.ItemTemplate>
+                        </recipeViews:RecipeCatalogView>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </AbsoluteLayout>
+</ContentPage>

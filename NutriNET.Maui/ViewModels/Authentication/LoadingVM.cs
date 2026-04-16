@@ -4,6 +4,7 @@ using NutriNET.Maui.ApiClients;
 using NutriNET.Maui.Managers;
 using NutriNET.Maui.ViewModels.Settings;
 using NutriNET.Maui.Views.Authentication;
+using NutriNET.Maui.Views.Meals;
 using NutriNET.Maui.Views.Settings;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace NutriNET.Maui.ViewModels.Authentication
 
                 if (result.Success)
                 {
-                    await Shell.Current.GoToAsync($"//{nameof(SettingsPage)}");
+                    await Shell.Current.GoToAsync($"//{nameof(TodayPage)}");
                 }
                 else
                 {

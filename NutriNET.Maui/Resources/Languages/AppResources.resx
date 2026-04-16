@@ -135,6 +135,9 @@
   <data name="AddListTitle" xml:space="preserve">
     <value>Add List</value>
   </data>
+  <data name="AddMeal" xml:space="preserve">
+    <value>Add Meal</value>
+  </data>
   <data name="AddToList" xml:space="preserve">
     <value>Add to List</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Change Password</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
   </data>
   <data name="Code" xml:space="preserve">
     <value>Code</value>
@@ -258,6 +264,9 @@
   <data name="DeletedFood" xml:space="preserve">
     <value>{0} deleted</value>
   </data>
+  <data name="DeletedMeal" xml:space="preserve">
+    <value>{0} at {1} deleted</value>
+  </data>
   <data name="DeletedRecipe" xml:space="preserve">
     <value>Deleted {0}</value>
   </data>
@@ -269,6 +278,12 @@
   </data>
   <data name="DeleteIngredientMessage" xml:space="preserve">
     <value>Are you sure you want to remove {0}g of {1}?</value>
+  </data>
+  <data name="DeleteMealFoodMessage" xml:space="preserve">
+    <value>Are you sure you want to delete {0}g of {1}?</value>
+  </data>
+  <data name="DeleteMealMessage" xml:space="preserve">
+    <value>Delete {0} at {1}?</value>
   </data>
   <data name="DeleteMyAccountConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to delete your account? This action cannot be undone.</value>
@@ -421,6 +436,9 @@
   <data name="FoodRequestValidationName" xml:space="preserve">
     <value>Name is required</value>
   </data>
+  <data name="FoodSelectionTitle" xml:space="preserve">
+    <value>How do you want to select the food?</value>
+  </data>
   <data name="FoodsTabTitle" xml:space="preserve">
     <value>Foods</value>
   </data>
@@ -465,6 +483,15 @@
   </data>
   <data name="Handled" xml:space="preserve">
     <value>Handled</value>
+  </data>
+  <data name="HistoryEmpty" xml:space="preserve">
+    <value>Your history is empty</value>
+  </data>
+  <data name="HistoryPageTitle" xml:space="preserve">
+    <value>Meal History</value>
+  </data>
+  <data name="HistoryTabPageTitle" xml:space="preserve">
+    <value>History</value>
   </data>
   <data name="hours" xml:space="preserve">
     <value>{0} hours</value>
@@ -544,8 +571,14 @@
   <data name="MealFoodNotFound" xml:space="preserve">
     <value>Food not found in this meal</value>
   </data>
+  <data name="MealFoodsEmpty" xml:space="preserve">
+    <value>No foods in this meal</value>
+  </data>
   <data name="MealNotFound" xml:space="preserve">
     <value>Meal not found</value>
+  </data>
+  <data name="MealsEmpty" xml:space="preserve">
+    <value>No meals added today</value>
   </data>
   <data name="MealsTabTitle" xml:space="preserve">
     <value>Meals</value>
@@ -588,6 +621,9 @@
   </data>
   <data name="MyRating" xml:space="preserve">
     <value>My Rating</value>
+  </data>
+  <data name="MyRecipesMessage" xml:space="preserve">
+    <value>Choose from my recipes</value>
   </data>
   <data name="MyRecipesPageTitle" xml:space="preserve">
     <value>My Recipes</value>
@@ -694,6 +730,9 @@
   <data name="RecipeAlreadyInList" xml:space="preserve">
     <value>{0} is already in {1}</value>
   </data>
+  <data name="RecipeCatalogEmpty" xml:space="preserve">
+    <value>No recipes found</value>
+  </data>
   <data name="RecipeCatalogPageTitle" xml:space="preserve">
     <value>Discover Recipes</value>
   </data>
@@ -790,14 +829,38 @@
   <data name="SaveChanges" xml:space="preserve">
     <value>Save Changes</value>
   </data>
+  <data name="SavedRecipesMessage" xml:space="preserve">
+    <value>Choose from saved recipes</value>
+  </data>
   <data name="SavedRecipesPageTitle" xml:space="preserve">
     <value>Saved Recipes</value>
+  </data>
+  <data name="SavedRecipesTabPageTitle" xml:space="preserve">
+    <value>Saved</value>
+  </data>
+  <data name="SearchRecipesMessage" xml:space="preserve">
+    <value>Search a recipe</value>
+  </data>
+  <data name="SelectBarcodeScanMessage" xml:space="preserve">
+    <value>Scan Barcode</value>
   </data>
   <data name="SelectCommentAction" xml:space="preserve">
     <value>Actions</value>
   </data>
+  <data name="SelectFoodMessage" xml:space="preserve">
+    <value>Select Food</value>
+  </data>
+  <data name="SelectMealType" xml:space="preserve">
+    <value>Select Meal Type</value>
+  </data>
   <data name="SelectPrivacyLevelTitle" xml:space="preserve">
     <value>Select recipe visibility</value>
+  </data>
+  <data name="SelectRecipeMessage" xml:space="preserve">
+    <value>Select Recipe</value>
+  </data>
+  <data name="SelectRecipeTitle" xml:space="preserve">
+    <value>Choose recipe source</value>
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Send Code</value>
@@ -826,6 +889,12 @@
   </data>
   <data name="SubmitRequest" xml:space="preserve">
     <value>Submit Request</value>
+  </data>
+  <data name="TodayPageTitle" xml:space="preserve">
+    <value>Today's Meals</value>
+  </data>
+  <data name="TodayTabPageTitle" xml:space="preserve">
+    <value>Today</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>

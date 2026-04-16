@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Views.Meals.MealView"
+             xmlns:vm="clr-namespace:NutriNET.Maui.Models.Meal"
+             x:DataType="vm:MealVM"
+             xmlns:local="clr-namespace:NutriNET.Maui"
+             x:Name="Root">
+    
+    <Border Style="{StaticResource MealCard}" StrokeShape="RoundRectangle 20" >
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer
+                Command="{Binding TapCommand, Source={x:Reference Root}}"
+                CommandParameter="{Binding BindingContext, Source={x:Reference Root}}"/>
+        </Border.GestureRecognizers>
+        <Grid ColumnDefinitions="*, 2*" ColumnSpacing="20" Padding="4">
+            <Label Text="{Binding Type, Converter={StaticResource MealTypeConverter}}" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
+                   Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Center" LineBreakMode="WordWrap"/>
+            <Grid Grid.Column="1" HorizontalOptions="Fill" RowDefinitions="Auto, Auto" RowSpacing="4"
+                  ColumnDefinitions="*,*,*" ColumnSpacing="20" VerticalOptions="Center">
+                <Label FontSize="Medium" HorizontalOptions="Center" Grid.ColumnSpan="3" Grid.Row="0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Calories}" />
+                            <Span Text=" " />
+                            <Span Text="{local:Translate kcal}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label FontSize="Small" TextColor="{StaticResource ProteinColor}" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Proteins}" />
+                            <Span Text=" " />
+                            <Span Text="{local:Translate grams}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label FontSize="Small" TextColor="{StaticResource CarbsColor}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Carbohydrates}" />
+                            <Span Text=" " />
+                            <Span Text="{local:Translate grams}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label FontSize="Small" TextColor="{StaticResource FatColor}" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Fats}" />
+                            <Span Text=" " />
+                            <Span Text="{local:Translate grams}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Grid>
+        </Grid>
+    </Border>
+</ContentView>
