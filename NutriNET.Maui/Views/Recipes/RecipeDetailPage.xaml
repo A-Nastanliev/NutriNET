@@ -230,7 +230,7 @@
                     </VerticalStackLayout>
                     <VerticalStackLayout Spacing="4" Margin="10,0">
                         <Label Text="{local:Translate Description}" FontSize="Medium"/>
-                        <Label LineBreakMode="WordWrap" FontSize="Small" Text="{Binding Recipe.Description}" />
+                        <Label LineBreakMode="WordWrap" FontSize="Small" Text="{Binding Recipe.Description}" HorizontalTextAlignment="Justify"  />
                     </VerticalStackLayout>
                     <buttons:SfButton Command="{Binding AddToRecipeListCommand}" FontSize="Small" ImageSource="plus_icon.png" VerticalOptions="Center"
                   ShowIcon="True" ImageAlignment="Right" TextColor="White"

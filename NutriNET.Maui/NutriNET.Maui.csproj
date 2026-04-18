@@ -65,6 +65,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\drawable\nutrinet_widget_background.xml" />
+	  <None Remove="Platforms\Android\Resources\layout\today_calories_widget_layout.xml" />
+	  <None Remove="Platforms\Android\Resources\layout\today_carbs_widget_layout.xml" />
+	  <None Remove="Platforms\Android\Resources\layout\today_fat_widget_layout.xml" />
+	  <None Remove="Platforms\Android\Resources\layout\today_protein_widget_layout.xml" />
+	  <None Remove="Platforms\Android\Resources\xml\today_calories_widget_provider.xml" />
+	  <None Remove="Platforms\Android\Resources\xml\today_carbs_widget_provider.xml" />
+	  <None Remove="Platforms\Android\Resources\xml\today_fat_widget_provider.xml" />
+	  <None Remove="Platforms\Android\Resources\xml\today_protein_widget_provider.xml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="13.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microcharts.Maui" Version="1.0.1" />

@@ -297,7 +297,7 @@ namespace NutriNET.Maui.ViewModels.Recipes
             string delete = LocalizationResourceManager.Instance["Delete"].ToString();
             string restrict = LocalizationResourceManager.Instance["RestrictUser"].ToString();
             if (_user.PublicUser.Id == comment.User.Id && _user.PublicUser.Role == UserRole.User &&
-                (_user.CurrentRestriction?.EndDate == null || _user.CurrentRestriction?.EndDate > DateTime.UtcNow))
+                ((_user.CurrentRestriction?.EndDate == null || _user.CurrentRestriction?.EndDate > DateTime.UtcNow) && _user.CurrentRestriction?.Id != 0))
             {
                 options = new string[] { delete };
             }
@@ -332,7 +332,15 @@ namespace NutriNET.Maui.ViewModels.Recipes
 
                 try
                 {
-                    var result = await _recipeClient.DeleteRecipeCommentAsync(comment.Id);
+                    RequestResult result ;
+                    if (comment.User.Id != _user.PublicUser.Id)
+                    { 
+                        result = await _recipeClient.DeleteRecipeCommentAsync(comment.Id); 
+                    }
+                    else
+                    {
+                        result = await _recipeClient.DeleteOwnRecipeCommentAsync(comment.Id);
+                    }
                     if (!result.Success)
                     {
                         message = LocalizationResourceManager.Instance[result.Error].ToString();

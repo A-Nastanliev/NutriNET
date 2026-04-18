@@ -63,7 +63,7 @@
 
             <Label
                 Text="{Binding Description}"
-                FontSize="Small"
+                FontSize="Small" HorizontalTextAlignment="Justify" 
                 LineBreakMode="WordWrap" />
             <HorizontalStackLayout Spacing="8">
                 <VerticalStackLayout Spacing="8">

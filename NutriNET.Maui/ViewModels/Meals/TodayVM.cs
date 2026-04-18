@@ -94,6 +94,10 @@ namespace NutriNET.Maui.ViewModels.Meals
         public void OnLocalize()
         {
             MealDay.OnLocalize();
+#if ANDROID
+            NutriNET.Maui.Platforms.Android.NutriWidgetPreferences.SaveAndRefresh(
+                MealDay.Calories, MealDay.Proteins, MealDay.Carbohydrates, MealDay.Fats);
+#endif
         }
 
         void UpdateChart()
@@ -126,7 +130,10 @@ namespace NutriNET.Maui.ViewModels.Meals
             };
 
             MacroChart.Entries = entries;
-
+#if ANDROID
+            NutriNET.Maui.Platforms.Android.NutriWidgetPreferences.SaveAndRefresh(
+                MealDay.Calories, MealDay.Proteins, MealDay.Carbohydrates, MealDay.Fats);
+#endif
             OnPropertyChanged(nameof(MacroChart));
         }
 

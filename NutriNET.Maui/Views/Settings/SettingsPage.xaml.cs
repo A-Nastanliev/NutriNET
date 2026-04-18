@@ -61,5 +61,23 @@ public partial class SettingsPage : ContentPage
         LocalizationResourceManager.Instance.Culture = culture;
 
         Preferences.Set("app_language", culture.Name);
+
+#if ANDROID
+        try
+        {
+            var todayVM = IPlatformApplication.Current?.Services
+                .GetService<ViewModels.Meals.TodayVM>();
+
+            if (todayVM != null)
+            {
+                Platforms.Android.NutriWidgetPreferences.SaveAndRefresh
+                    (todayVM.MealDay.Calories, todayVM.MealDay.Proteins,todayVM.MealDay.Carbohydrates,todayVM.MealDay.Fats);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"[SettingsPage] Widget language refresh failed: {ex}");
+        }
+#endif
     }
 }

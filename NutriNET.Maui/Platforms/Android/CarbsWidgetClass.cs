@@ -1,0 +1,31 @@
+#if ANDROID
+using Android.App;
+using Android.Appwidget;
+using Android.Content;
+using Android.Widget;
+
+namespace NutriNET.Maui.Platforms.Android
+{
+    [BroadcastReceiver(Label = "Carbs", Exported = true)]
+    [IntentFilter(new[] { "android.appwidget.action.APPWIDGET_UPDATE" })]
+    [MetaData("android.appwidget.provider", Resource = "@xml/today_carbs_widget_provider")]
+    public class CarbsWidgetClass : AppWidgetProvider
+    {
+        public override void OnUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
+        {
+            var prefs = NutriWidgetPreferences.OpenPrefs();
+            foreach (var id in appWidgetIds)
+                appWidgetManager.UpdateAppWidget(id, BuildViews(context, prefs));
+        }
+
+        internal static RemoteViews BuildViews(Context context, ISharedPreferences prefs)
+        {
+            var views = new RemoteViews(context.PackageName, Resource.Layout.today_carbs_widget_layout);
+            views.SetTextViewText(Resource.Id.carbs_label, NutriWidgetPreferences.GetString(prefs, "Carbs"));
+            var g = NutriWidgetPreferences.GetString(prefs, "g");
+            views.SetTextViewText(Resource.Id.carbs_value, $"{Math.Round(NutriWidgetPreferences.GetCarbs(prefs), 1)}{g}");
+            return views;
+        }
+    }
+}
+#endif
