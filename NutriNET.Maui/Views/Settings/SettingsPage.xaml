@@ -16,7 +16,7 @@
                    HorizontalOptions="Fill"
                    VerticalOptions="Start">
 
-            <Border Style="{StaticResource SectionCard}">
+            <Border Style="{StaticResource SectionCard}" Padding="10,20">
                 <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
                     <Border
                          Stroke="{StaticResource Primary}" StrokeThickness="2" StrokeShape="RoundRectangle 90"
@@ -35,7 +35,7 @@
                     </HorizontalStackLayout>
                     <Label Text="{Binding User.PublicUser.Username}" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
                     <Grid ColumnSpacing="20" HorizontalOptions="Center" ColumnDefinitions="*,*">
-                        <Border Style="{StaticResource SectionCard}" Padding="10,10,14,10" HorizontalOptions="Center">
+                        <Border Style="{StaticResource SectionCard}" Padding="10" Margin="0,0,4,0" HorizontalOptions="Center">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer x:Name="OpenFollowersGesture" Command="{Binding OpenFollowersCommand}" />
                             </Border.GestureRecognizers>
@@ -45,7 +45,7 @@
                                 <Label Text="{local:Translate FollowersPageTitle}" FontSize="Micro" TextColor="White" HorizontalOptions="Center" />
                             </VerticalStackLayout>
                         </Border>
-                        <Border Style="{StaticResource SectionCard}" Padding="14,10,10,10" Grid.Column="1" HorizontalOptions="Center">
+                        <Border Style="{StaticResource SectionCard}" Padding="10" Margin="4,0,0,0" Grid.Column="1" HorizontalOptions="Center">
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer x:Name="OpenFollowingGesture" Command="{Binding OpenFollowingCommand}" />
                             </Border.GestureRecognizers>
@@ -79,7 +79,8 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Image Source="management_icon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
-                    <Label Text="{local:Translate RequestModeratorRole}" Grid.Column="1" VerticalOptions="Center" FontSize="Medium" HorizontalOptions="Center" />
+                    <Label Text="{local:Translate RequestModeratorRole}" Grid.Column="1" VerticalOptions="Center" FontSize="Medium" HorizontalOptions="Center" 
+                           HorizontalTextAlignment="Justify"/>
                 </Grid>
             </Border>
 

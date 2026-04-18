@@ -97,6 +97,7 @@ namespace NutriNET.Maui.Platforms.Android
             RefreshWidget<ProteinWidgetClass>(context);
             RefreshWidget<CarbsWidgetClass>(context);
             RefreshWidget<FatWidgetClass>(context);
+            RefreshWidget<MacrosSummaryWidgetClass>(context);
         }
 
         private static void RefreshWidget<T>(Context context) where T : AppWidgetProvider

@@ -775,7 +775,7 @@
     <value>Премахнете {0}</value>
   </data>
   <data name="RequestModeratorRole" xml:space="preserve">
-    <value>Подай заявка, за да станеш модератор</value>
+    <value>Подай заявка за да станеш модератор</value>
   </data>
   <data name="RequestStatusAccepted" xml:space="preserve">
     <value>Приети</value>

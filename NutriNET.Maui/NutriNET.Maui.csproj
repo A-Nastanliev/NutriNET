@@ -62,6 +62,7 @@
 
 	<ItemGroup>
 	  <AndroidResource Remove="Platforms\Android\Resources\values\styles.xml" />
+	  <AndroidResource Remove="Platforms\Android\Resources\xml\today_macros_summary_widget_preview.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -69,10 +70,12 @@
 	  <None Remove="Platforms\Android\Resources\layout\today_calories_widget_layout.xml" />
 	  <None Remove="Platforms\Android\Resources\layout\today_carbs_widget_layout.xml" />
 	  <None Remove="Platforms\Android\Resources\layout\today_fat_widget_layout.xml" />
+	  <None Remove="Platforms\Android\Resources\layout\today_macros_summary_widget_layout.xml" />
 	  <None Remove="Platforms\Android\Resources\layout\today_protein_widget_layout.xml" />
 	  <None Remove="Platforms\Android\Resources\xml\today_calories_widget_provider.xml" />
 	  <None Remove="Platforms\Android\Resources\xml\today_carbs_widget_provider.xml" />
 	  <None Remove="Platforms\Android\Resources\xml\today_fat_widget_provider.xml" />
+	  <None Remove="Platforms\Android\Resources\xml\today_macros_summary_widget_provider.xml" />
 	  <None Remove="Platforms\Android\Resources\xml\today_protein_widget_provider.xml" />
 	</ItemGroup>
 
