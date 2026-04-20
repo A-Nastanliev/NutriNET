@@ -26,27 +26,28 @@ namespace NutriNET.Maui.Platforms.Android
         internal static RemoteViews BuildViews(Context context, ISharedPreferences prefs)
         {
             var views = new RemoteViews(context.PackageName, Resource.Layout.today_macros_summary_widget_layout);
+            var lc = NutriWidgetPreferences.GetLocalizedContext(prefs, context);
 
-            var g = NutriWidgetPreferences.GetString(prefs, "g");
-            var kcal = NutriWidgetPreferences.GetString(prefs, "kcal");
-
+            var kcal = lc.GetString(Resource.String.kcal);
+            var g = lc.GetString(Resource.String.g);
             var protein = NutriWidgetPreferences.GetProtein(prefs);
             var carbs = NutriWidgetPreferences.GetCarbs(prefs);
             var fat = NutriWidgetPreferences.GetFat(prefs);
             var calories = NutriWidgetPreferences.GetCalories(prefs);
 
-            views.SetTextViewText(Resource.Id.summary_calories_label, NutriWidgetPreferences.GetString(prefs, "Calories"));
+            views.SetTextViewText(Resource.Id.summary_calories_label, lc.GetString(Resource.String.calories));
             views.SetTextViewText(Resource.Id.summary_calories_value, $"{Math.Round(calories, 1)} {kcal}");
 
-            views.SetTextViewText(Resource.Id.summary_protein_label, NutriWidgetPreferences.GetString(prefs, "Protein"));
-            views.SetTextViewText(Resource.Id.summary_carbs_label, NutriWidgetPreferences.GetString(prefs, "Carbs"));
-            views.SetTextViewText(Resource.Id.summary_fat_label, NutriWidgetPreferences.GetString(prefs, "Fat"));
+            views.SetTextViewText(Resource.Id.summary_protein_label, lc.GetString(Resource.String.protein));
+            views.SetTextViewText(Resource.Id.summary_carbs_label, lc.GetString(Resource.String.carbs));
+            views.SetTextViewText(Resource.Id.summary_fat_label, lc.GetString(Resource.String.fat));
 
             views.SetTextViewText(Resource.Id.summary_protein_value, $"{Math.Round(protein, 1)}{g}");
             views.SetTextViewText(Resource.Id.summary_carbs_value, $"{Math.Round(carbs, 1)}{g}");
             views.SetTextViewText(Resource.Id.summary_fat_value, $"{Math.Round(fat, 1)}{g}");
 
-            views.SetImageViewBitmap(Resource.Id.summary_pie_chart, DrawDonutChart(protein, carbs, fat, 300));
+            views.SetImageViewBitmap(Resource.Id.summary_pie_chart,
+                DrawDonutChart(protein, carbs, fat, 300));
 
             return views;
         }

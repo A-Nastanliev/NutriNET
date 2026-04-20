@@ -21,9 +21,12 @@ namespace NutriNET.Maui.Platforms.Android
         internal static RemoteViews BuildViews(Context context, ISharedPreferences prefs)
         {
             var views = new RemoteViews(context.PackageName, Resource.Layout.today_carbs_widget_layout);
-            views.SetTextViewText(Resource.Id.carbs_label, NutriWidgetPreferences.GetString(prefs, "Carbs"));
-            var g = NutriWidgetPreferences.GetString(prefs, "g");
-            views.SetTextViewText(Resource.Id.carbs_value, $"{Math.Round(NutriWidgetPreferences.GetCarbs(prefs), 1)}{g}");
+            var lc = NutriWidgetPreferences.GetLocalizedContext(prefs, context);
+
+            views.SetTextViewText(Resource.Id.carbs_label, lc.GetString(Resource.String.carbs));
+            views.SetTextViewText(Resource.Id.carbs_value,
+                $"{Math.Round(NutriWidgetPreferences.GetCarbs(prefs), 1)}{lc.GetString(Resource.String.g)}");
+
             return views;
         }
     }

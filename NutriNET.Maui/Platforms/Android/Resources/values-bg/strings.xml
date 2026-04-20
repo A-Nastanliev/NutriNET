@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calories">Калории</string>
+    <string name="protein">Белтъци</string>
+    <string name="carbs">Въглехидрати</string>
+    <string name="fat">Мазнини</string>
+    <string name="kcal">ккал</string>
+    <string name="g">г</string>
+</resources>
