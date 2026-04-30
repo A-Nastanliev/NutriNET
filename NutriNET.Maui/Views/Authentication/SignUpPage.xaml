@@ -10,8 +10,8 @@
              Shell.TabBarIsVisible="False">
     
     <ScrollView>
-        <Grid Padding="24" RowSpacing="20" ColumnDefinitions="*, Auto" ColumnSpacing="20"
-              HorizontalOptions="Center" VerticalOptions="Center"
+        <Grid Padding="50" RowSpacing="20" ColumnDefinitions="*, Auto" ColumnSpacing="20"
+              HorizontalOptions="Fill" VerticalOptions="Center"
               RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
 
             <Label
@@ -36,8 +36,8 @@
             </Border>
 
             <Label
-                Text="{local:Translate ProfilePictureRequired}" FontSize="12" TextColor="#B0B0B0"
-                HorizontalOptions="Center" Grid.Row="2" Grid.ColumnSpan="2" />
+                Text="{local:Translate ProfilePictureRequired}" FontSize="Micro" TextColor="#B0B0B0"
+                HorizontalOptions="Center" Grid.Row="2" Grid.ColumnSpan="2" HorizontalTextAlignment="Center"/>
 
             <Entry
                 Placeholder="{local:Translate Username}" MaxLength="24" Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Username}"
@@ -57,11 +57,11 @@
 
             <Button 
                 Text="{local:Translate SignUpText}" Grid.Row="6" Grid.ColumnSpan="2" Command="{Binding SignUpCommand}"
-                BackgroundColor="{StaticResource Primary}" FontAttributes="Bold" CornerRadius="10" HeightRequest="50" HorizontalOptions="Fill" />
+                BackgroundColor="{StaticResource Primary}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Fill" />
 
             <Button
                 Text="{local:Translate AlreadyHaveAccountText}" Grid.Row="7" Grid.ColumnSpan="2" Command="{Binding GoToLoginCommand}"
-                BackgroundColor="Transparent" TextColor="{StaticResource PrimaryDark}" FontSize="14" HorizontalOptions="Center" />
+                BackgroundColor="Transparent" TextColor="{StaticResource PrimaryDark}" FontSize="Small" HorizontalOptions="Center" />
         </Grid>
     </ScrollView>
 </ContentPage>

@@ -11,8 +11,8 @@
     
     <ScrollView>
         <Grid
-            Padding="24" RowSpacing="20" ColumnDefinitions="*, Auto" ColumnSpacing="20"
-            HorizontalOptions="Center" VerticalOptions="Center" RowDefinitions="Auto, Auto, Auto, Auto, Auto,Auto">
+            Padding="50" RowSpacing="20" ColumnDefinitions="*, Auto" ColumnSpacing="20"
+            HorizontalOptions="Fill" VerticalOptions="Center" RowDefinitions="Auto, Auto, Auto, Auto, Auto,Auto">
 
             <Label
                 Text="{local:Translate WelcomeText}" Grid.ColumnSpan="2"

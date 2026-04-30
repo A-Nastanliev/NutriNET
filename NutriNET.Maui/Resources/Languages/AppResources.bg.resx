@@ -873,6 +873,9 @@
   <data name="SettingsTitle" xml:space="preserve">
     <value>Настройки</value>
   </data>
+  <data name="ShareRecipeText" xml:space="preserve">
+    <value>{0} - NutriNet</value>
+  </data>
   <data name="SignUpFailedTitle" xml:space="preserve">
     <value>Неуспешна регистрация</value>
   </data>

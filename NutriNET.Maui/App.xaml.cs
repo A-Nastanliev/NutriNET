@@ -8,6 +8,8 @@ namespace NutriNET.Maui
 {
     public partial class App : Application
     {
+        public static string? PendingDeepLink { get; set; }
+
         public App()
         {
             InitializeComponent();

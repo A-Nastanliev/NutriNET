@@ -2,9 +2,12 @@
 using CommunityToolkit.Mvvm.Input;
 using NutriNET.Maui.ApiClients;
 using NutriNET.Maui.Managers;
+using NutriNET.Maui.Models.Food;
+using NutriNET.Maui.ViewModels.Recipes;
 using NutriNET.Maui.ViewModels.Settings;
 using NutriNET.Maui.Views.Authentication;
 using NutriNET.Maui.Views.Meals;
+using NutriNET.Maui.Views.Recipes;
 using NutriNET.Maui.Views.Settings;
 using System;
 using System.Collections.Generic;
@@ -30,10 +33,27 @@ namespace NutriNET.Maui.ViewModels.Authentication
             try
             {
                 var result = await _userClient.TokenLoginAsync();
+                var pending = App.PendingDeepLink;
+                App.PendingDeepLink = null;
 
                 if (result.Success)
                 {
-                    await Shell.Current.GoToAsync($"//{nameof(TodayPage)}");
+                    if (!string.IsNullOrWhiteSpace(pending) &&
+                      RecipeShareTokenManager.TryParseUri(pending, out int recipeId, out string token))
+                    {
+                        if (RecipeShareTokenManager.Validate(recipeId, token))  
+                        {
+                            await Shell.Current.GoToAsync($"//{nameof(RecipeCatalogPage)}?deepLinkRecipeId={recipeId}");
+                        }
+                        else
+                        {
+                            await Shell.Current.GoToAsync($"//{nameof(TodayPage)}");        
+                        }
+                    }
+                    else
+                    {
+                        await Shell.Current.GoToAsync($"//{nameof(TodayPage)}");
+                    }
                 }
                 else
                 {

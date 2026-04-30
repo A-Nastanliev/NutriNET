@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Maui;
 using Microcharts.Maui;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
 using NutriNET.Maui.ApiClients;
 using NutriNET.Maui.Authentication;
 using NutriNET.Maui.Models.User;
@@ -16,6 +18,7 @@ using NutriNET.Maui.Views.Meals;
 using NutriNET.Maui.Views.Recipes;
 using NutriNET.Maui.Views.Settings;
 using Syncfusion.Maui.Toolkit.Hosting;
+using System.Reflection;
 using ZXing.Net.Maui.Controls;
 
 namespace NutriNET.Maui
@@ -38,7 +41,7 @@ namespace NutriNET.Maui
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             builder.Services.AddSingleton<UserVM>();

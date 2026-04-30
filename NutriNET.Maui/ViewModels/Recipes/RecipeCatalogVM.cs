@@ -12,12 +12,28 @@ using System.Collections.ObjectModel;
 
 namespace NutriNET.Maui.ViewModels.Recipes
 {
-    public partial class RecipeCatalogVM : RecipesLoadingVM, IRecipient<RecipeCreatedMessage>, IRecipient<RecipeUpdatedMessage>, IRecipient<RecipeDeletedMessage>
+    public partial class RecipeCatalogVM : RecipesLoadingVM, IQueryAttributable,
+        IRecipient<RecipeCreatedMessage>, IRecipient<RecipeUpdatedMessage>, IRecipient<RecipeDeletedMessage>
     {
         public RecipeCatalogVM(RecipeClient recipeClient) : base(recipeClient)
         {
             UserClient.OnLogout += Clear;
             WeakReferenceMessenger.Default.RegisterAll(this);
+        }
+
+        public async void ApplyQueryAttributes(IDictionary<string, object> query)
+        {
+            if (!query.TryGetValue("deepLinkRecipeId", out var idObj))
+                return;
+
+            if (!int.TryParse(idObj?.ToString(), out int recipeId))
+                return;
+
+            query.Remove("deepLinkRecipeId");
+
+            while (Loading) await Task.Delay(100);
+
+            await SelectFood(new FoodVM { Id = recipeId, FoodType= FoodType.RecipeFood,  });
         }
 
         public void Receive(RecipeCreatedMessage message)
@@ -93,7 +109,7 @@ namespace NutriNET.Maui.ViewModels.Recipes
             existing = CurrentRecipes.FirstOrDefault(r=>r.Id == message.Value.Id);
             if(existing != null)
             {
-                Recipes.Remove(existing);
+                CurrentRecipes.Remove(existing);
             }
             
         }

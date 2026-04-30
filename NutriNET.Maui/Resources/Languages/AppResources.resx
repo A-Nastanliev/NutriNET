@@ -875,6 +875,9 @@
     <value>Settings</value>
     <comment>Title for the page, the tab and the tab page.</comment>
   </data>
+  <data name="ShareRecipeText" xml:space="preserve">
+    <value>{0} - NutriNet</value>
+  </data>
   <data name="SignUpFailedTitle" xml:space="preserve">
     <value>Sign up failed</value>
   </data>

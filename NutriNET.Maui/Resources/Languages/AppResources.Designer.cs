@@ -2329,6 +2329,15 @@ namespace NutriNET.Maui.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} - NutriNet.
+        /// </summary>
+        internal static string ShareRecipeText {
+            get {
+                return ResourceManager.GetString("ShareRecipeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign up failed.
         /// </summary>
         internal static string SignUpFailedTitle {

@@ -211,6 +211,14 @@ namespace NutriNET.Maui.ViewModels.Recipes
                 }
 
                 message = String.Format(LocalizationResourceManager.Instance["AddedToList"].ToString(), Recipe.Name, pickedList.Name);
+                if(string.IsNullOrWhiteSpace(NavigationRecipeFood.ExtraInfo))
+                {
+                    NavigationRecipeFood.ExtraInfo = Recipe.Creator.Username;
+                    NavigationRecipeFood.Calories = Recipe.NormalizedCalories;
+                    NavigationRecipeFood.Image = Recipe.Image;
+                    NavigationRecipeFood.ImageSource = Recipe.ImageSource;
+                    NavigationRecipeFood.Name = Recipe.Name;
+                }
                 WeakReferenceMessenger.Default.Send(new RecipeListItemAddedMessage(NavigationRecipeFood, pickedList.Id));
                 _ = Toast.Make(message, ToastDuration.Short).Show();
             }
@@ -811,6 +819,21 @@ namespace NutriNET.Maui.ViewModels.Recipes
                             await content.Navigation.PopToRootAsync();
                 });
             }
+        }
+
+
+        [RelayCommand]
+        private async Task ShareRecipe()
+        {
+            var token = RecipeShareTokenManager.Create(Recipe.Id);
+            var link = $"https:///recipe/{token}";
+
+            await Share.RequestAsync(new ShareTextRequest
+            {
+                Title = Recipe.Name,
+                Text = string.Format(LocalizationResourceManager.Instance["ShareRecipeText"].ToString(), Recipe.Name),
+                Uri = link
+            });
         }
     }
 }

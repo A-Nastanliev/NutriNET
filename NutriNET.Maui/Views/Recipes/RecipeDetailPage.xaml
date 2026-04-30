@@ -21,7 +21,18 @@
                  Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
             <ScrollView HorizontalScrollBarVisibility="Never" VerticalScrollBarVisibility="Never">
                 <VerticalStackLayout Spacing="16" Padding="0">
-                    <Image Source="{Binding Recipe.ImageSource}" Aspect="AspectFill" HeightRequest="340"/>
+                    <Grid>
+                        <Image Source="{Binding Recipe.ImageSource}" Aspect="AspectFill" HeightRequest="340"/>
+                        <buttons:SfButton Command="{Binding ShareRecipeCommand}" FontSize="Small" ImageSource="share_icon.png" Text=""
+                            CornerRadius="15" WidthRequest="30" HeightRequest="30" VerticalOptions="End" HorizontalOptions="End" Margin="20"
+                            ShowIcon="True" ImageAlignment="Default" TextColor="White" Padding="0">
+                            <buttons:SfButton.Style>
+                                <Style TargetType="buttons:SfButton">
+                                    <Setter Property="Background" Value="{StaticResource Primary}" />
+                                </Style>
+                            </buttons:SfButton.Style>
+                        </buttons:SfButton>
+                    </Grid>
                     <Label Text="{Binding Recipe.Name}"  FontSize="Medium" Margin="10,0" LineBreakMode="WordWrap"/>
                     <HorizontalStackLayout Spacing="12" VerticalOptions="Center" HorizontalOptions="Start" Margin="10,0" >
                         <Label Text="{local:Translate By}" VerticalTextAlignment="Center" FontSize="Medium"/>
