@@ -512,5 +512,36 @@ namespace NutriNET.Api.Controllers
                 return BadRequest(new { error = e.Message });
             }
         }
+
+        [HttpGet("{id}/share-token")]
+        public IActionResult GetShareToken(int id)
+        {
+            var secret = _configuration["Share:Secret"];
+            var token = RecipeShareTokenService.Create(id, secret);
+            return Ok(new { token = token });
+        }
+
+        [HttpGet("shared/{token}")]
+        public async Task<IActionResult> GetSharedRecipe(string token)
+        {
+            var secret = _configuration["Share:Secret"];
+            if (!RecipeShareTokenService.TryValidate(token, secret, out int recipeId))
+                return BadRequest(new { error = "RecipeNotFound" });
+
+            var recipe = await _service.GetRecipeDetailsAsync(recipeId);
+            if (recipe == null) return NotFound();
+
+            var baseUrl = _configuration["App:BaseUrl"];
+            var (count, average) = await _service.GetRecipeRatingSummaryAsync(recipeId);
+            var userRating = await _service.GetUserRatingAsync(UserId.Value, recipeId);
+
+            return Ok(new
+            {
+                recipe = recipe.ToDto(baseUrl),
+                ratingCount = count,
+                ratingAverage = average,
+                userRating
+            });
+        }
     }
 }

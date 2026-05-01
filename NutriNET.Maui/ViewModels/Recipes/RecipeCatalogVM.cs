@@ -8,6 +8,7 @@ using NutriNET.Maui.Managers;
 using NutriNET.Maui.Messages.Recipes;
 using NutriNET.Maui.Models.Food;
 using NutriNET.Maui.Models.Recipes;
+using NutriNET.Maui.Views.Recipes;
 using System.Collections.ObjectModel;
 
 namespace NutriNET.Maui.ViewModels.Recipes
@@ -23,17 +24,16 @@ namespace NutriNET.Maui.ViewModels.Recipes
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            if (!query.TryGetValue("deepLinkRecipeId", out var idObj))
-                return;
+            if (!query.TryGetValue("deepLinkToken", out var tokenObj)) return;
 
-            if (!int.TryParse(idObj?.ToString(), out int recipeId))
-                return;
+            var token = tokenObj?.ToString();
+            if (string.IsNullOrWhiteSpace(token)) return;
 
-            query.Remove("deepLinkRecipeId");
+            query.Remove("deepLinkToken");
 
             while (Loading) await Task.Delay(100);
 
-            await SelectFood(new FoodVM { Id = recipeId, FoodType= FoodType.RecipeFood,  });
+            await Shell.Current.GoToAsync($"{nameof(RecipeDetailPage)}?deepLinkToken={token}");
         }
 
         public void Receive(RecipeCreatedMessage message)

@@ -31,21 +31,16 @@ namespace NutriNET.Maui
         protected override void OnNewIntent(Intent? intent)
         {
             base.OnNewIntent(intent);
-            HandleIntent(intent);
 
-            var pending = App.PendingDeepLink;
-            if (string.IsNullOrWhiteSpace(pending)) return;
-
-            if (!RecipeShareTokenManager.TryParseUri(pending, out int recipeId, out string token)) return;
-            if (!RecipeShareTokenManager.Validate(recipeId, token)) return;
-
-            App.PendingDeepLink = null;
+            if (intent?.Action != Intent.ActionView) return;
+            var uriString = intent.DataString;
+            if (string.IsNullOrWhiteSpace(uriString)) return;
+            if (!RecipeShareTokenManager.TryParseToken(uriString, out string token)) return;
 
             MainThread.BeginInvokeOnMainThread(async () =>
             {
                 await Task.Delay(300);
-                await Shell.Current.GoToAsync(nameof(RecipeDetailPage), true,
-                    new Dictionary<string, object> { [nameof(RecipeDetailVM.NavigationRecipeFood)] = new FoodVM { Id = recipeId, FoodType = FoodType.RecipeFood} });
+                await Shell.Current.GoToAsync($"{nameof(RecipeDetailPage)}?deepLinkToken={token}");
             });
         }
 

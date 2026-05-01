@@ -418,5 +418,34 @@ namespace NutriNET.Maui.ApiClients
 
             return new RequestResult(true, null);
         }
+
+        public async Task<(RequestResult,string?)> GetShareTokenAsync(int recipeId)
+        {
+            var response = await _http.GetAsync($"/api/recipes/{recipeId}/share-token");
+            if (!response.IsSuccessStatusCode) return (new RequestResult(false, await ApiErrorParser.ParseAsync(response)), null);
+            var json = await response.Content.ReadAsStringAsync();
+            using var doc = JsonDocument.Parse(json);
+            return (new RequestResult(true, null),doc.RootElement.GetProperty("token").GetString());
+        }
+
+        public async Task<(RequestResult, RecipeVM?, int, double, int?)> GetSharedRecipeAsync(string token)
+        {
+            var response = await _http.GetAsync($"/api/recipes/shared/{token}");
+            if (!response.IsSuccessStatusCode)
+                return (new RequestResult(false, await ApiErrorParser.ParseAsync(response)), null, 0, 0, null);
+
+            var json = await response.Content.ReadAsStringAsync();
+            using var doc = JsonDocument.Parse(json);
+            var root = doc.RootElement;
+
+            var recipe = new RecipeVM();
+            recipe.FromJson(root.GetProperty("recipe"));
+            var ratingCount = root.GetProperty("ratingCount").GetInt32();
+            var ratingAverage = root.GetProperty("ratingAverage").GetDouble();
+            int? userRating = root.TryGetProperty("userRating", out var ur) && ur.ValueKind != JsonValueKind.Null
+                ? ur.GetInt32() : null;
+
+            return (new RequestResult(true, null), recipe, ratingCount, ratingAverage, userRating);
+        }
     }
 }

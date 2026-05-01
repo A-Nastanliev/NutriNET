@@ -638,12 +638,12 @@ namespace NutriNET.Maui.ViewModels.Recipes
 
         public async void ApplyQueryAttributes(IDictionary<string, object> query)
         {
+            string message;
+            string error = LocalizationResourceManager.Instance["Error"].ToString();
+            string ok = LocalizationResourceManager.Instance["Ok"].ToString();
             if (query.TryGetValue($"{nameof(NavigationRecipeFood)}", out var recipeFood) && recipeFood is FoodVM food)
             {
-                NavigationRecipeFood = food;
-                string message;
-                string error = LocalizationResourceManager.Instance["Error"].ToString();
-                string ok = LocalizationResourceManager.Instance["Ok"].ToString();
+                NavigationRecipeFood = food; 
                 try
                 {
                     var (result, detailedRecipe, ratingCount, averageRating, myRating) = await _recipeClient.GetRecipeDetailsAsync(food.Id);
@@ -662,7 +662,7 @@ namespace NutriNET.Maui.ViewModels.Recipes
                     AverageRating = averageRating;
                     MyRating = (byte?)myRating;
                     _canManageRating = true;
-                    result =  await _userClient.GetMyContextAsync();
+                    result = await _userClient.GetMyContextAsync();
                     if (!result.Success)
                     {
                         message = LocalizationResourceManager.Instance[result.Error].ToString();
@@ -678,6 +678,49 @@ namespace NutriNET.Maui.ViewModels.Recipes
                     message = LocalizationResourceManager.Instance["GenericErrorMessage"].ToString();
                     await Shell.Current.DisplayAlertAsync(error, message, ok);
                 }
+            }
+            else if (query.TryGetValue("deepLinkToken", out var tokenObj)) 
+            {
+
+                var token = tokenObj?.ToString();
+                if (string.IsNullOrWhiteSpace(token)) return;
+
+                query.Remove("deepLinkToken");
+                try
+                {
+                    var (result, detailedRecipe, ratingCount, averageRating, myRating) = await _recipeClient.GetSharedRecipeAsync(token);
+                    if (!result.Success)
+                    {
+                        message = LocalizationResourceManager.Instance[result.Error].ToString();
+                        await Shell.Current.DisplayAlertAsync(error, message, ok);
+                        await Shell.Current.GoToAsync("..");
+                        return;
+                    }
+                    NavigationRecipeFood = new FoodVM{ FoodType = FoodType.RecipeFood, Id = detailedRecipe.Id };
+                    Recipe = detailedRecipe;
+                    PrivacyLevel = LocalizationResourceManager.Instance[$"PrivacyLevel{Recipe.PrivacyLevel}"].ToString();
+                    UpdateChart();
+                    RatingCount = ratingCount;
+                    AverageRating = averageRating;
+                    MyRating = (byte?)myRating;
+                    _canManageRating = true;
+                    result = await _userClient.GetMyContextAsync();
+                    if (!result.Success)
+                    {
+                        message = LocalizationResourceManager.Instance[result.Error].ToString();
+                        await Shell.Current.DisplayAlertAsync(error, message, ok);
+                        await Shell.Current.GoToAsync("..");
+                        return;
+                    }
+                    await Load();
+                    query.Clear();
+                }
+                catch (Exception ex)
+                {
+                    message = LocalizationResourceManager.Instance["GenericErrorMessage"].ToString();
+                    await Shell.Current.DisplayAlertAsync(error, message, ok);
+                }
+
             }
         }
 
@@ -825,15 +868,32 @@ namespace NutriNET.Maui.ViewModels.Recipes
         [RelayCommand]
         private async Task ShareRecipe()
         {
-            var token = RecipeShareTokenManager.Create(Recipe.Id);
-            var link = $"https:///recipe/{token}";
-
-            await Share.RequestAsync(new ShareTextRequest
+            string ok = LocalizationResourceManager.Instance["Ok"].ToString();
+            string error = LocalizationResourceManager.Instance["Error"].ToString();
+            string message;
+            try
             {
-                Title = Recipe.Name,
-                Text = string.Format(LocalizationResourceManager.Instance["ShareRecipeText"].ToString(), Recipe.Name),
-                Uri = link
-            });
+                var(result, token) = await _recipeClient.GetShareTokenAsync(Recipe.Id);
+                if (!result.Success)
+                {
+                    message = LocalizationResourceManager.Instance[result.Error].ToString();
+                    await Shell.Current.DisplayAlertAsync(error, message, ok);
+                    return;
+                }
+                var link = $"https:///recipe/{token}";
+
+                await Share.RequestAsync(new ShareTextRequest
+                {
+                    Title = Recipe.Name,
+                    Text = string.Format(LocalizationResourceManager.Instance["ShareRecipeText"].ToString(), Recipe.Name),
+                    Uri = link
+                });
+            }
+            catch(Exception ex)
+            {
+                message = LocalizationResourceManager.Instance["GenericErrorMessage"].ToString();
+                await Shell.Current.DisplayAlertAsync(error, message, ok);
+            } 
         }
     }
 }

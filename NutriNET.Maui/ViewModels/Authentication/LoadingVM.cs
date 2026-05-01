@@ -39,16 +39,9 @@ namespace NutriNET.Maui.ViewModels.Authentication
                 if (result.Success)
                 {
                     if (!string.IsNullOrWhiteSpace(pending) &&
-                      RecipeShareTokenManager.TryParseUri(pending, out int recipeId, out string token))
+                        RecipeShareTokenManager.TryParseToken(pending, out string token))
                     {
-                        if (RecipeShareTokenManager.Validate(recipeId, token))  
-                        {
-                            await Shell.Current.GoToAsync($"//{nameof(RecipeCatalogPage)}?deepLinkRecipeId={recipeId}");
-                        }
-                        else
-                        {
-                            await Shell.Current.GoToAsync($"//{nameof(TodayPage)}");        
-                        }
+                        await Shell.Current.GoToAsync($"//{nameof(RecipeCatalogPage)}?deepLinkToken={token}");
                     }
                     else
                     {
