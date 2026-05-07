@@ -9,8 +9,8 @@
              x:Name="Root">
 
     <Grid Margin="6,0" RowDefinitions="Auto, *" RowSpacing="0">
-        <SearchBar Text="{Binding EntrySearch, Mode=TwoWay}" Placeholder="{local:Translate RecipeCatalogSearch}" 
-                       BackgroundColor="Transparent" HorizontalOptions="Fill" IsVisible="{Binding Source={x:Reference Root},Path=CanSearch}" />
+        <SearchBar Text="{Binding EntrySearch, Mode=TwoWay}" Placeholder="{local:Translate RecipeCatalogSearch}" SearchIconColor="White"
+                   BackgroundColor="Transparent" HorizontalOptions="Fill" IsVisible="{Binding Source={x:Reference Root},Path=CanSearch}" />
         <RefreshView IsRefreshing="{Binding IsRefreshing}"
                     Command="{Binding RefreshCommand}" Grid.Row="1">
             <CollectionView VerticalOptions="Fill" Margin="0"

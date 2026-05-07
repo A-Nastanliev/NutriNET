@@ -7,6 +7,7 @@ using NutriNET.Maui.ApiClients;
 using NutriNET.Maui.Authentication;
 using NutriNET.Maui.Managers;
 using NutriNET.Maui.Messages.Recipes;
+using NutriNET.Maui.Models;
 using NutriNET.Maui.Models.Food;
 using NutriNET.Maui.Models.Recipes;
 using NutriNET.Maui.Models.User;
@@ -17,7 +18,7 @@ using System.Text;
 
 namespace NutriNET.Maui.ViewModels.Recipes
 {
-    public partial class ProfileVM : RecipesLoadingVM, IQueryAttributable, IRecipient<FollowChangedMessage>, IRecipient<RecipeDeletedMessage>
+    public partial class ProfileVM : RecipesLoadingVM, IQueryAttributable, IRecipient<FollowChangedMessage>, IRecipient<RecipeDeletedMessage>, ILocalize
     {
         [ObservableProperty]
         PublicUserVM user;
@@ -42,6 +43,15 @@ namespace NutriNET.Maui.ViewModels.Recipes
             _userClient = userClient;
             _user = user;
             WeakReferenceMessenger.Default.RegisterAll(this);
+            LocalizationResourceManager.Instance.PropertyChanged += (sender, e) =>
+            {
+                OnLocalize();
+            };
+        }
+
+        public void OnLocalize()
+        {
+            User.OnLocalize();
         }
 
         protected override Task<(RequestResult, List<FoodVM>, DateTime?, int?)> FetchRecipes(

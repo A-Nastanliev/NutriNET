@@ -23,15 +23,26 @@
                 <VerticalStackLayout Spacing="16" Padding="0">
                     <Grid>
                         <Image Source="{Binding Recipe.ImageSource}" Aspect="AspectFill" HeightRequest="340"/>
-                        <buttons:SfButton Command="{Binding ShareRecipeCommand}" FontSize="Small" ImageSource="share_icon.png" Text=""
-                            CornerRadius="15" WidthRequest="30" HeightRequest="30" VerticalOptions="End" HorizontalOptions="End" Margin="20"
-                            ShowIcon="True" ImageAlignment="Default" TextColor="White" Padding="0">
-                            <buttons:SfButton.Style>
-                                <Style TargetType="buttons:SfButton">
-                                    <Setter Property="Background" Value="{StaticResource Primary}" />
-                                </Style>
-                            </buttons:SfButton.Style>
-                        </buttons:SfButton>
+                        <HorizontalStackLayout VerticalOptions="End" HorizontalOptions="End" Margin="10" Spacing="10">
+                            <buttons:SfButton Command="{Binding AddToRecipeListCommand}" FontSize="Small" ImageSource="saved_icon.png" Text=""
+                                 CornerRadius="15" WidthRequest="30" HeightRequest="30" 
+                                 ShowIcon="True" ImageAlignment="Default" TextColor="White" Padding="0">
+                                <buttons:SfButton.Style>
+                                    <Style TargetType="buttons:SfButton">
+                                        <Setter Property="Background" Value="{StaticResource Primary}" />
+                                    </Style>
+                                </buttons:SfButton.Style>
+                            </buttons:SfButton>
+                            <buttons:SfButton Command="{Binding ShareRecipeCommand}" FontSize="Small" ImageSource="share_icon.png" Text=""
+                                CornerRadius="15" WidthRequest="30" HeightRequest="30" 
+                                ShowIcon="True" ImageAlignment="Default" TextColor="White" Padding="0">
+                                <buttons:SfButton.Style>
+                                    <Style TargetType="buttons:SfButton">
+                                        <Setter Property="Background" Value="{StaticResource Primary}" />
+                                    </Style>
+                                </buttons:SfButton.Style>
+                            </buttons:SfButton>
+                        </HorizontalStackLayout>
                     </Grid>
                     <Label Text="{Binding Recipe.Name}"  FontSize="Medium" Margin="10,0" LineBreakMode="WordWrap"/>
                     <HorizontalStackLayout Spacing="12" VerticalOptions="Center" HorizontalOptions="Start" Margin="10,0" >
@@ -200,7 +211,7 @@
                                     </Label>
                                 </Grid>
                             </Grid>
-                            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Start" Grid.Row="1" Padding="16,4,16,8" HorizontalOptions="Center">
+                            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" Grid.Row="1" Padding="16,4,16,8" HorizontalOptions="Center">
                                 <HorizontalStackLayout Spacing="5" Margin="0,0,12,0" VerticalOptions="Center">
                                     <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
                                          Color="{StaticResource PrimaryDark}" BackgroundColor="Transparent"

@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace NutriNET.Maui.Models.User
 {
-    public partial class PublicUserVM : ObservableObject, IJsonParseable
+    public partial class PublicUserVM : ObservableObject, IJsonParseable, ILocalize
     {
         [ObservableProperty]
         private int id;
@@ -80,6 +80,12 @@ namespace NutriNET.Maui.Models.User
             {
                 ProfilePictureSource = null;
             }
+        }
+
+        public void OnLocalize()
+        {
+            OnPropertyChanged(nameof(Role));
+            OnPropertyChanged(nameof(FollowButtonText));
         }
     }
 }
