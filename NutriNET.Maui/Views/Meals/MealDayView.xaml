@@ -32,22 +32,22 @@
                 <Grid>
                     <FlexLayout Direction="Row" HeightRequest="10" 
                     IsVisible="{Binding Calories, Converter={StaticResource NotEqualsConverter}, ConverterParameter={StaticResource Zero}}">
-                        <BoxView BackgroundColor="{StaticResource ProteinColor}" FlexLayout.Grow="{Binding ProteinRatio}" />
-                        <BoxView BackgroundColor="{StaticResource CarbsColor}" FlexLayout.Grow="{Binding CarbsRatio}" />
-                        <BoxView BackgroundColor="{StaticResource FatColor}" FlexLayout.Grow="{Binding FatRatio}"/>
+                        <BoxView BackgroundColor="{DynamicResource ProteinColor}" FlexLayout.Grow="{Binding ProteinRatio}" />
+                        <BoxView BackgroundColor="{DynamicResource CarbsColor}" FlexLayout.Grow="{Binding CarbsRatio}" />
+                        <BoxView BackgroundColor="{DynamicResource FatColor}" FlexLayout.Grow="{Binding FatRatio}"/>
                     </FlexLayout>
                     <Grid HeightRequest="10" ColumnDefinitions="*,*,*"
                         IsVisible="{Binding Calories, Converter={StaticResource EqualsConverter}, ConverterParameter={StaticResource Zero}}">
-                        <BoxView Grid.Column="0" BackgroundColor="{StaticResource ProteinColor}" HorizontalOptions="Fill" HeightRequest="10" />
-                        <BoxView Grid.Column="1" BackgroundColor="{StaticResource CarbsColor}" HorizontalOptions="Fill" HeightRequest="10"/>
-                        <BoxView Grid.Column="2" BackgroundColor="{StaticResource FatColor}" HeightRequest="10" HorizontalOptions="Fill"/>
+                        <BoxView Grid.Column="0" BackgroundColor="{DynamicResource ProteinColor}" HorizontalOptions="Fill" HeightRequest="10" />
+                        <BoxView Grid.Column="1" BackgroundColor="{DynamicResource CarbsColor}" HorizontalOptions="Fill" HeightRequest="10"/>
+                        <BoxView Grid.Column="2" BackgroundColor="{DynamicResource FatColor}" HeightRequest="10" HorizontalOptions="Fill"/>
                     </Grid>
                 </Grid>
             </Border>
             <Grid Grid.Row="2" ColumnDefinitions="*,*,*" RowDefinitions="Auto" ColumnSpacing="4" Margin="0,0,0,8"
                 IsVisible="{Binding Source={x:Reference Root}, Path=IsToday, Converter={StaticResource NotEqualsConverter}, ConverterParameter={StaticResource TrueBool}}">
                 <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="2">
-                    <Label FontSize="Small" TextColor="{StaticResource ProteinColor}"
+                    <Label FontSize="Small" TextColor="{DynamicResource ProteinColor}"
                           VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
                         <Label.FormattedText>
                             <FormattedString>
@@ -61,7 +61,7 @@
                            VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="2">
-                    <Label FontSize="Small" TextColor="{StaticResource CarbsColor}"
+                    <Label FontSize="Small" TextColor="{DynamicResource CarbsColor}"
                           VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
                         <Label.FormattedText>
                             <FormattedString>
@@ -75,7 +75,7 @@
                            VerticalTextAlignment="Center" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="2">
-                    <Label FontSize="Small" TextColor="{StaticResource FatColor}"
+                    <Label FontSize="Small" TextColor="{DynamicResource FatColor}"
                         VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
                         <Label.FormattedText>
                             <FormattedString>

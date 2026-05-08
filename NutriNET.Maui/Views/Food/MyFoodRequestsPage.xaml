@@ -73,7 +73,7 @@
                         </Grid>
                         <Grid x:Name="ScannerHost" HorizontalOptions="Fill" HeightRequest="300"
                               VerticalOptions="End" IsVisible="False"    IsClippedToBounds="True"/>
-                        <Button Text="{local:Translate SubmitRequest}" Command="{Binding CreateFoodRequestCommand}"/>
+                        <Button Text="{local:Translate SubmitRequest}" Command="{Binding CreateFoodRequestCommand}" CornerRadius="20"/>
                     </VerticalStackLayout>
                 </Border>
             </Grid>

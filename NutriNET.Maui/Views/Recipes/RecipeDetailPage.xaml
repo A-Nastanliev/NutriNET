@@ -149,7 +149,7 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label Grid.Row="2" Grid.Column="0" FontSize="Small" TextColor="{StaticResource ProteinColor}"
+                                    <Label Grid.Row="2" Grid.Column="0" FontSize="Small" TextColor="{DynamicResource ProteinColor}"
                                         VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -159,7 +159,7 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label Grid.Row="2" Grid.Column="1" FontSize="Micro" TextColor="{StaticResource ProteinColorSecondary}"
+                                    <Label Grid.Row="2" Grid.Column="1" FontSize="Micro" TextColor="{DynamicResource ProteinColorSecondary}"
                                         VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -169,7 +169,7 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label Grid.Row="3" Grid.Column="0" FontSize="Small" TextColor="{StaticResource CarbsColor}"
+                                    <Label Grid.Row="3" Grid.Column="0" FontSize="Small" TextColor="{DynamicResource CarbsColor}"
                                         VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -179,7 +179,7 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label Grid.Row="3" Grid.Column="1" FontSize="Micro" TextColor="{StaticResource CarbsColorSecondary}"
+                                    <Label Grid.Row="3" Grid.Column="1" FontSize="Micro" TextColor="{DynamicResource CarbsColorSecondary}"
                                         VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -189,7 +189,7 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label Grid.Row="4" Grid.Column="0" FontSize="Small" TextColor="{StaticResource FatColor}"
+                                    <Label Grid.Row="4" Grid.Column="0" FontSize="Small" TextColor="{DynamicResource FatColor}"
                                         VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -199,7 +199,7 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label Grid.Row="4" Grid.Column="1" FontSize="Micro" TextColor="{StaticResource FatColorSecondary}"
+                                    <Label Grid.Row="4" Grid.Column="1" FontSize="Micro" TextColor="{DynamicResource FatColorSecondary}"
                                         VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -220,19 +220,19 @@
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Spacing="5" Margin="0,0,12,0" VerticalOptions="Center">
                                     <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
-                                         Color="{StaticResource ProteinColor}" BackgroundColor="Transparent"
+                                         Color="{DynamicResource ProteinColor}" BackgroundColor="Transparent"
                                          VerticalOptions="Center"/>
                                     <Label Text="{local:Translate Protein}" FontSize="Micro" VerticalOptions="Center"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Spacing="5" Margin="0,0,12,0" VerticalOptions="Center">
                                     <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
-                                         Color="{StaticResource CarbsColor}" BackgroundColor="Transparent"
+                                         Color="{DynamicResource CarbsColor}" BackgroundColor="Transparent"
                                          VerticalOptions="Center"/>
                                     <Label Text="{local:Translate Carbohydrates}" FontSize="Micro" VerticalOptions="Center"/>
                                 </HorizontalStackLayout>
                                 <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
                                     <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
-                                         Color="{StaticResource FatColor}" BackgroundColor="Transparent"
+                                         Color="{DynamicResource FatColor}" BackgroundColor="Transparent"
                                          VerticalOptions="Center"/>
                                     <Label Text="{local:Translate Fat}" FontSize="Micro" VerticalOptions="Center"/>
                                 </HorizontalStackLayout>

@@ -4,174 +4,286 @@
              x:Class="NutriNET.Maui.Views.Settings.SettingsPage"
              xmlns:vm="clr-namespace:NutriNET.Maui.ViewModels.Settings"
              xmlns:views="clr-namespace:NutriNET.Maui.Views.Settings"
+             xmlns:models="clr-namespace:NutriNET.Maui.Models"
              xmlns:passToggle="clr-namespace:NutriNET.Maui.Views"
              x:DataType="vm:SettingsVM"
              xmlns:buttons="clr-namespace:Syncfusion.Maui.Toolkit.Buttons;assembly=Syncfusion.Maui.Toolkit"
              xmlns:local="clr-namespace:NutriNET.Maui"
              Title="{local:Translate SettingsTitle}"
              xmlns:role="clr-namespace:NutriNET.Maui.Authentication">
-    
-    <ScrollView VerticalScrollBarVisibility="Never" SafeAreaEdges="Container">
-        <VerticalStackLayout Padding="20" Spacing="20"
+
+    <AbsoluteLayout>
+        <ScrollView VerticalScrollBarVisibility="Never" SafeAreaEdges="Container"
+            AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <VerticalStackLayout Padding="20" Spacing="20"
                    HorizontalOptions="Fill"
                    VerticalOptions="Start">
 
-            <Border Style="{StaticResource SectionCard}" Padding="10,20">
-                <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
-                    <Border
+                <Border Style="{StaticResource SectionCard}" Padding="10,20">
+                    <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+                        <Border
                          Stroke="{StaticResource Primary}" StrokeThickness="2" StrokeShape="RoundRectangle 90"
                          WidthRequest="180" HeightRequest="180" HorizontalOptions="Center" VerticalOptions="Center">
-                        <ImageButton
+                            <ImageButton
                             Source="{Binding ProfileImageSource}" Aspect="AspectFill" Command="{Binding PickProfilePictureCommand}">
-                            <ImageButton.Clip>
-                                <EllipseGeometry Center="90,90" RadiusX="90" RadiusY="90" />
-                            </ImageButton.Clip>
-                        </ImageButton>
-                    </Border>
-                    <HorizontalStackLayout
+                                <ImageButton.Clip>
+                                    <EllipseGeometry Center="90,90" RadiusX="90" RadiusY="90" />
+                                </ImageButton.Clip>
+                            </ImageButton>
+                        </Border>
+                        <HorizontalStackLayout
                         Spacing="12" HorizontalOptions="Center" IsVisible="{Binding IsPictureChanged}">
-                        <Button Text="{local:Translate Confirm}" Command="{Binding ConfirmProfilePictureCommand}" />
-                        <Button Text="{local:Translate Cancel}" Command="{Binding CancelProfilePictureCommand}" />
-                    </HorizontalStackLayout>
-                    <Label Text="{Binding User.PublicUser.Username}" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
-                    <Grid ColumnSpacing="20" HorizontalOptions="Center" ColumnDefinitions="*,*">
-                        <Border Style="{StaticResource SectionCard}" Padding="10" Margin="0,0,4,0" HorizontalOptions="Center">
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer x:Name="OpenFollowersGesture" Command="{Binding OpenFollowersCommand}" />
-                            </Border.GestureRecognizers>
+                            <Button Text="{local:Translate Confirm}" Command="{Binding ConfirmProfilePictureCommand}" />
+                            <Button Text="{local:Translate Cancel}" Command="{Binding CancelProfilePictureCommand}" />
+                        </HorizontalStackLayout>
+                        <Label Text="{Binding User.PublicUser.Username}" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
+                        <Grid ColumnSpacing="20" HorizontalOptions="Center" ColumnDefinitions="*,*">
+                            <Border Style="{StaticResource SectionCard}" Padding="10" Margin="0,0,4,0" HorizontalOptions="Center">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer x:Name="OpenFollowersGesture" Command="{Binding OpenFollowersCommand}" />
+                                </Border.GestureRecognizers>
 
-                            <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
-                                <Label Text="{Binding FollowersCount}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" />
-                                <Label Text="{local:Translate FollowersPageTitle}" FontSize="Micro" TextColor="White" HorizontalOptions="Center" />
-                            </VerticalStackLayout>
-                        </Border>
-                        <Border Style="{StaticResource SectionCard}" Padding="10" Margin="4,0,0,0" Grid.Column="1" HorizontalOptions="Center">
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer x:Name="OpenFollowingGesture" Command="{Binding OpenFollowingCommand}" />
-                            </Border.GestureRecognizers>
-                            <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
-                                <Label Text="{Binding FollowingCount}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" />
-                                <Label Text="{local:Translate FollowingPageTitle}" FontSize="Micro" TextColor="White" HorizontalOptions="Center" />
-                            </VerticalStackLayout>
-                        </Border>
-                    </Grid>
-                </VerticalStackLayout>
-            </Border>
+                                <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                                    <Label Text="{Binding FollowersCount}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" />
+                                    <Label Text="{local:Translate FollowersPageTitle}" FontSize="Micro" TextColor="White" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+                            <Border Style="{StaticResource SectionCard}" Padding="10" Margin="4,0,0,0" Grid.Column="1" HorizontalOptions="Center">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer x:Name="OpenFollowingGesture" Command="{Binding OpenFollowingCommand}" />
+                                </Border.GestureRecognizers>
+                                <VerticalStackLayout Spacing="2" HorizontalOptions="Center">
+                                    <Label Text="{Binding FollowingCount}" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center" />
+                                    <Label Text="{local:Translate FollowingPageTitle}" FontSize="Micro" TextColor="White" HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
 
-            <Border
+                <Border
                 Style="{StaticResource SectionCard}">
-                <Border.IsVisible>
-                    <MultiBinding Converter="{StaticResource AllTrueMultiConverter}">
-                        <Binding Path="User.ModeratorRequest.Id" Converter="{StaticResource EqualsConverter}">
-                            <Binding.ConverterParameter>
-                                <x:Int32>0</x:Int32>
-                            </Binding.ConverterParameter>
-                        </Binding>
-                        <Binding Path="Role" Source="{StaticResource User}" Converter="{StaticResource RoleVisibilityConverter}"  ConverterParameter="{x:Static role:UserRole.User}" />
-                    </MultiBinding>
-                </Border.IsVisible>
-                <Border.GestureRecognizers>
-                    <TapGestureRecognizer x:Name="OpenCreateModeratorRequestGesture" Command="{Binding OpenCreateModeratorRequestCommand}"/>
-                </Border.GestureRecognizers>
-                <Grid ColumnSpacing="20" VerticalOptions="Center" HorizontalOptions="Start">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Image Source="management_icon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
-                    <Label Text="{local:Translate RequestModeratorRole}" Grid.Column="1" VerticalOptions="Center" FontSize="Medium" HorizontalOptions="Center" 
+                    <Border.IsVisible>
+                        <MultiBinding Converter="{StaticResource AllTrueMultiConverter}">
+                            <Binding Path="User.ModeratorRequest.Id" Converter="{StaticResource EqualsConverter}">
+                                <Binding.ConverterParameter>
+                                    <x:Int32>0</x:Int32>
+                                </Binding.ConverterParameter>
+                            </Binding>
+                            <Binding Path="Role" Source="{StaticResource User}" Converter="{StaticResource RoleVisibilityConverter}"  ConverterParameter="{x:Static role:UserRole.User}" />
+                        </MultiBinding>
+                    </Border.IsVisible>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer x:Name="OpenCreateModeratorRequestGesture" Command="{Binding OpenCreateModeratorRequestCommand}"/>
+                    </Border.GestureRecognizers>
+                    <Grid ColumnSpacing="20" VerticalOptions="Center" HorizontalOptions="Start">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source="management_icon.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center"/>
+                        <Label Text="{local:Translate RequestModeratorRole}" Grid.Column="1" VerticalOptions="Center" FontSize="Medium" HorizontalOptions="Center" 
                            HorizontalTextAlignment="Justify"/>
-                </Grid>
-            </Border>
+                    </Grid>
+                </Border>
 
-            <views:ModeratorRequestView
+                <views:ModeratorRequestView
                 BindingContext="{Binding User.ModeratorRequest}" />
 
-            <Border Style="{StaticResource SectionCard}">
-                <Grid RowDefinitions="Auto, Auto, Auto" RowSpacing="10">
-                    <Label
+                <Border Style="{StaticResource SectionCard}">
+                    <Grid RowDefinitions="Auto, Auto, Auto" RowSpacing="10">
+                        <Label
                         Text="{Binding User.PublicUser.Username}" Grid.Row="0" FontSize="Medium"/>
-                    <Entry Text="{Binding NewUsername}"
+                        <Entry Text="{Binding NewUsername}"
                         Grid.Row="1" Placeholder="{local:Translate NewUsername}" MaxLength="24"/>
-                    <Button
-                        Text="{local:Translate SaveChanges}" Command="{Binding UpdateUsernameCommand}" Grid.Row="2" HorizontalOptions="End"/>
-                </Grid>
-            </Border>
+                        <Button
+                        Text="{local:Translate SaveChanges}" Command="{Binding UpdateUsernameCommand}" Grid.Row="2" HorizontalOptions="End"
+                        CornerRadius="20"/>
+                    </Grid>
+                </Border>
 
-            <Border Style="{StaticResource SectionCard}">
-                <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="10" ColumnDefinitions="*, Auto">
-                    <Label Text="{local:Translate ChangeEmail}" Grid.Row="0" FontSize="Medium" Grid.ColumnSpan="2"/>
-                    <Label Grid.Row="1" Grid.ColumnSpan="2" FontSize="Micro" TextColor="{StaticResource Gray300}">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{local:Translate CurrentEmail} " />
-                                <Span Text=":"/>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding User.EmailAddress}" FontSize="Small"/>
-                    <Entry Text="{Binding NewEmail}" Placeholder="{local:Translate NewEmail}"
+                <Border Style="{StaticResource SectionCard}">
+                    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto" RowSpacing="10" ColumnDefinitions="*, Auto">
+                        <Label Text="{local:Translate ChangeEmail}" Grid.Row="0" FontSize="Medium" Grid.ColumnSpan="2"/>
+                        <Label Grid.Row="1" Grid.ColumnSpan="2" FontSize="Micro" TextColor="{StaticResource Gray300}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{local:Translate CurrentEmail} " />
+                                    <Span Text=":"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding User.EmailAddress}" FontSize="Small"/>
+                        <Entry Text="{Binding NewEmail}" Placeholder="{local:Translate NewEmail}"
                         Keyboard="Email" Grid.ColumnSpan="2" Grid.Row="3" FontSize="Small"/>
-                    <Entry Text="{Binding ChangeEmailPassword}" Placeholder="{local:Translate Password}"
+                        <Entry Text="{Binding ChangeEmailPassword}" Placeholder="{local:Translate Password}"
                         x:Name="EmailPasswordEntry" IsPassword="True" Grid.Row="4" FontSize="Small"/>
-                    <passToggle:PasswordVisibilityToggle Grid.Column="1" Grid.Row="4" TargetEntry="{x:Reference EmailPasswordEntry}"/>
-                    <Button HorizontalOptions="End"
-                        Text="{local:Translate SaveChanges}" Command="{Binding UpdateEmailCommand}" Grid.Row="5" Grid.ColumnSpan="2"/>
-                </Grid>
-            </Border>
+                        <passToggle:PasswordVisibilityToggle Grid.Column="1" Grid.Row="4" TargetEntry="{x:Reference EmailPasswordEntry}"/>
+                        <Button HorizontalOptions="End"
+                        Text="{local:Translate SaveChanges}" Command="{Binding UpdateEmailCommand}" Grid.Row="5" Grid.ColumnSpan="2"
+                        CornerRadius="20"/>
+                    </Grid>
+                </Border>
 
-            <Border Style="{StaticResource SectionCard}">
-                <Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="*, Auto" RowSpacing="10" ColumnSpacing="20">
-                    <Label Text="{local:Translate ChangePassword}" Grid.Row="0" FontSize="Medium" Grid.ColumnSpan="2"/>
-                    <Entry Text="{Binding OldPassword}" MaxLength="64"
+                <Border Style="{StaticResource SectionCard}">
+                    <Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="*, Auto" RowSpacing="10" ColumnSpacing="20">
+                        <Label Text="{local:Translate ChangePassword}" Grid.Row="0" FontSize="Medium" Grid.ColumnSpan="2"/>
+                        <Entry Text="{Binding OldPassword}" MaxLength="64"
                         x:Name="OldPasswordEntry" Placeholder="{local:Translate CurrentPassword}" IsPassword="True" Grid.Row="1" Grid.Column="0"/>
-                    <passToggle:PasswordVisibilityToggle Grid.Column="1" Grid.Row="1" TargetEntry="{x:Reference OldPasswordEntry}"/>
-                    <Entry Text="{Binding NewPassword}" MaxLength="64"
+                        <passToggle:PasswordVisibilityToggle Grid.Column="1" Grid.Row="1" TargetEntry="{x:Reference OldPasswordEntry}"/>
+                        <Entry Text="{Binding NewPassword}" MaxLength="64"
                         x:Name="NewPasswordEntry" Placeholder="{local:Translate NewPassword}" IsPassword="True" Grid.Row="2" Grid.Column="0"/>
-                    <passToggle:PasswordVisibilityToggle Grid.Column="1" Grid.Row="2" TargetEntry="{x:Reference NewPasswordEntry}"/>
-                    <Button Text="{local:Translate SaveChanges}" HorizontalOptions="End" Command="{Binding UpdatePasswordCommand}" Grid.Row="3" Grid.ColumnSpan="2"/>
-                </Grid>
-            </Border>
+                        <passToggle:PasswordVisibilityToggle Grid.Column="1" Grid.Row="2" TargetEntry="{x:Reference NewPasswordEntry}"/>
+                        <Button Text="{local:Translate SaveChanges}" HorizontalOptions="End" Command="{Binding UpdatePasswordCommand}" Grid.Row="3" Grid.ColumnSpan="2"
+                        CornerRadius="20"/>
+                    </Grid>
+                </Border>
 
-            <Border Style="{StaticResource SectionCard}">
-                <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
-                    <Label
+                <Border Style="{StaticResource SectionCard}">
+                    <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                        <Label
                        FontSize="Medium" VerticalTextAlignment="Center" VerticalOptions="Center">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span Text="{local:Translate Language}" />
-                                <Span Text=":" />
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Picker x:Name="LanguagePicker" VerticalOptions="Center" FontSize="Medium"
-                        SelectedIndexChanged="LanguagePicker_SelectedIndexChanged" 
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{local:Translate Language}" />
+                                    <Span Text=":" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Picker x:Name="LanguagePicker" VerticalOptions="Center" FontSize="Medium"
+                        SelectedIndex="{Binding SelectedLanguageIndex, Mode=TwoWay}"
                         TextColor="{StaticResource SecondaryDarkText}" TitleColor="{StaticResource SecondaryDarkText}">
-                        <Picker.Items>
-                            <x:String>English</x:String>
-                            <x:String>Български</x:String>
-                        </Picker.Items>
-                    </Picker>
-                </HorizontalStackLayout>
-            </Border>
+                            <Picker.Items>
+                                <x:String>English</x:String>
+                                <x:String>Български</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </HorizontalStackLayout>
+                </Border>
 
-            <views:CommentRestrictionView
+                <Border Style="{StaticResource SectionCard}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="MacronutrientTheme_Tapped"/>
+                    </Border.GestureRecognizers>
+                    <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" Grid.Row="1" Padding="16,8,16,8" HorizontalOptions="Center">
+                        <HorizontalStackLayout Spacing="4" Margin="0,0,4,0" VerticalOptions="Center">
+                            <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
+                                Color="{DynamicResource ProteinColor}" BackgroundColor="Transparent"
+                                VerticalOptions="Center"/>
+                            <Label Text="{local:Translate Protein}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Spacing="4" Margin="4,0,4,0" VerticalOptions="Center">
+                            <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8" 
+                                Color="{DynamicResource CarbsColor}" BackgroundColor="Transparent"
+                                VerticalOptions="Center"/>
+                            <Label Text="{local:Translate Carbohydrates}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Spacing="4" Margin="4,0,0,0" VerticalOptions="Center">
+                            <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
+                                Color="{DynamicResource FatColor}" BackgroundColor="Transparent"
+                                VerticalOptions="Center"/>
+                            <Label Text="{local:Translate Fat}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </FlexLayout>
+                </Border>
+
+                <views:CommentRestrictionView
                 BindingContext="{Binding User.CurrentRestriction}"/>
 
-            <Border Style="{StaticResource SectionCard}">
-                <HorizontalStackLayout Spacing="30" HorizontalOptions="Center">
-                    <Button CornerRadius="20" Text="{local:Translate Logout}" Background="{StaticResource Gray400}" Command="{Binding LogoutCommand}" />
-                    <buttons:SfButton Text="{local:Translate Delete}" Command="{Binding DeleteAccountCommand}" FontSize="Small" ImageSource="delete_icon.png"
+                <Border Style="{StaticResource SectionCard}">
+                    <HorizontalStackLayout Spacing="30" HorizontalOptions="Center">
+                        <Button CornerRadius="20" Text="{local:Translate Logout}" Background="{StaticResource Gray400}" Command="{Binding LogoutCommand}" />
+                        <buttons:SfButton Text="{local:Translate Delete}" Command="{Binding DeleteAccountCommand}" FontSize="Small" ImageSource="delete_icon.png"
                         ShowIcon="True" ImageAlignment="Right" TextColor="White">
-                        <buttons:SfButton.Style>
-                            <Style TargetType="buttons:SfButton">
-                                <Setter Property="Background" Value="Red" />
-                            </Style>
-                        </buttons:SfButton.Style>
-                    </buttons:SfButton>
-                </HorizontalStackLayout>
-            </Border>
+                            <buttons:SfButton.Style>
+                                <Style TargetType="buttons:SfButton">
+                                    <Setter Property="Background" Value="Red" />
+                                </Style>
+                            </buttons:SfButton.Style>
+                        </buttons:SfButton>
+                    </HorizontalStackLayout>
+                </Border>
 
-        </VerticalStackLayout>
-    </ScrollView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Grid
+            x:Name="Overlay" IsVisible="False" BackgroundColor="#771A1A1A" RowDefinitions="*, 2*"
+            AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" >
+            <BoxView BackgroundColor="Transparent" Grid.RowSpan="2">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOverlayTapped"/>
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            <BoxView  BackgroundColor="#80000000" Grid.RowSpan="2"/>
+            <Grid  x:Name="BottomSheetContent" RowDefinitions="Auto" Grid.Row="1" HorizontalOptions="Fill" 
+                VerticalOptions="End">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0" Padding="16,16,16,10">
+                    <Grid RowDefinitions="Auto, *" RowSpacing="12">
+                        <Border Style="{StaticResource SectionCard}" BackgroundColor="{StaticResource Gray600}" Grid.Row="0">
+                            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" Grid.Row="1" Padding="16,8,16,8" HorizontalOptions="Center">
+                                <HorizontalStackLayout Spacing="4" Margin="0,0,4,0" VerticalOptions="Center">
+                                    <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
+                                       Color="{DynamicResource ProteinColor}" BackgroundColor="Transparent"
+                                       VerticalOptions="Center"/>
+                                    <Label Text="{local:Translate Protein}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="4" Margin="4,0,4,0" VerticalOptions="Center">
+                                    <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8" 
+                                       Color="{DynamicResource CarbsColor}" BackgroundColor="Transparent"
+                                       VerticalOptions="Center"/>
+                                    <Label Text="{local:Translate Carbohydrates}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="4" Margin="4,0,0,0" VerticalOptions="Center">
+                                    <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
+                                       Color="{DynamicResource FatColor}" BackgroundColor="Transparent"
+                                       VerticalOptions="Center"/>
+                                    <Label Text="{local:Translate Fat}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </FlexLayout>
+                        </Border>
+                        <CollectionView Grid.Row="1" ItemsSource="{Binding MacroThemes}" SelectedItem="{Binding SelectedMacroTheme, Mode=TwoWay}"
+                            SelectionMode="Single">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="8" VerticalItemSpacing="8"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="VisualStateManager.VisualStateGroups">
+                                        <VisualStateGroupList>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="Normal">
+                                                    <VisualState.Setters>
+                                              
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                                <VisualState x:Name="Selected">
+                                                    <VisualState.Setters>
+                                                        <Setter Property="Background" Value="{StaticResource Primary}"/>
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateGroupList>
+                                    </Setter>
+                                </Style>
+                            </CollectionView.Resources>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate x:DataType="models:MacronutrientTheme">
+                                    <Border Style="{StaticResource SectionCard}" BackgroundColor="{StaticResource Gray600}" Padding="10">
+                                        <Grid ColumnDefinitions="*, *, *" VerticalOptions="Center">
+                                            <Ellipse Fill="{Binding Protein}" WidthRequest="16" HeightRequest="16"/>
+                                            <Ellipse Fill="{Binding Carbs}" Grid.Column="1" WidthRequest="16" HeightRequest="16"/>
+                                            <Ellipse Fill="{Binding Fat}" Grid.Column="2" WidthRequest="16" HeightRequest="16"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </AbsoluteLayout>
 </ContentPage>

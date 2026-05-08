@@ -7,6 +7,7 @@ using Microcharts;
 using NutriNET.Maui.ApiClients;
 using NutriNET.Maui.Authentication;
 using NutriNET.Maui.Managers;
+using NutriNET.Maui.Messages;
 using NutriNET.Maui.Messages.Recipes;
 using NutriNET.Maui.Models;
 using NutriNET.Maui.Models.Food;
@@ -24,7 +25,8 @@ using System.Text.RegularExpressions;
 
 namespace NutriNET.Maui.ViewModels.Recipes
 {
-    public partial class RecipeDetailVM : PagedLoadingVM, IQueryAttributable, ILocalize, IRecipient<RecipeUpdatedMessage>, IRecipient<RecipeDeletedMessage>
+    public partial class RecipeDetailVM : PagedLoadingVM, IQueryAttributable, ILocalize, IRecipient<RecipeUpdatedMessage>, IRecipient<RecipeDeletedMessage>,
+        IRecipient<MacroThemeChanged>
     {
         [ObservableProperty]
         ObservableCollection<RecipeCommentVM> comments = new();
@@ -894,6 +896,11 @@ namespace NutriNET.Maui.ViewModels.Recipes
                 message = LocalizationResourceManager.Instance["GenericErrorMessage"].ToString();
                 await Shell.Current.DisplayAlertAsync(error, message, ok);
             } 
+        }
+
+        public void Receive(MacroThemeChanged message)
+        {
+            UpdateChart();
         }
     }
 }

@@ -14,6 +14,9 @@ namespace NutriNET.Maui.Platforms.Android
         private const string KeyCarbs = "carbs";
         private const string KeyFat = "fat";
         private const string KeyLanguage = "language";
+        private const string KeyProteinColor = "protein_color";
+        private const string KeyCarbsColor = "carbs_color";
+        private const string KeyFatColor = "fat_color"; 
 
         public static void SaveAndRefresh(double calories, double protein, double carbs, double fat)
         {
@@ -32,8 +35,27 @@ namespace NutriNET.Maui.Platforms.Android
             RefreshAll(context);
         }
 
+        public static void SaveThemeAndRefresh(string proteinColor, string carbsColor, string fatColor)
+        {
+            var context = AndroidApp.Context;
+            var prefs = context.GetSharedPreferences(PrefsName, FileCreationMode.Private)!;
+            var editor = prefs.Edit()!;
+
+            editor.PutString(KeyProteinColor, proteinColor);
+            editor.PutString(KeyCarbsColor, carbsColor);
+            editor.PutString(KeyFatColor, fatColor);
+
+            editor.Apply();
+            RefreshAll(context);
+        }
+
         public static bool IsToday(ISharedPreferences prefs)
             => prefs.GetString(KeyDate, "") == DateTime.Now.ToString("yyyy-MM-dd");
+
+
+        public static string GetProteinColor(ISharedPreferences prefs) => prefs.GetString(KeyProteinColor, "#FFFF7A8A")!;
+        public static string GetCarbsColor(ISharedPreferences prefs) => prefs.GetString(KeyCarbsColor, "#FF5BC0FF")!;
+        public static string GetFatColor(ISharedPreferences prefs) => prefs.GetString(KeyFatColor, "#FFFFC857")!;
 
         public static double GetCalories(ISharedPreferences prefs) => IsToday(prefs) ? prefs.GetFloat(KeyCalories, 0f) : 0;
         public static double GetProtein(ISharedPreferences prefs) => IsToday(prefs) ? prefs.GetFloat(KeyProtein, 0f) : 0;

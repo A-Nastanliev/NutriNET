@@ -40,7 +40,7 @@
                             <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" Grid.Row="0">
                                 <Label Grid.Column="0"  Text="{local:Translate Protein}"  FontSize="Small" 
                                        VerticalOptions="Center" VerticalTextAlignment="Center"/>
-                                <Label Grid.Column="1" FontSize="Small" TextColor="{StaticResource ProteinColor}"  
+                                <Label Grid.Column="1" FontSize="Small" TextColor="{DynamicResource ProteinColor}"  
                                        VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalOptions="End">
                                     <Label.FormattedText>
                                         <FormattedString>
@@ -54,7 +54,7 @@
                             <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" Grid.Row="1" VerticalOptions="Center">
                                 <Label Grid.Column="0" Text="{local:Translate Carbohydrates}" 
                                        FontSize="Small"  VerticalOptions="Center" VerticalTextAlignment="Center"/>
-                                <Label Grid.Column="1" FontSize="Small" TextColor="{StaticResource CarbsColor}" 
+                                <Label Grid.Column="1" FontSize="Small" TextColor="{DynamicResource CarbsColor}" 
                                        VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalOptions="End">
                                     <Label.FormattedText>
                                         <FormattedString>
@@ -68,7 +68,7 @@
                             <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8" Grid.Row="2" VerticalOptions="Center">
                                 <Label Grid.Column="0" Text="{local:Translate Fat}" FontSize="Small"  
                                        VerticalOptions="Center" VerticalTextAlignment="Center"/>
-                                <Label Grid.Column="1"  FontSize="Small"  TextColor="{StaticResource FatColor}" 
+                                <Label Grid.Column="1"  FontSize="Small"  TextColor="{DynamicResource FatColor}" 
                                        VerticalOptions="Center" VerticalTextAlignment="Center" HorizontalOptions="End">
                                     <Label.FormattedText>
                                         <FormattedString>
@@ -140,7 +140,7 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                            <Label FontSize="Small" TextColor="{StaticResource ProteinColor}" Grid.Row="1" 
+                            <Label FontSize="Small" TextColor="{DynamicResource ProteinColor}" Grid.Row="1" 
                             Grid.Column="1" HorizontalOptions="Center" VerticalTextAlignment="Center" VerticalOptions="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
@@ -150,7 +150,7 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                            <Label FontSize="Small" TextColor="{StaticResource CarbsColor}" VerticalTextAlignment="Center" VerticalOptions="Center"
+                            <Label FontSize="Small" TextColor="{DynamicResource CarbsColor}" VerticalTextAlignment="Center" VerticalOptions="Center"
                                 Grid.Row="1" Grid.Column="2" HorizontalOptions="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
@@ -160,7 +160,7 @@
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
-                            <Label FontSize="Small" TextColor="{StaticResource FatColor}" Grid.Row="1" 
+                            <Label FontSize="Small" TextColor="{DynamicResource FatColor}" Grid.Row="1" 
                                 Grid.Column="3" HorizontalOptions="Center"  VerticalTextAlignment="Center" VerticalOptions="Center">
                                 <Label.FormattedText>
                                     <FormattedString>
@@ -191,9 +191,11 @@
 
                         </CollectionView>
                         <Button Text="{local:Translate Add}" x:Name="AddMealFoodButton" Command="{Binding ChooseSelectionCommand}" Margin="8,4,8,8" VerticalOptions="Center" Grid.Row="4"
-                            IsVisible="{Binding IsSelecting, Converter={StaticResource NotEqualsConverter}, ConverterParameter={StaticResource TrueBool}}"/>
+                            IsVisible="{Binding IsSelecting, Converter={StaticResource NotEqualsConverter}, ConverterParameter={StaticResource TrueBool}}"
+                            CornerRadius="20"/>
                         <Button Text="{local:Translate Cancel}" x:Name="CancelButton" Command="{Binding CancelCommand}" Margin="9,4,9,8" VerticalOptions="Center" Grid.Row="4" BorderWidth="1"
-                            IsVisible="{Binding IsSelecting}" TextColor="{StaticResource SecondaryDarkText}" BackgroundColor="{StaticResource Gray600}" BorderColor="{StaticResource SecondaryDarkText}"/>
+                            IsVisible="{Binding IsSelecting}" TextColor="{StaticResource SecondaryDarkText}" BackgroundColor="{StaticResource Gray600}" 
+                            CornerRadius="20" BorderColor="{StaticResource SecondaryDarkText}"/>
                         <foodViews:FoodCatalogView x:Name="FoodCatalog" Span="1" Grid.Row="3"
                              ItemTapCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectFoodCommand}"
                              IsVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsSelectingFood, Mode=TwoWay}" >

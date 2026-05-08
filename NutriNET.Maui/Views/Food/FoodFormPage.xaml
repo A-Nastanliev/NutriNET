@@ -82,7 +82,7 @@
                             Text="{Binding Food.Fats, Mode=TwoWay, Converter={StaticResource StringToDoubleConverter}}" />
                     </Grid>
                 </VerticalStackLayout>
-                <Button Text="{Binding SubmitButtonText}" Command="{Binding SubmitCommand}" Margin="10,0,10,10"/>
+                <Button Text="{Binding SubmitButtonText}" Command="{Binding SubmitCommand}" Margin="10,0,10,10" CornerRadius="20"/>
             </VerticalStackLayout>
         </ScrollView>
 

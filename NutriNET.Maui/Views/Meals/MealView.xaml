@@ -27,7 +27,7 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Label FontSize="Small" TextColor="{StaticResource ProteinColor}" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center">
+                <Label FontSize="Small" TextColor="{DynamicResource ProteinColor}" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="{Binding Proteins}" />
@@ -36,7 +36,7 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Label FontSize="Small" TextColor="{StaticResource CarbsColor}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center">
+                <Label FontSize="Small" TextColor="{DynamicResource CarbsColor}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="{Binding Carbohydrates}" />
@@ -45,7 +45,7 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Label FontSize="Small" TextColor="{StaticResource FatColor}" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center">
+                <Label FontSize="Small" TextColor="{DynamicResource FatColor}" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="{Binding Fats}" />

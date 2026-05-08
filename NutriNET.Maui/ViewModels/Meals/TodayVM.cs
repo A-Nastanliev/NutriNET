@@ -2,10 +2,12 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Microcharts;
 using NutriNET.Maui.ApiClients;
 using NutriNET.Maui.Authentication;
 using NutriNET.Maui.Managers;
+using NutriNET.Maui.Messages;
 using NutriNET.Maui.Models;
 using NutriNET.Maui.Models.Food;
 using NutriNET.Maui.Models.Meal;
@@ -15,7 +17,7 @@ using SkiaSharp;
 
 namespace NutriNET.Maui.ViewModels.Meals
 {
-    public partial class TodayVM : ObservableObject, ILocalize
+    public partial class TodayVM : ObservableObject, ILocalize, IRecipient<MacroThemeChanged>
     {
         [ObservableProperty]
         MealVM selectedMeal;
@@ -88,7 +90,7 @@ namespace NutriNET.Maui.ViewModels.Meals
             {
                 OnLocalize();
             };
-
+            WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
         public void OnLocalize()
@@ -621,6 +623,11 @@ namespace NutriNET.Maui.ViewModels.Meals
             {
                await Refresh();
             }
+        }
+
+        public void Receive(MacroThemeChanged message)
+        {
+            UpdateChart();
         }
     }
 }

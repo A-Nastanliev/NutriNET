@@ -1,5 +1,3 @@
-using NutriNET.Maui.Managers;
-using NutriNET.Maui.ViewModels;
 using NutriNET.Maui.ViewModels.Settings;
 using System.Diagnostics;
 using System.Globalization;
@@ -9,17 +7,11 @@ namespace NutriNET.Maui.Views.Settings;
 public partial class SettingsPage : ContentPage
 {
 	readonly SettingsVM _vm;
+    bool _isBottomSheetOpen;
 
-	public SettingsPage(SettingsVM vm)
+    public SettingsPage(SettingsVM vm)
 	{
 		InitializeComponent();
-        var savedLanguage = Preferences.Get("app_language", "en-US");
-
-        if (savedLanguage == "bg-BG")
-            LanguagePicker.SelectedIndex = 1;
-        else
-            LanguagePicker.SelectedIndex = 0;
-
         BindingContext = vm;
 		_vm = vm;
     }
@@ -30,8 +22,9 @@ public partial class SettingsPage : ContentPage
 		_vm?.OnAppearing();
     }
 
-    protected override void OnDisappearing()
+    protected override async void OnDisappearing()
     {
+        await CloseBottomSheetAsync();
         base.OnDisappearing();
         _ = Task.Run(async () =>
         {
@@ -46,38 +39,42 @@ public partial class SettingsPage : ContentPage
         });
     }
 
-    private void LanguagePicker_SelectedIndexChanged(object sender, EventArgs e)
+    public async Task OpenBottomSheet()
     {
-        if (LanguagePicker.SelectedIndex == -1)
+        if (_isBottomSheetOpen)
             return;
 
-        CultureInfo culture;
+        Overlay.IsVisible = true;
+        Overlay.InputTransparent = false;
+        _isBottomSheetOpen = true;
+        BottomSheetContent.Opacity = 0;
+        BottomSheetContent.Margin = new Thickness(0, 0, 0, -40);
+        await Task.WhenAll(BottomSheetContent.FadeToAsync(1, 200), BottomSheetContent.AnimateBottomMargin(-40, 0, 200));
+    }
 
-        if (LanguagePicker.SelectedIndex == 0)
-            culture = new CultureInfo("en-US");
-        else 
-            culture = new CultureInfo("bg-BG");
+    private async Task CloseBottomSheetAsync()
+    {
+        if (!_isBottomSheetOpen)
+            return;
 
-        LocalizationResourceManager.Instance.Culture = culture;
+        await Task.WhenAll(BottomSheetContent.FadeToAsync(0, 200), BottomSheetContent.AnimateBottomMargin(0, -40, 200));
+        Overlay.InputTransparent = true;
+        Overlay.IsVisible = false;
+        _isBottomSheetOpen = false;
+    }
 
-        Preferences.Set("app_language", culture.Name);
+    private async void OnOverlayTapped(object sender, EventArgs e)
+    {
+        await CloseBottomSheetAsync();
+    }
 
-#if ANDROID
-        try
-        {
-            var todayVM = IPlatformApplication.Current?.Services
-                .GetService<ViewModels.Meals.TodayVM>();
+    private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
 
-            if (todayVM != null)
-            {
-                Platforms.Android.NutriWidgetPreferences.SaveAndRefresh
-                    (todayVM.MealDay.Calories, todayVM.MealDay.Proteins,todayVM.MealDay.Carbohydrates,todayVM.MealDay.Fats);
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine($"[SettingsPage] Widget language refresh failed: {ex}");
-        }
-#endif
+    }
+
+    private async void MacronutrientTheme_Tapped(object sender, TappedEventArgs e)
+    {
+        await OpenBottomSheet();
     }
 }

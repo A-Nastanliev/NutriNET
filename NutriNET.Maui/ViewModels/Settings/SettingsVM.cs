@@ -2,17 +2,25 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using NutriNET.Maui.ApiClients;
 using NutriNET.Maui.Authentication;
 using NutriNET.Maui.Managers;
+using NutriNET.Maui.Messages;
+using NutriNET.Maui.Messages.Recipes;
+using NutriNET.Maui.Models;
 using NutriNET.Maui.Models.User;
 using NutriNET.Maui.Resources.Languages;
+using NutriNET.Maui.Resources.Styles.MacronutrientThemes;
 using NutriNET.Maui.ViewModels;
 using NutriNET.Maui.Views.Authentication;
 using NutriNET.Maui.Views.Settings;
+using Syncfusion.Maui.Toolkit.Themes;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Globalization;
 
 namespace NutriNET.Maui.ViewModels.Settings
 {
@@ -50,12 +58,81 @@ namespace NutriNET.Maui.ViewModels.Settings
         [ObservableProperty]
         int followingCount;
 
+        [ObservableProperty]
+        private int selectedLanguageIndex;
+
+        [ObservableProperty]
+        ObservableCollection<MacronutrientTheme> macroThemes = new();
+
+        [ObservableProperty]
+        MacronutrientTheme selectedMacroTheme;
+
         readonly UserClient _userClient;
 
         public SettingsVM(UserVM userVM, UserClient userClient) 
         {
             User = userVM;
             _userClient = userClient;
+
+            var savedLanguage = Preferences.Get("app_language", "en-US");
+            SelectedLanguageIndex = savedLanguage == "bg-BG" ? 1 : 0;
+
+            macroThemes.Add(new MacronutrientTheme(nameof(Default), new Default()));
+            macroThemes.Add(new MacronutrientTheme(nameof(Cyberpunk), new Cyberpunk()));
+            macroThemes.Add(new MacronutrientTheme(nameof(Aurora), new Aurora()));
+            macroThemes.Add(new MacronutrientTheme(nameof(Candy), new Candy()));
+            macroThemes.Add(new MacronutrientTheme(nameof(Lavender), new Lavender()));
+            macroThemes.Add(new MacronutrientTheme(nameof(Lava), new Lava()));
+            var savedTheme = Preferences.Get("macro_theme", nameof(Default));
+            selectedMacroTheme = MacroThemes.FirstOrDefault(t => t.Name == savedTheme) ?? MacroThemes[0];
+            OnPropertyChanged(nameof(selectedMacroTheme));
+  
+        }
+
+        partial void OnSelectedMacroThemeChanged(MacronutrientTheme value)
+        {
+            var existing = Application.Current.Resources.MergedDictionaries.FirstOrDefault(d => d.ContainsKey("ProteinColor"));
+            Application.Current.Resources.MergedDictionaries.Remove(existing);
+            Application.Current.Resources.MergedDictionaries.Add(value.Theme);
+            Preferences.Set("macro_theme", value.Name);
+#if ANDROID
+            Platforms.Android.NutriWidgetPreferences.SaveThemeAndRefresh(
+                $"#{(int)(value.Protein.Alpha * 255):X2}{(int)(value.Protein.Red * 255):X2}{(int)(value.Protein.Green * 255):X2}{(int)(value.Protein.Blue * 255):X2}",
+                $"#{(int)(value.Carbs.Alpha * 255):X2}{(int)(value.Carbs.Red * 255):X2}{(int)(value.Carbs.Green * 255):X2}{(int)(value.Carbs.Blue * 255):X2}",
+                $"#{(int)(value.Fat.Alpha * 255):X2}{(int)(value.Fat.Red * 255):X2}{(int)(value.Fat.Green * 255):X2}{(int)(value.Fat.Blue * 255):X2}");
+#endif
+            WeakReferenceMessenger.Default.Send(new MacroThemeChanged());
+        }
+
+        partial void OnSelectedLanguageIndexChanged(int value)
+        {
+            CultureInfo culture = value == 0
+                ? new CultureInfo("en-US")
+                : new CultureInfo("bg-BG");
+
+            LocalizationResourceManager.Instance.Culture = culture;
+
+            Preferences.Set("app_language", culture.Name);
+
+#if ANDROID
+            try
+            {
+                var todayVM = IPlatformApplication.Current?.Services.GetService<ViewModels.Meals.TodayVM>();
+
+                if (todayVM != null)
+                {
+                    Platforms.Android.NutriWidgetPreferences.SaveAndRefresh(
+                        todayVM.MealDay.Calories,
+                        todayVM.MealDay.Proteins,
+                        todayVM.MealDay.Carbohydrates,
+                        todayVM.MealDay.Fats);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[SettingsVM] Widget language refresh failed: {ex}");
+            }
+#endif
         }
 
         [RelayCommand]

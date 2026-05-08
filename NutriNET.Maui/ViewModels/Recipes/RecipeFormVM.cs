@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Microcharts;
 using NutriNET.Maui.ApiClients;
 using NutriNET.Maui.Managers;
+using NutriNET.Maui.Messages;
 using NutriNET.Maui.Messages.Recipes;
 using NutriNET.Maui.Models;
 using NutriNET.Maui.Models.Food;
@@ -22,7 +23,7 @@ using ZXing.Net.Maui;
 
 namespace NutriNET.Maui.ViewModels.Recipes
 {
-    public partial class RecipeFormVM : ObservableObject, IQueryAttributable, ILocalize
+    public partial class RecipeFormVM : ObservableObject, IQueryAttributable, ILocalize, IRecipient<MacroThemeChanged>
     {
         readonly RecipeClient _recipeClient;
         string _selectedImagePath;
@@ -87,6 +88,7 @@ namespace NutriNET.Maui.ViewModels.Recipes
             {
                 OnLocalize();
             };
+            WeakReferenceMessenger.Default.RegisterAll(this);
         }
 
         public void OnLocalize()
@@ -489,6 +491,11 @@ namespace NutriNET.Maui.ViewModels.Recipes
             var selectedLevel = PrivacyLevels.First(p => p.Key == selected);
             SelectedPrivacyLevel = selectedLevel;
             Recipe.PrivacyLevel = selectedLevel.Value;
+        }
+
+        public void Receive(MacroThemeChanged message)
+        {
+            UpdateChart();
         }
     }
 }

@@ -35,6 +35,10 @@ namespace NutriNET.Maui.Platforms.Android
             var fat = NutriWidgetPreferences.GetFat(prefs);
             var calories = NutriWidgetPreferences.GetCalories(prefs);
 
+            var proteinColor = AGColor.ParseColor(NutriWidgetPreferences.GetProteinColor(prefs));
+            var carbsColor = AGColor.ParseColor(NutriWidgetPreferences.GetCarbsColor(prefs));
+            var fatColor = AGColor.ParseColor(NutriWidgetPreferences.GetFatColor(prefs));
+
             views.SetTextViewText(Resource.Id.summary_calories_label, lc.GetString(Resource.String.calories));
             views.SetTextViewText(Resource.Id.summary_calories_value, $"{Math.Round(calories, 1)} {kcal}");
 
@@ -46,13 +50,19 @@ namespace NutriNET.Maui.Platforms.Android
             views.SetTextViewText(Resource.Id.summary_carbs_value, $"{Math.Round(carbs, 1)}{g}");
             views.SetTextViewText(Resource.Id.summary_fat_value, $"{Math.Round(fat, 1)}{g}");
 
+            views.SetTextColor(Resource.Id.summary_protein_value, proteinColor);
+            views.SetTextColor(Resource.Id.summary_carbs_value, carbsColor);
+            views.SetTextColor(Resource.Id.summary_fat_value, fatColor);
+
             views.SetImageViewBitmap(Resource.Id.summary_pie_chart,
-                DrawDonutChart(protein, carbs, fat, 300));
+                DrawDonutChart(protein, carbs, fat, 300, proteinColor, carbsColor, fatColor));
+
 
             return views;
         }
 
-        private static AGBitmap DrawDonutChart(double protein, double carbs, double fat, int size)
+        private static AGBitmap DrawDonutChart(double protein, double carbs, double fat, int size,
+              AGColor proteinColor, AGColor carbsColor, AGColor fatColor)
         {
             var bitmap = AGBitmap.CreateBitmap(size, size, AGBitmap.Config.Argb8888)!;
             var canvas = new AGCanvas(bitmap);
@@ -84,15 +94,15 @@ namespace NutriNET.Maui.Platforms.Android
 
             float startAngle = -90f;
 
-            paint.Color = AGColor.ParseColor("#FFFF7A8A");
+            paint.Color = proteinColor;
             canvas.DrawArc(rect, startAngle, proteinSweep, false, paint);
             startAngle += proteinSweep;
 
-            paint.Color = AGColor.ParseColor("#FF5BC0FF");
+            paint.Color = carbsColor;
             canvas.DrawArc(rect, startAngle, carbsSweep, false, paint);
             startAngle += carbsSweep;
 
-            paint.Color = AGColor.ParseColor("#FFFFC857");
+            paint.Color = fatColor;
             canvas.DrawArc(rect, startAngle, fatSweep, false, paint);
 
             return bitmap;

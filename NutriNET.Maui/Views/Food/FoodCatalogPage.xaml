@@ -50,8 +50,13 @@
             </BoxView>
 
             <Grid  x:Name="ScannerPanel"  SafeAreaEdges="None" Grid.Row="1"
-                VerticalOptions="End" BackgroundColor="Red" IsClippedToBounds="True">
-                <Grid x:Name="ScannerHost" SafeAreaEdges="None" HorizontalOptions="Fill" VerticalOptions="End" />
+                VerticalOptions="End" IsClippedToBounds="True">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0" Padding="0">
+                    <Grid x:Name="ScannerHost" SafeAreaEdges="None" HorizontalOptions="Fill" VerticalOptions="End" />
+                </Border>
             </Grid>
         </Grid>
         <Grid
@@ -90,7 +95,7 @@
                             </Label>
                             <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto" ColumnSpacing="8" >
                                 <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="2">
-                                    <Label FontSize="Small" TextColor="{StaticResource ProteinColor}">
+                                    <Label FontSize="Small" TextColor="{DynamicResource ProteinColor}">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{Binding SelectedFood.Proteins}" />
@@ -102,7 +107,7 @@
                                     <Label Text="{local:Translate Protein}" FontSize="Micro" VerticalOptions="Center"/>
                                 </VerticalStackLayout>
                                 <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="2">
-                                    <Label FontSize="Small" TextColor="{StaticResource CarbsColor}">
+                                    <Label FontSize="Small" TextColor="{DynamicResource CarbsColor}">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{Binding SelectedFood.Carbohydrates}" />
@@ -114,7 +119,7 @@
                                     <Label Text="{local:Translate Carbohydrates}" FontSize="Micro" VerticalOptions="Center"/>
                                 </VerticalStackLayout>
                                 <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="2">
-                                    <Label FontSize="Small" TextColor="{StaticResource FatColor}">
+                                    <Label FontSize="Small" TextColor="{DynamicResource FatColor}">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{Binding SelectedFood.Fats}" />
@@ -128,9 +133,9 @@
                             </Grid>
                             <Border Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 10">
                                 <FlexLayout Direction="Row" HeightRequest="10">
-                                    <BoxView BackgroundColor="{StaticResource ProteinColor}" FlexLayout.Grow="{Binding SelectedFood.ProteinRatio}" />
-                                    <BoxView BackgroundColor="{StaticResource CarbsColor}" FlexLayout.Grow="{Binding SelectedFood.CarbsRatio}" />
-                                    <BoxView BackgroundColor="{StaticResource FatColor}" FlexLayout.Grow="{Binding SelectedFood.FatRatio}"/>
+                                    <BoxView BackgroundColor="{DynamicResource ProteinColor}" FlexLayout.Grow="{Binding SelectedFood.ProteinRatio}" />
+                                    <BoxView BackgroundColor="{DynamicResource CarbsColor}" FlexLayout.Grow="{Binding SelectedFood.CarbsRatio}" />
+                                    <BoxView BackgroundColor="{DynamicResource FatColor}" FlexLayout.Grow="{Binding SelectedFood.FatRatio}"/>
                                 </FlexLayout>
                             </Border> 
                         </VerticalStackLayout>

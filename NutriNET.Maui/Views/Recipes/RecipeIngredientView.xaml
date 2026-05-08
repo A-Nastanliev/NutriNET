@@ -57,7 +57,7 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Label FontSize="Small" TextColor="{StaticResource ProteinColor}" Grid.Row="2" LineBreakMode="TailTruncation"
+                <Label FontSize="Small" TextColor="{DynamicResource ProteinColor}" Grid.Row="2" LineBreakMode="TailTruncation"
               Grid.Column="1" HorizontalOptions="Center" VerticalTextAlignment="Center" VerticalOptions="Center">
                     <Label.FormattedText>
                         <FormattedString>
@@ -67,7 +67,7 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Label FontSize="Small" TextColor="{StaticResource CarbsColor}" VerticalTextAlignment="Center" VerticalOptions="Center"
+                <Label FontSize="Small" TextColor="{DynamicResource CarbsColor}" VerticalTextAlignment="Center" VerticalOptions="Center"
                   Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" LineBreakMode="TailTruncation">
                     <Label.FormattedText>
                         <FormattedString>
@@ -77,7 +77,7 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Label FontSize="Small" TextColor="{StaticResource FatColor}" Grid.Row="2" LineBreakMode="TailTruncation"
+                <Label FontSize="Small" TextColor="{DynamicResource FatColor}" Grid.Row="2" LineBreakMode="TailTruncation"
                   Grid.Column="3" HorizontalOptions="Center"  VerticalTextAlignment="Center" VerticalOptions="Center">
                     <Label.FormattedText>
                         <FormattedString>
