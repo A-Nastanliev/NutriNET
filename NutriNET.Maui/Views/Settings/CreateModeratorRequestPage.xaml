@@ -22,8 +22,7 @@
             Text="{local:Translate SubmitRequest}"
             Command="{Binding SubmitRequestCommand}"
             BackgroundColor="{StaticResource Primary}"
-            TextColor="White"
-            CornerRadius="8"
+            TextColor="White" CornerRadius="20"
             HorizontalOptions="Fill"
             Margin="0,16,0,0" />
     </Grid>

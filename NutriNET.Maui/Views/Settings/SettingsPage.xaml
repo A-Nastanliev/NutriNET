@@ -139,7 +139,7 @@
                     </Grid>
                 </Border>
 
-                <Border Style="{StaticResource SectionCard}">
+                <Border Style="{StaticResource SectionCard}" Padding="8">
                     <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
                         <Label
                        FontSize="Medium" VerticalTextAlignment="Center" VerticalOptions="Center">
@@ -161,11 +161,11 @@
                     </HorizontalStackLayout>
                 </Border>
 
-                <Border Style="{StaticResource SectionCard}">
+                <Border Style="{StaticResource SectionCard}" Padding="4,20">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="MacronutrientTheme_Tapped"/>
                     </Border.GestureRecognizers>
-                    <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" Grid.Row="1" Padding="16,8,16,8" HorizontalOptions="Center">
+                    <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" Grid.Row="1" Padding="0" HorizontalOptions="Center">
                         <HorizontalStackLayout Spacing="4" Margin="0,0,4,0" VerticalOptions="Center">
                             <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
                                 Color="{DynamicResource ProteinColor}" BackgroundColor="Transparent"
@@ -222,8 +222,8 @@
                 </Grid.GestureRecognizers>
                 <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0" Padding="16,16,16,10">
                     <Grid RowDefinitions="Auto, *" RowSpacing="12">
-                        <Border Style="{StaticResource SectionCard}" BackgroundColor="{StaticResource Gray600}" Grid.Row="0">
-                            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" Grid.Row="1" Padding="16,8,16,8" HorizontalOptions="Center">
+                        <Border Style="{StaticResource SectionCard}" BackgroundColor="{StaticResource Gray600}" Grid.Row="0" Padding="4,20">
+                            <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" Grid.Row="1" Padding="0" HorizontalOptions="Center">
                                 <HorizontalStackLayout Spacing="4" Margin="0,0,4,0" VerticalOptions="Center">
                                     <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
                                        Color="{DynamicResource ProteinColor}" BackgroundColor="Transparent"

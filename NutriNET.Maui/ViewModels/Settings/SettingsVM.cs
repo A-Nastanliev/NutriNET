@@ -83,6 +83,8 @@ namespace NutriNET.Maui.ViewModels.Settings
             macroThemes.Add(new MacronutrientTheme(nameof(Candy), new Candy()));
             macroThemes.Add(new MacronutrientTheme(nameof(Lavender), new Lavender()));
             macroThemes.Add(new MacronutrientTheme(nameof(Lava), new Lava()));
+            macroThemes.Add(new MacronutrientTheme(nameof(NeonRose), new NeonRose()));
+            macroThemes.Add(new MacronutrientTheme(nameof(Retro), new Retro()));
             var savedTheme = Preferences.Get("macro_theme", nameof(Default));
             selectedMacroTheme = MacroThemes.FirstOrDefault(t => t.Name == savedTheme) ?? MacroThemes[0];
             OnPropertyChanged(nameof(selectedMacroTheme));

@@ -85,20 +85,22 @@
                 <Button Text="{Binding SubmitButtonText}" Command="{Binding SubmitCommand}" Margin="10,0,10,10" CornerRadius="20"/>
             </VerticalStackLayout>
         </ScrollView>
-
         <Grid
-            x:Name="Overlay" IsVisible="False" BackgroundColor="#771A1A1A"
-            AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
-            <BoxView BackgroundColor="#80000000">
+         x:Name="Overlay" IsVisible="False" BackgroundColor="#771A1A1A" RowDefinitions="*, 2*"
+         AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <BoxView  BackgroundColor="#80000000" Grid.RowSpan="2">
                 <BoxView.GestureRecognizers>
                     <TapGestureRecognizer Tapped="OnOverlayTapped"/>
                 </BoxView.GestureRecognizers>
             </BoxView>
-
-            <Grid  x:Name="ScannerPanel"  SafeAreaEdges="None"
-                VerticalOptions="End" BackgroundColor="Red">
-                <zxing:CameraBarcodeReaderView IsTorchOn="False" HeightRequest="300" IsDetecting="False" IsEnabled="False"
-                     x:Name="barcodeReaderView" HorizontalOptions="Fill" VerticalOptions="End" BarcodesDetected="barcodeReaderView_BarcodesDetected"/>
+            <Grid  x:Name="BottomSheetContent" RowDefinitions="*" Grid.Row="1" HorizontalOptions="Fill" 
+             VerticalOptions="End">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Grid.GestureRecognizers>
+                <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0" Padding="0">
+                    <Grid x:Name="BarcodeScannerHost" IsClippedToBounds="True" VerticalOptions="End"/>
+                </Border>
             </Grid>
         </Grid>
     </AbsoluteLayout>

@@ -32,6 +32,8 @@ namespace NutriNET.Maui
                 nameof(Candy) => new Candy(),
                 nameof(Lavender) => new Lavender(),
                 nameof(Lava) => new Lava(),
+                nameof(NeonRose) => new NeonRose(),
+                nameof(Retro) => new Retro(),
                 _ => new Default()
             };
 

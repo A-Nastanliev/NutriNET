@@ -140,8 +140,8 @@
                             </HorizontalStackLayout>
                             <HorizontalStackLayout Spacing="20" HorizontalOptions="Center"
                                  IsVisible="{Binding SelectedRequest.Status, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static status:RequestStatus.Pending}}">
-                                <Button Text="{local:Translate Accept}" Command="{Binding AcceptModeratorRequestCommand}"/>
-                                <Button Text="{local:Translate Decline}" Command="{Binding DeclineModeratorRequestCommand}"/>
+                                <Button Text="{local:Translate Accept}" Command="{Binding AcceptModeratorRequestCommand}" CornerRadius="20"/>
+                                <Button Text="{local:Translate Decline}" Command="{Binding DeclineModeratorRequestCommand}" CornerRadius="20"/>
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
                     </ScrollView>

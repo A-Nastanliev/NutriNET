@@ -30,6 +30,12 @@ public partial class RecipeFormPage : ContentPage
         await _catalogVM.OnAppearingAsync();
     }
 
+    protected override async void OnNavigatedFrom(NavigatedFromEventArgs args)
+    {
+        await CloseBottomSheetAsync();
+        base.OnNavigatedFrom(args);
+    }
+
     private void BarcodeButton_Clicked(object sender, EventArgs e)
     {
         OpenBottomSheet(showBarcodeScanner: true);

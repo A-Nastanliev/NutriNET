@@ -40,7 +40,7 @@
         </Label>
 
         <Button FontSize="12" Padding="10,6" MinimumWidthRequest="100" Text="{Binding ButtonText, Source={x:Reference Root}}"
-            HorizontalOptions="End" VerticalOptions="Center" Grid.Column="2"
+            HorizontalOptions="End" VerticalOptions="Center" Grid.Column="2" CornerRadius="20"
             Command="{Binding ActionCommand, Source={x:Reference Root}}"
             CommandParameter="{Binding BindingContext, Source={x:Reference Root}}" />
     </Grid>

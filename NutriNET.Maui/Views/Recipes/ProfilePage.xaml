@@ -53,7 +53,7 @@
                             <Label Text="{local:Translate FollowingPageTitle}" FontSize="Micro" TextColor="White" HorizontalOptions="Start" />
                         </VerticalStackLayout>
 
-                        <Button Grid.Row="2" Grid.Column="2"
+                        <Button Grid.Row="2" Grid.Column="2" CornerRadius="20"
                         Text="{Binding User.FollowButtonText}" Command="{Binding ToggleFollowCommand}"
                         FontSize="Micro" HorizontalOptions="End" Margin="2,0"
                         IsVisible="{Binding ShowFollowButton}"/>

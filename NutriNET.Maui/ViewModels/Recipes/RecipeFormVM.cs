@@ -17,6 +17,7 @@ using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using ZXing.Net.Maui;
@@ -395,25 +396,25 @@ namespace NutriNET.Maui.ViewModels.Recipes
             if (string.IsNullOrWhiteSpace(result))
                 return;
 
-            string normalized = result.Replace('.', ',');
-            if (double.TryParse(normalized, out double value))
-            {
-                if (value <= 0) return;
+            if (!double.TryParse(result.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out double value) &&
+                !double.TryParse(result.Trim(), NumberStyles.Any, CultureInfo.CurrentCulture, out value))
+                return;
 
-                double rounded = Math.Round(value, 2, MidpointRounding.AwayFromZero);
-                if (rounded > 2000)
-                    rounded = 2000;
+            if (value <= 0) return;
 
-                RecipeIngredientVM newIgredient = new RecipeIngredientVM();
-                newIgredient.Food.CopyFrom(food);
-                newIgredient.Weight = rounded;
-                Recipe.Ingredients.Add(newIgredient);
-                newIgredient.RecalculateMacros();
-                Recipe.RecalculateMacros();
-                UpdateChart();
-                message = String.Format(LocalizationResourceManager.Instance["IngredientAdded"].ToString(), rounded ,food.Name);
-                _ = Toast.Make(message).Show();
-            }
+            double rounded = Math.Round(value, 2, MidpointRounding.AwayFromZero);
+            if (rounded > 2000)
+                rounded = 2000;
+
+            RecipeIngredientVM newIgredient = new RecipeIngredientVM();
+            newIgredient.Food.CopyFrom(food);
+            newIgredient.Weight = rounded;
+            Recipe.Ingredients.Add(newIgredient);
+            newIgredient.RecalculateMacros();
+            Recipe.RecalculateMacros();
+            UpdateChart();
+            message = String.Format(LocalizationResourceManager.Instance["IngredientAdded"].ToString(), rounded, food.Name);
+            _ = Toast.Make(message).Show();
         }
 
         [RelayCommand]
@@ -433,20 +434,20 @@ namespace NutriNET.Maui.ViewModels.Recipes
             if (string.IsNullOrWhiteSpace(result))
                 return;
 
-            string normalized = result.Replace('.', ',');
-            if (double.TryParse(normalized, out double value))
-            {
-                if (value == ingredient.Weight || value <= 0 || (value >= 2000 && ingredient.Weight == 2000)) return;
+            if (!double.TryParse(result.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out double value) &&
+                !double.TryParse(result.Trim(), NumberStyles.Any, CultureInfo.CurrentCulture, out value))
+                return;
 
-                double rounded = Math.Round(value, 2, MidpointRounding.AwayFromZero);
-                if (rounded > 2000)
-                    rounded = 2000;
+            if (value == ingredient.Weight || value <= 0 || (value >= 2000 && ingredient.Weight == 2000)) return;
 
-                ingredient.Weight = rounded;
-                ingredient.RecalculateMacros();
-                Recipe.RecalculateMacros();
-                UpdateChart();
-            }
+            double rounded = Math.Round(value, 2, MidpointRounding.AwayFromZero);
+            if (rounded > 2000)
+                rounded = 2000;
+
+            ingredient.Weight = rounded;
+            ingredient.RecalculateMacros();
+            Recipe.RecalculateMacros();
+            UpdateChart();
         }
 
         [RelayCommand]

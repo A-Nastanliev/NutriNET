@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NutriNET.Maui.Resources.Styles.MacronutrientThemes.Retro">
+    <Color x:Key="ProteinColor">#FF6B35</Color>
+    <Color x:Key="ProteinColorSecondary">#99FF6B35</Color>
+    <Color x:Key="CarbsColor">#F7C59F</Color>
+    <Color x:Key="CarbsColorSecondary">#99F7C59F</Color>
+    <Color x:Key="FatColor">#00B9AE</Color>
+    <Color x:Key="FatColorSecondary">#9900B9AE</Color>
+</ResourceDictionary>

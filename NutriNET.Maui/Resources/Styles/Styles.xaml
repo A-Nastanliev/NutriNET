@@ -431,16 +431,16 @@
     </Style>
 
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
-        <Setter Property="Shell.BackgroundColor" Value="{StaticResource Gray950}" />
-        <Setter Property="Shell.ForegroundColor" Value="{StaticResource SecondaryDarkText}" />
-        <Setter Property="Shell.TitleColor" Value="{StaticResource SecondaryDarkText}" />
-        <Setter Property="Shell.DisabledColor" Value="{StaticResource Gray600}" />
-        <Setter Property="Shell.UnselectedColor" Value="{StaticResource Gray400}" />
+        <Setter Property="Shell.BackgroundColor" Value="{DynamicResource Gray950}" />
+        <Setter Property="Shell.ForegroundColor" Value="{DynamicResource SecondaryDarkText}" />
+        <Setter Property="Shell.TitleColor" Value="{DynamicResource SecondaryDarkText}" />
+        <Setter Property="Shell.DisabledColor" Value="{DynamicResource Gray600}" />
+        <Setter Property="Shell.UnselectedColor" Value="{DynamicResource Gray400}" />
         <Setter Property="Shell.NavBarHasShadow" Value="False" />
-        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Gray950}" />
-        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource White}" />
-        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource White}" />
-        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource Gray200}" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{DynamicResource Gray950}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{DynamicResource White}" />
+        <Setter Property="Shell.TabBarTitleColor" Value="{DynamicResource White}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{DynamicResource Gray200}" />
     </Style>
 
     <Style TargetType="NavigationPage">

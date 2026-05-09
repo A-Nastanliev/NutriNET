@@ -114,7 +114,7 @@
                                         FontSize="Small" VerticalOptions="Center" TextColor="White" HorizontalOptions="Start" />
                                 </VerticalStackLayout>
                             </HorizontalStackLayout>
-                            <Button Text="{local:Translate EndButton}" Command="{Binding EndCommentRestrictionCommand}" HorizontalOptions="Center" IsVisible="{Binding CanEndRestriction}"/>
+                            <Button Text="{local:Translate EndButton}" CornerRadius="20" Command="{Binding EndCommentRestrictionCommand}" HorizontalOptions="Center" IsVisible="{Binding CanEndRestriction}"/>
                         </VerticalStackLayout>
                     </ScrollView>
                 </Border>

@@ -14,6 +14,7 @@ using NutriNET.Maui.Models.Meal;
 using NutriNET.Maui.Models.Recipes;
 using NutriNET.Maui.ViewModels.Recipes;
 using SkiaSharp;
+using System.Globalization;
 
 namespace NutriNET.Maui.ViewModels.Meals
 {
@@ -345,36 +346,35 @@ namespace NutriNET.Maui.ViewModels.Meals
             if (string.IsNullOrWhiteSpace(result))
                 return;
 
-            string normalized = result.Replace('.', ',');
-            if (double.TryParse(normalized, out double value))
+            if (!double.TryParse(result.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out double value) &&
+            !double.TryParse(result.Trim(), NumberStyles.Any, CultureInfo.CurrentCulture, out value))
+                return;
+
+            if (value == mealFoodVM.Weight || value <= 0 || (value >= 2000 && mealFoodVM.Weight == 2000)) return;
+
+            double rounded = Math.Round(value, 2, MidpointRounding.AwayFromZero);
+            if (rounded > 2000)
+                rounded = 2000;
+
+            try
             {
-                if (value == mealFoodVM.Weight || value <= 0 || (value >= 2000 && mealFoodVM.Weight == 2000)) return;
-
-                double rounded = Math.Round(value, 2, MidpointRounding.AwayFromZero);
-                if (rounded > 2000)
-                    rounded = 2000;
-
-                try
+                var apiResult = await _mealClient.UpdateMealFoodAsync(mealFoodVM, rounded);
+                if (!apiResult.Success)
                 {
-                    var apiResult = await _mealClient.UpdateMealFoodAsync(mealFoodVM, rounded);
-                    if (!apiResult.Success)
-                    {
-                        message = LocalizationResourceManager.Instance[apiResult.Error].ToString();
-                        await Shell.Current.DisplayAlertAsync(error, message, ok);
-                        return;
-                    }
-
-                    mealFoodVM.RecalculateMacros();
-                    SelectedMeal.RecalculateMacros();
-                    MealDay.RecalculateMacros();
-                    UpdateChart();
-                }
-                catch (Exception ex) 
-                {
-                    message = LocalizationResourceManager.Instance["GenericErrorMessage"].ToString();
+                    message = LocalizationResourceManager.Instance[apiResult.Error].ToString();
                     await Shell.Current.DisplayAlertAsync(error, message, ok);
+                    return;
                 }
 
+                mealFoodVM.RecalculateMacros();
+                SelectedMeal.RecalculateMacros();
+                MealDay.RecalculateMacros();
+                UpdateChart();
+            }
+            catch (Exception ex)
+            {
+                message = LocalizationResourceManager.Instance["GenericErrorMessage"].ToString();
+                await Shell.Current.DisplayAlertAsync(error, message, ok);
             }
         }
 
@@ -393,39 +393,38 @@ namespace NutriNET.Maui.ViewModels.Meals
             if (string.IsNullOrWhiteSpace(result))
                 return;
 
-            string normalized = result.Replace('.', ',');
-            if (double.TryParse(normalized, out double value))
+            if (!double.TryParse(result.Trim(), NumberStyles.Any, CultureInfo.InvariantCulture, out double value) &&
+                !double.TryParse(result.Trim(), NumberStyles.Any, CultureInfo.CurrentCulture, out value))
+                return;
+
+            if (value <= 0) return;
+
+            double rounded = Math.Round(value, 2, MidpointRounding.AwayFromZero);
+            if (rounded > 2000)
+                rounded = 2000;
+
+            try
             {
-                if (value <= 0) return;
-
-                double rounded = Math.Round(value, 2, MidpointRounding.AwayFromZero);
-                if (rounded > 2000)
-                    rounded = 2000;
-
-                try
+                MealFoodVM mealFood = new MealFoodVM(rounded, food);
+                var apiResult = await _mealClient.AddMealFoodAsync(SelectedMeal.Id, mealFood);
+                if (!apiResult.Success)
                 {
-                    MealFoodVM mealFood = new MealFoodVM(rounded, food);
-                    var apiResult = await _mealClient.AddMealFoodAsync(SelectedMeal.Id, mealFood);
-                    if (!apiResult.Success)
-                    {
-                        message = LocalizationResourceManager.Instance[apiResult.Error].ToString();
-                        await Shell.Current.DisplayAlertAsync(error, message, ok);
-                        return;
-                    }
-
-                    mealFood.RecalculateMacros();
-                    SelectedMeal.MealFoods.Add(mealFood);
-                    SelectedMeal.RecalculateMacros();
-                    MealDay.RecalculateMacros();
-                    UpdateChart();
-                    await Cancel();
-                }
-                catch (Exception ex)
-                {
-                    message = LocalizationResourceManager.Instance["GenericErrorMessage"].ToString();
+                    message = LocalizationResourceManager.Instance[apiResult.Error].ToString();
                     await Shell.Current.DisplayAlertAsync(error, message, ok);
+                    return;
                 }
 
+                mealFood.RecalculateMacros();
+                SelectedMeal.MealFoods.Add(mealFood);
+                SelectedMeal.RecalculateMacros();
+                MealDay.RecalculateMacros();
+                UpdateChart();
+                await Cancel();
+            }
+            catch (Exception ex)
+            {
+                message = LocalizationResourceManager.Instance["GenericErrorMessage"].ToString();
+                await Shell.Current.DisplayAlertAsync(error, message, ok);
             }
         }
 
