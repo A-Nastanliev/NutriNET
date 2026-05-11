@@ -60,7 +60,7 @@
             </Grid>
         </Grid>
         <Grid
-            x:Name="FoodSheetOverlay" IsVisible="False" BackgroundColor="#771A1A1A" RowDefinitions="*, auto"
+            x:Name="FoodSheetOverlay" IsVisible="False" BackgroundColor="#771A1A1A" RowDefinitions="*, 2*"
             AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
             <BoxView BackgroundColor="Transparent">
                 <BoxView.GestureRecognizers>
@@ -75,92 +75,103 @@
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                 </Grid.GestureRecognizers>
-                <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0" Padding="0">
-                    <Grid RowDefinitions="Auto, Auto">
-                        <Image Aspect="AspectFill" HeightRequest="340" Source="{Binding SelectedFood.ImageSource}" />
-                        <VerticalStackLayout Padding="16, 8, 16, 8" Spacing="4" Background="{StaticResource PrimaryOverlay}" HorizontalOptions="Fill" VerticalOptions="End">
-                            <Label Text="{Binding SelectedFood.Name}" FontSize="Medium" LineBreakMode="WordWrap"/>
-                            <Label Text="{Binding SelectedFood.ExtraInfo}" LineBreakMode="TailTruncation" FontSize="Small" 
-                                IsVisible="{Binding SelectedFood.ExtraInfo, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Null}}"/>
-                            <Label Text="{local:Translate NoBrandText}" LineBreakMode="TailTruncation" FontSize="Small" 
-                                IsVisible="{Binding SelectedFood.ExtraInfo, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Null}}"/>
-                            <Label FontSize="Small" HorizontalOptions="Start">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="{Binding SelectedFood.Calories}" />
-                                        <Span Text=" " />
-                                        <Span Text="{local:Translate kcal}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto" ColumnSpacing="8" >
-                                <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="2">
-                                    <Label FontSize="Small" TextColor="{DynamicResource ProteinColor}">
+                <Border Style="{StaticResource SectionCard}" Background="{StaticResource Gray200}" StrokeShape="RoundRectangle 20,20,0,0" Padding="0">
+                    <Grid RowDefinitions="*, Auto" RowSpacing="0">
+                        <Image Aspect="AspectFill" Source="{Binding SelectedFood.ImageSource}" />
+                        <Border StrokeShape="RoundRectangle 20,20,0,0" Padding="0" Margin="0" Background="{DynamicResource PrimaryOverlay}" 
+                            StrokeThickness="0" VerticalOptions="End" >
+                            <VerticalStackLayout Padding="16, 8, 16, 8" Spacing="4" Background="Transparent" HorizontalOptions="Fill" VerticalOptions="End">
+                                <Label Text="{Binding SelectedFood.Name}" FontSize="Medium" LineBreakMode="WordWrap" HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center"/>
+                                <Label Text="{Binding SelectedFood.ExtraInfo}" LineBreakMode="TailTruncation" FontSize="Small" HorizontalTextAlignment="Center" HorizontalOptions="Center"
+                                    IsVisible="{Binding SelectedFood.ExtraInfo, Converter={StaticResource NotEqualsConverter}, ConverterParameter={x:Null}}"/>
+                                <Label Text="{local:Translate NoBrandText}" LineBreakMode="TailTruncation" FontSize="Small" HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                                    IsVisible="{Binding SelectedFood.ExtraInfo, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Null}}"/>
+                            </VerticalStackLayout>
+                        </Border>
+                        <Grid Grid.Row="1" Background="{DynamicResource PrimaryOverlay}">
+                            <Border StrokeThickness="0" Background="{StaticResource Gray700}" Padding="16,4,16,10" StrokeShape="RoundRectangle 20,20,0,0" >
+                                <VerticalStackLayout Spacing="4">
+                                    <Label FontSize="Small" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="{DynamicResource PrimaryDark}">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="{Binding SelectedFood.Proteins}" />
+                                                <Span Text="{Binding SelectedFood.Calories}" />
                                                 <Span Text=" " />
-                                                <Span Text="{local:Translate grams}" />
+                                                <Span Text="{local:Translate kcal}" />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label Text="{local:Translate Protein}" FontSize="Micro" VerticalOptions="Center"/>
+                                    <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto" ColumnSpacing="8" >
+                                        <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center" Spacing="2">
+                                            <Label FontSize="Small" HorizontalOptions="Center" HorizontalTextAlignment="Center"  TextColor="{DynamicResource ProteinColor}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding SelectedFood.Proteins}" />
+                                                        <Span Text=" " />
+                                                        <Span Text="{local:Translate grams}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Text="{local:Translate Protein}" FontSize="Micro" HorizontalOptions="Center" HorizontalTextAlignment="Center" 
+                                                   VerticalOptions="Center"/>
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="2">
+                                            <Label FontSize="Small" HorizontalOptions="Center" HorizontalTextAlignment="Center"  TextColor="{DynamicResource CarbsColor}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding SelectedFood.Carbohydrates}" />
+                                                        <Span Text=" " />
+                                                        <Span Text="{local:Translate grams}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Text="{local:Translate Carbohydrates}" FontSize="Micro" 
+                                                HorizontalOptions="Center" HorizontalTextAlignment="Center"  VerticalOptions="Center"/>
+                                        </VerticalStackLayout>
+                                        <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="2">
+                                            <Label FontSize="Small" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextColor="{DynamicResource FatColor}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding SelectedFood.Fats}" />
+                                                        <Span Text=" " />
+                                                        <Span Text="{local:Translate grams}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Text="{local:Translate Fat}" HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                                                FontSize="Micro" VerticalOptions="Center"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                    <Border Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 10">
+                                        <FlexLayout Direction="Row" HeightRequest="10">
+                                            <BoxView BackgroundColor="{DynamicResource ProteinColor}" FlexLayout.Grow="{Binding SelectedFood.ProteinRatio}" />
+                                            <BoxView BackgroundColor="{DynamicResource CarbsColor}" FlexLayout.Grow="{Binding SelectedFood.CarbsRatio}" />
+                                            <BoxView BackgroundColor="{DynamicResource FatColor}" FlexLayout.Grow="{Binding SelectedFood.FatRatio}"/>
+                                        </FlexLayout>
+                                    </Border>
+                                    <Grid ColumnSpacing="20" Margin="4,10,4,0" ColumnDefinitions="*,*" HorizontalOptions="Center"
+                                        IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource RoleVisibilityConverter}, ConverterParameter='Administrator,Moderator'}">
+                                        <buttons:SfButton Grid.Column="0" Text="{local:Translate Edit}" Command="{Binding EditFoodCommand}" FontSize="Small" ImageSource="edit_icon.png"
+                                            ShowIcon="True" ImageAlignment="Right" TextColor="White" IsCheckable="False" HorizontalOptions="Center"
+                                            IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource RoleVisibilityConverter}, ConverterParameter='Administrator,Moderator'}">
+                                            <buttons:SfButton.Style>
+                                                <Style TargetType="buttons:SfButton">
+                                                    <Setter Property="Background" Value="{StaticResource Gray500}" />
+                                                </Style>
+                                            </buttons:SfButton.Style>
+                                        </buttons:SfButton>
+                                        <buttons:SfButton Grid.Column="1" Text="{local:Translate Delete}" Command="{Binding DeleteFoodCommand}" FontSize="Small" ImageSource="delete_icon.png"
+                                            ShowIcon="True" ImageAlignment="Right" TextColor="White" HorizontalOptions="Center"
+                                            IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource RoleVisibilityConverter}, ConverterParameter='Administrator'}">
+                                            <buttons:SfButton.Style>
+                                                <Style TargetType="buttons:SfButton">
+                                                    <Setter Property="Background" Value="Red" />
+                                                </Style>
+                                            </buttons:SfButton.Style>
+                                        </buttons:SfButton>
+                                    </Grid>
                                 </VerticalStackLayout>
-                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="2">
-                                    <Label FontSize="Small" TextColor="{DynamicResource CarbsColor}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding SelectedFood.Carbohydrates}" />
-                                                <Span Text=" " />
-                                                <Span Text="{local:Translate grams}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label Text="{local:Translate Carbohydrates}" FontSize="Micro" VerticalOptions="Center"/>
-                                </VerticalStackLayout>
-                                <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center" Spacing="2">
-                                    <Label FontSize="Small" TextColor="{DynamicResource FatColor}">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding SelectedFood.Fats}" />
-                                                <Span Text=" " />
-                                                <Span Text="{local:Translate grams}" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label Text="{local:Translate Fat}" FontSize="Micro" VerticalOptions="Center"/>
-                                </VerticalStackLayout>
-                            </Grid>
-                            <Border Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 10">
-                                <FlexLayout Direction="Row" HeightRequest="10">
-                                    <BoxView BackgroundColor="{DynamicResource ProteinColor}" FlexLayout.Grow="{Binding SelectedFood.ProteinRatio}" />
-                                    <BoxView BackgroundColor="{DynamicResource CarbsColor}" FlexLayout.Grow="{Binding SelectedFood.CarbsRatio}" />
-                                    <BoxView BackgroundColor="{DynamicResource FatColor}" FlexLayout.Grow="{Binding SelectedFood.FatRatio}"/>
-                                </FlexLayout>
-                            </Border> 
-                        </VerticalStackLayout>
-                        <Grid Grid.Row="1" Background="{StaticResource PrimaryOverlay}"> 
-                            <HorizontalStackLayout Spacing="20" Margin="8" HorizontalOptions="End"
-                                 IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource RoleVisibilityConverter}, ConverterParameter='Administrator,Moderator'}">
-                                <buttons:SfButton Text="{local:Translate Edit}" Command="{Binding EditFoodCommand}" FontSize="Small" ImageSource="edit_icon.png"
-                                    ShowIcon="True" ImageAlignment="Right" TextColor="White" IsCheckable="False"
-                                    IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource RoleVisibilityConverter}, ConverterParameter='Administrator,Moderator'}">
-                                    <buttons:SfButton.Style>
-                                        <Style TargetType="buttons:SfButton">
-                                            <Setter Property="Background" Value="{StaticResource Gray500}" />
-                                        </Style>
-                                    </buttons:SfButton.Style>
-                                </buttons:SfButton>
-                                <buttons:SfButton Text="{local:Translate Delete}" Command="{Binding DeleteFoodCommand}" FontSize="Small" ImageSource="delete_icon.png"
-                                    ShowIcon="True" ImageAlignment="Right" TextColor="White"
-                                      IsVisible="{Binding Role, Source={StaticResource User}, Converter={StaticResource RoleVisibilityConverter}, ConverterParameter='Administrator'}">
-                                    <buttons:SfButton.Style>
-                                        <Style TargetType="buttons:SfButton">
-                                            <Setter Property="Background" Value="Red" />
-                                        </Style>
-                                    </buttons:SfButton.Style>
-                                </buttons:SfButton>
-                            </HorizontalStackLayout>
+                            </Border>
                         </Grid>
                     </Grid>
                 </Border>

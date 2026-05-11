@@ -29,7 +29,7 @@
                                  ShowIcon="True" ImageAlignment="Default" TextColor="White" Padding="0">
                                 <buttons:SfButton.Style>
                                     <Style TargetType="buttons:SfButton">
-                                        <Setter Property="Background" Value="{StaticResource Primary}" />
+                                        <Setter Property="Background" Value="{DynamicResource Primary}" />
                                     </Style>
                                 </buttons:SfButton.Style>
                             </buttons:SfButton>
@@ -38,7 +38,7 @@
                                 ShowIcon="True" ImageAlignment="Default" TextColor="White" Padding="0">
                                 <buttons:SfButton.Style>
                                     <Style TargetType="buttons:SfButton">
-                                        <Setter Property="Background" Value="{StaticResource Primary}" />
+                                        <Setter Property="Background" Value="{DynamicResource Primary}" />
                                     </Style>
                                 </buttons:SfButton.Style>
                             </buttons:SfButton>
@@ -64,7 +64,7 @@
                     </HorizontalStackLayout>
                     <HorizontalStackLayout Margin="10,0" Spacing="10">
                         <Label Text="{local:Translate PrivacyLevel}"  FontSize="Medium"/>
-                        <Label Text="{Binding PrivacyLevel}" TextColor="{StaticResource SecondaryDarkText}"
+                        <Label Text="{Binding PrivacyLevel}" TextColor="{DynamicResource SecondaryDarkText}"
                         VerticalOptions="Center" HorizontalOptions="Fill" LineBreakMode="WordWrap"
                         HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium"/>
                     </HorizontalStackLayout>
@@ -87,22 +87,22 @@
                         <Label Text="{Binding DisplaybleAverageRating}" FontSize="Small" VerticalOptions="Center"
                           Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"/>
                         <toolkit:RatingView VerticalOptions="Center" Shape="Star" HorizontalOptions="Center" Grid.Row="1" Grid.Column="0"
-                            IsReadOnly="True" FillColor="{StaticResource Primary}" Rating="{Binding AverageRating, Mode=OneWay}" 
-                            ShapeBorderColor="{StaticResource PrimaryDark}" MaximumRating="5" EmptyShapeColor="White"/>
+                            IsReadOnly="True" FillColor="{DynamicResource Primary}" Rating="{Binding AverageRating, Mode=OneWay}" 
+                            ShapeBorderColor="{DynamicResource PrimaryDark}" MaximumRating="5" EmptyShapeColor="White"/>
                     </Grid>
                     <Grid Margin="10,0 " ColumnDefinitions="Auto, Auto" RowDefinitions="Auto, Auto" 
                       ColumnSpacing="20" RowSpacing="4" HorizontalOptions="Center">
                         <Label Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" Text="{local:Translate MyRating}"
                            FontSize="Medium" HorizontalOptions="Center"/>
                         <toolkit:RatingView Shape="Star" HorizontalOptions="Center" VerticalOptions="Fill" Grid.Column="0" Grid.Row="1"
-                        IsReadOnly="False" FillColor="{StaticResource Primary}" Rating="{Binding MyRating, Mode=TwoWay}"
-                        ShapeBorderColor="{StaticResource PrimaryDark}" MaximumRating="5" EmptyShapeColor="White" Margin="10,0"/>
+                        IsReadOnly="False" FillColor="{DynamicResource Primary}" Rating="{Binding MyRating, Mode=TwoWay}"
+                        ShapeBorderColor="{DynamicResource PrimaryDark}" MaximumRating="5" EmptyShapeColor="White" Margin="10,0"/>
                         <buttons:SfButton Command="{Binding ClearRatingCommand}" FontSize="Small" ImageSource="delete_icon.png" Text=""
                         CornerRadius="15" WidthRequest="30" HeightRequest="30" VerticalOptions="Center"
                         ShowIcon="True" ImageAlignment="Default" TextColor="White" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" Padding="0">
                             <buttons:SfButton.Style>
                                 <Style TargetType="buttons:SfButton">
-                                    <Setter Property="Background" Value="{StaticResource SecondaryDarkText}" />
+                                    <Setter Property="Background" Value="{DynamicResource SecondaryDarkText}" />
                                 </Style>
                             </buttons:SfButton.Style>
                         </buttons:SfButton>
@@ -129,7 +129,7 @@
                                     </Label>
                                     <Label Grid.Row="0" Grid.Column="1" Text="{local:Translate Per100g}" FontSize="Small"
                                         HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
-                                    <Label Grid.Row="1" Grid.Column="0" FontSize="Small" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}"
+                                    <Label Grid.Row="1" Grid.Column="0" FontSize="Small" FontAttributes="Bold" TextColor="{DynamicResource PrimaryDark}"
                                         VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -139,7 +139,7 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label Grid.Row="1" Grid.Column="1" FontSize="Micro" TextColor="{StaticResource SecondaryDark}"
+                                    <Label Grid.Row="1" Grid.Column="1" FontSize="Micro" TextColor="{DynamicResource SecondaryDark}"
                                         VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -214,7 +214,7 @@
                             <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" Grid.Row="1" Padding="16,4,16,8" HorizontalOptions="Center">
                                 <HorizontalStackLayout Spacing="5" Margin="0,0,12,0" VerticalOptions="Center">
                                     <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
-                                         Color="{StaticResource PrimaryDark}" BackgroundColor="Transparent"
+                                         Color="{DynamicResource PrimaryDark}" BackgroundColor="Transparent"
                                          VerticalOptions="Center"/>
                                     <Label Text="{local:Translate Calories}" FontSize="Micro" VerticalOptions="Center"/>
                                 </HorizontalStackLayout>
@@ -259,7 +259,7 @@
                     Text="{local:Translate AddToList}"  HorizontalOptions="Center" Padding="0">
                         <buttons:SfButton.Style>
                             <Style TargetType="buttons:SfButton">
-                                <Setter Property="Background" Value="{StaticResource SecondaryDarkText}" />
+                                <Setter Property="Background" Value="{DynamicResource SecondaryDarkText}" />
                             </Style>
                         </buttons:SfButton.Style>
                     </buttons:SfButton>
@@ -272,7 +272,7 @@
                             CornerRadius="15" WidthRequest="30" HeightRequest="30" Padding="0"  ImageAlignment="Default" Text="">
                                 <buttons:SfButton.Style>
                                     <Style TargetType="buttons:SfButton">
-                                        <Setter Property="Background" Value="{StaticResource Primary}" />
+                                        <Setter Property="Background" Value="{DynamicResource Primary}" />
                                     </Style>
                                 </buttons:SfButton.Style>
                             </buttons:SfButton>
@@ -339,7 +339,7 @@
                                 ShowIcon="True" Padding="0" ImageAlignment="Right" Text="{local:Translate Restrict}" VerticalOptions="Center" HorizontalOptions="Center">
                                 <buttons:SfButton.Style>
                                     <Style TargetType="buttons:SfButton">
-                                        <Setter Property="Background" Value="{StaticResource Primary}" />
+                                        <Setter Property="Background" Value="{DynamicResource Primary}" />
                                     </Style>
                                 </buttons:SfButton.Style>
                             </buttons:SfButton>

@@ -99,6 +99,7 @@ namespace NutriNET.Maui.ViewModels.Settings
             Preferences.Set("macro_theme", value.Name);
 #if ANDROID
             Platforms.Android.NutriWidgetPreferences.SaveThemeAndRefresh(
+                $"#{(int)(value.Calories.Alpha * 255):X2}{(int)(value.Calories.Red * 255):X2}{(int)(value.Calories.Green * 255):X2}{(int)(value.Calories.Blue * 255):X2}",
                 $"#{(int)(value.Protein.Alpha * 255):X2}{(int)(value.Protein.Red * 255):X2}{(int)(value.Protein.Green * 255):X2}{(int)(value.Protein.Blue * 255):X2}",
                 $"#{(int)(value.Carbs.Alpha * 255):X2}{(int)(value.Carbs.Red * 255):X2}{(int)(value.Carbs.Green * 255):X2}{(int)(value.Carbs.Blue * 255):X2}",
                 $"#{(int)(value.Fat.Alpha * 255):X2}{(int)(value.Fat.Red * 255):X2}{(int)(value.Fat.Green * 255):X2}{(int)(value.Fat.Blue * 255):X2}");

@@ -2,10 +2,19 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NutriNET.Maui.Resources.Styles.MacronutrientThemes.Retro">
-    <Color x:Key="ProteinColor">#FF6B35</Color>
-    <Color x:Key="ProteinColorSecondary">#99FF6B35</Color>
-    <Color x:Key="CarbsColor">#F7C59F</Color>
-    <Color x:Key="CarbsColorSecondary">#99F7C59F</Color>
+    <Color x:Key="ProteinColor">#D95D39</Color>
+    <Color x:Key="ProteinColorSecondary">#99D95D39</Color>
+    <Color x:Key="CarbsColor">#FFE8CC</Color>
+    <Color x:Key="CarbsColorSecondary">#99FFE8CC</Color>
     <Color x:Key="FatColor">#00B9AE</Color>
     <Color x:Key="FatColorSecondary">#9900B9AE</Color>
+
+    <Color x:Key="Primary">#006D77</Color>
+    <Color x:Key="PrimaryOverlay">#BF006D77</Color>
+    <Color x:Key="PrimaryDark">#83C5BE</Color>
+    <Color x:Key="PrimaryDarkText">#1E2A2F</Color>
+    <Color x:Key="Secondary">#EDF6F9</Color>
+    <Color x:Key="SecondaryDark">#9983C5BE</Color>
+    <Color x:Key="SecondaryDarkText">#4CA6A8</Color>
+    <Color x:Key="Tertiary">#264653</Color>
 </ResourceDictionary>

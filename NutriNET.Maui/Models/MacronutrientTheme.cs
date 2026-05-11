@@ -5,6 +5,9 @@ namespace NutriNET.Maui.Models
     public partial class MacronutrientTheme : ObservableObject
     {
         [ObservableProperty]
+        Color calories;
+
+        [ObservableProperty]
         Color protein;
 
         [ObservableProperty]
@@ -22,6 +25,7 @@ namespace NutriNET.Maui.Models
             Protein = (Color)resources["ProteinColor"];
             Carbs = (Color)resources["CarbsColor"];
             Fat = (Color)resources["FatColor"];
+            Calories = (Color)resources["PrimaryDark"];
             Name = name;
             Theme = resources;
         }

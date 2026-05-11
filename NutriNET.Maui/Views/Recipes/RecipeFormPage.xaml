@@ -30,7 +30,7 @@
                 </VerticalStackLayout>
                 <HorizontalStackLayout Margin="10,0" Spacing="10">
                     <Label Text="{local:Translate PrivacyLevel}"  FontSize="Medium"/>
-                    <Label Text="{Binding SelectedPrivacyLevel.Key}" TextColor="{StaticResource SecondaryDarkText}"
+                    <Label Text="{Binding SelectedPrivacyLevel.Key}" TextColor="{DynamicResource SecondaryDarkText}"
                        VerticalOptions="Center" HorizontalOptions="Fill" LineBreakMode="WordWrap"
                        HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium">
                         <Label.GestureRecognizers>
@@ -65,7 +65,7 @@
                                 </Label>
                                 <Label Grid.Row="0" Grid.Column="1" Text="{local:Translate Per100g}" FontSize="Small"
                                         HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
-                                <Label Grid.Row="1" Grid.Column="0" FontSize="Small" FontAttributes="Bold" TextColor="{StaticResource PrimaryDark}"
+                                <Label Grid.Row="1" Grid.Column="0" FontSize="Small" FontAttributes="Bold" TextColor="{DynamicResource PrimaryDark}"
                                         VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
                                     <Label.FormattedText>
                                         <FormattedString>
@@ -75,7 +75,7 @@
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                <Label Grid.Row="1" Grid.Column="1" FontSize="Micro" TextColor="{StaticResource SecondaryDark}"
+                                <Label Grid.Row="1" Grid.Column="1" FontSize="Micro" TextColor="{DynamicResource SecondaryDark}"
                                         VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center">
                                     <Label.FormattedText>
                                         <FormattedString>
@@ -150,7 +150,7 @@
                         <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" Grid.Row="1" Padding="16,4,16,8" HorizontalOptions="Center">
                             <HorizontalStackLayout Spacing="5" Margin="0,0,12,0" VerticalOptions="Center">
                                 <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
-                                         Color="{StaticResource PrimaryDark}" BackgroundColor="Transparent"
+                                         Color="{DynamicResource PrimaryDark}" BackgroundColor="Transparent"
                                          VerticalOptions="Center"/>
                                 <Label Text="{local:Translate Calories}" FontSize="Micro" VerticalOptions="Center"/>
                             </HorizontalStackLayout>

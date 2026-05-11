@@ -45,7 +45,7 @@
 
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{StaticResource White}" />
-        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="FontAutoScalingEnabled" Value="False" />

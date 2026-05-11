@@ -29,7 +29,7 @@
                        IsRunning="True"
                        WidthRequest="80"
                        HeightRequest="80"
-                       Color="{StaticResource Primary}"
+                       Color="{DynamicResource Primary}"
                        HorizontalOptions="Center"/>
     </Grid>
 </ContentPage>

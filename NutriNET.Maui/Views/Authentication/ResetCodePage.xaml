@@ -40,7 +40,7 @@
         <Button Grid.Row="3"
                 Text="{local:Translate ResetPasswordButton}"
                 Command="{Binding SubmitCommand}"
-                BackgroundColor="{StaticResource Primary}"
+                BackgroundColor="{DynamicResource Primary}"
                 TextColor="White"
                 FontAttributes="Bold"
                 FontSize="Small"

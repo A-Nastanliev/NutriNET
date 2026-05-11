@@ -40,7 +40,7 @@
             <passToggle:PasswordVisibilityToggle Grid.Column="1" Grid.Row="2" TargetEntry="{x:Reference PasswordEntry}"/>
 
             <Label Text="{local:Translate ForgotPassword}" Grid.Row="3" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="Start" 
-                   VerticalTextAlignment="Start" TextColor="{StaticResource SecondaryDarkText}">
+                   VerticalTextAlignment="Start" TextColor="{DynamicResource SecondaryDarkText}">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
                 </Label.GestureRecognizers>
@@ -49,7 +49,7 @@
             <Button
                 Text="{local:Translate LoginText}" Grid.Row="4" Grid.ColumnSpan="2"
                 Command="{Binding LoginCommand}"
-                BackgroundColor="{StaticResource Primary}"
+                BackgroundColor="{DynamicResource Primary}"
                 FontAttributes="Bold" FontSize="Small"
                 CornerRadius="20" />
 
@@ -57,7 +57,7 @@
                 Text="{local:Translate NoAccountText}"
                 Command="{Binding GoToSignUpCommand}"
                 BackgroundColor="Transparent" FontSize="Small"
-                TextColor="{StaticResource PrimaryDark}"
+                TextColor="{DynamicResource PrimaryDark}"
                 HorizontalOptions="Center" />
 
         </Grid>

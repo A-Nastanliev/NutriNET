@@ -3,6 +3,7 @@ using Android.App;
 using Android.Appwidget;
 using Android.Content;
 using Android.Widget;
+using AGColor = Android.Graphics.Color;
 
 namespace NutriNET.Maui.Platforms.Android
 {
@@ -26,7 +27,7 @@ namespace NutriNET.Maui.Platforms.Android
             views.SetTextViewText(Resource.Id.calories_label, lc.GetString(Resource.String.calories));
             views.SetTextViewText(Resource.Id.calories_value,
                 $"{Math.Round(NutriWidgetPreferences.GetCalories(prefs), 1)} {lc.GetString(Resource.String.kcal)}");
-
+            views.SetTextColor(Resource.Id.calories_value, AGColor.ParseColor(NutriWidgetPreferences.GetCaloriesColor(prefs)));
             return views;
         }
     }

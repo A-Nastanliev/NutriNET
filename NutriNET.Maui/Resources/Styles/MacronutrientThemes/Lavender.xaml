@@ -8,4 +8,13 @@
     <Color x:Key="CarbsColorSecondary">#9990CAF9</Color>
     <Color x:Key="FatColor">#80DEEA</Color>
     <Color x:Key="FatColorSecondary">#9980DEEA</Color>
+
+    <Color x:Key="Primary">#9575CD</Color>
+    <Color x:Key="PrimaryOverlay">#BF9575CD</Color>
+    <Color x:Key="PrimaryDark">#D1C4E9</Color>
+    <Color x:Key="PrimaryDarkText">#2C2540</Color>
+    <Color x:Key="Secondary">#F3EEFF</Color>
+    <Color x:Key="SecondaryDark">#99D1C4E9</Color>
+    <Color x:Key="SecondaryDarkText">#B39DDB</Color>
+    <Color x:Key="Tertiary">#5E35B1</Color>
 </ResourceDictionary>

@@ -35,6 +35,7 @@ namespace NutriNET.Maui.Platforms.Android
             var fat = NutriWidgetPreferences.GetFat(prefs);
             var calories = NutriWidgetPreferences.GetCalories(prefs);
 
+            var caloriesColor = AGColor.ParseColor(NutriWidgetPreferences.GetCaloriesColor(prefs));
             var proteinColor = AGColor.ParseColor(NutriWidgetPreferences.GetProteinColor(prefs));
             var carbsColor = AGColor.ParseColor(NutriWidgetPreferences.GetCarbsColor(prefs));
             var fatColor = AGColor.ParseColor(NutriWidgetPreferences.GetFatColor(prefs));
@@ -50,6 +51,7 @@ namespace NutriNET.Maui.Platforms.Android
             views.SetTextViewText(Resource.Id.summary_carbs_value, $"{Math.Round(carbs, 1)}{g}");
             views.SetTextViewText(Resource.Id.summary_fat_value, $"{Math.Round(fat, 1)}{g}");
 
+            views.SetTextColor(Resource.Id.summary_calories_value, caloriesColor);
             views.SetTextColor(Resource.Id.summary_protein_value, proteinColor);
             views.SetTextColor(Resource.Id.summary_carbs_value, carbsColor);
             views.SetTextColor(Resource.Id.summary_fat_value, fatColor);

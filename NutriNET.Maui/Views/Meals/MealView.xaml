@@ -18,7 +18,8 @@
                    Grid.Column="0" HorizontalOptions="Fill" VerticalOptions="Center" LineBreakMode="WordWrap"/>
             <Grid Grid.Column="1" HorizontalOptions="Fill" RowDefinitions="Auto, Auto" RowSpacing="4"
                   ColumnDefinitions="*,*,*" ColumnSpacing="20" VerticalOptions="Center">
-                <Label FontSize="Medium" HorizontalOptions="Center" Grid.ColumnSpan="3" Grid.Row="0">
+                <Label FontSize="Medium" TextColor="{DynamicResource PrimaryDark}" HorizontalTextAlignment="Center" HorizontalOptions="Center"
+                    Grid.ColumnSpan="3" Grid.Row="0">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="{Binding Calories}" />

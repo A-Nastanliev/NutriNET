@@ -18,7 +18,7 @@
     <AbsoluteLayout>
         <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All"  
             Padding="16,16,16,0" RowSpacing="8" RowDefinitions="Auto, *">
-            <Label Text="{Binding SelectedRequestStatus.Key}" TextColor="{StaticResource SecondaryDarkText}" VerticalOptions="Center" HorizontalOptions="Fill"
+            <Label Text="{Binding SelectedRequestStatus.Key}" TextColor="{DynamicResource SecondaryDarkText}" VerticalOptions="Center" HorizontalOptions="Fill"
                    HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectRequestStatusCommand}" />
@@ -141,7 +141,8 @@
                             <HorizontalStackLayout Spacing="20" HorizontalOptions="Center"
                                  IsVisible="{Binding SelectedRequest.Status, Converter={StaticResource EqualsConverter}, ConverterParameter={x:Static status:RequestStatus.Pending}}">
                                 <Button Text="{local:Translate Accept}" Command="{Binding AcceptModeratorRequestCommand}" CornerRadius="20"/>
-                                <Button Text="{local:Translate Decline}" Command="{Binding DeclineModeratorRequestCommand}" CornerRadius="20"/>
+                                <Button Text="{local:Translate Decline}" Command="{Binding DeclineModeratorRequestCommand}"  TextColor="{DynamicResource SecondaryDarkText}" BorderWidth="1"
+                                    BackgroundColor="{DynamicResource Gray600}" CornerRadius="20" BorderColor="{DynamicResource SecondaryDarkText}"/>
                             </HorizontalStackLayout>
                         </VerticalStackLayout>
                     </ScrollView>

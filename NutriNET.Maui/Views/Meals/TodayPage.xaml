@@ -23,7 +23,7 @@
                     <Grid Grid.Column="2" RowDefinitions="Auto,1, Auto" VerticalOptions="Center" RowSpacing="8" Padding="8,4">
                         <VerticalStackLayout> 
                             <Label FontSize="Large" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"
-                                TextColor="{StaticResource PrimaryDark}">
+                                TextColor="{DynamicResource PrimaryDark}">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="{Binding MealDay.Calories}" />
@@ -194,8 +194,8 @@
                             IsVisible="{Binding IsSelecting, Converter={StaticResource NotEqualsConverter}, ConverterParameter={StaticResource TrueBool}}"
                             CornerRadius="20"/>
                         <Button Text="{local:Translate Cancel}" x:Name="CancelButton" Command="{Binding CancelCommand}" Margin="9,4,9,8" VerticalOptions="Center" Grid.Row="4" BorderWidth="1"
-                            IsVisible="{Binding IsSelecting}" TextColor="{StaticResource SecondaryDarkText}" BackgroundColor="{StaticResource Gray600}" 
-                            CornerRadius="20" BorderColor="{StaticResource SecondaryDarkText}"/>
+                            IsVisible="{Binding IsSelecting}" TextColor="{DynamicResource SecondaryDarkText}" BackgroundColor="{StaticResource Gray600}" 
+                            CornerRadius="20" BorderColor="{DynamicResource SecondaryDarkText}"/>
                         <foodViews:FoodCatalogView x:Name="FoodCatalog" Span="1" Grid.Row="3"
                              ItemTapCommand="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SelectFoodCommand}"
                              IsVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.IsSelectingFood, Mode=TwoWay}" >
@@ -210,7 +210,7 @@
                         <Grid x:Name="SavedRecipesCatalog" Grid.Row="3" IsVisible="{Binding IsSelectingSavedRecipe, Mode=TwoWay}"
                               RowDefinitions="Auto, *">
                             <Label Text="{Binding RecipeListLoader.RecipeList.Name}" HorizontalTextAlignment="Center" Grid.Row="0"
-                                FontSize="Small" TextColor="{StaticResource SecondaryDarkText}">
+                                FontSize="Small" TextColor="{DynamicResource SecondaryDarkText}">
                                 <Label.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding PickRecipeListCommand}" />
                                 </Label.GestureRecognizers>

@@ -18,7 +18,7 @@
         <Grid ColumnDefinitions="*,4*">
             <Image
               Aspect="AspectFill" HeightRequest="62" Grid.Column="0"
-              Source="{Binding ImageSource}" />
+              Source="{Binding ImageSource}"  Background="{StaticResource Gray200}" />
             <Grid x:Name="InnerGrid" Grid.Column="1" RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="1.3*,*,*,*">
                 <Label
                  Text="{Binding Name}" FontSize="Small" Padding="8,0"

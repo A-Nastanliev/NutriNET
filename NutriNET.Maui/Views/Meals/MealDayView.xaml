@@ -17,7 +17,7 @@
             <HorizontalStackLayout Spacing="20" HorizontalOptions="Center" Grid.Row="0" Margin="0,8"
                IsVisible="{Binding Source={x:Reference Root}, Path=IsToday, Converter={StaticResource NotEqualsConverter}, ConverterParameter={StaticResource TrueBool}}"> 
                 <Label Text="{Binding Date, StringFormat='{0:dd MMMM yyyy}'}" FontSize="Medium" VerticalTextAlignment="Center" />
-                <Label FontSize="Medium" VerticalTextAlignment="Center" HorizontalTextAlignment="Center">
+                <Label FontSize="Medium" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" TextColor="{DynamicResource PrimaryDark}">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="{Binding Calories}" />

@@ -12,7 +12,7 @@
     <AbsoluteLayout>
         <Grid Padding="16" RowSpacing="8" RowDefinitions="Auto, *"
               AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" >
-            <Label Text="{Binding SelectedRestrictionStatus.Key}" TextColor="{StaticResource SecondaryDarkText}" VerticalOptions="Center" HorizontalOptions="Fill"
+            <Label Text="{Binding SelectedRestrictionStatus.Key}" TextColor="{DynamicResource SecondaryDarkText}" VerticalOptions="Center" HorizontalOptions="Fill"
                    HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="Medium">
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SelectRestrictionStatusCommand}" />

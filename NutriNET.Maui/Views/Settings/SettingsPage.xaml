@@ -22,7 +22,7 @@
                 <Border Style="{StaticResource SectionCard}" Padding="10,20">
                     <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
                         <Border
-                         Stroke="{StaticResource Primary}" StrokeThickness="2" StrokeShape="RoundRectangle 90"
+                         Stroke="{DynamicResource Primary}" StrokeThickness="2" StrokeShape="RoundRectangle 90"
                          WidthRequest="180" HeightRequest="180" HorizontalOptions="Center" VerticalOptions="Center">
                             <ImageButton
                             Source="{Binding ProfileImageSource}" Aspect="AspectFill" Command="{Binding PickProfilePictureCommand}">
@@ -33,8 +33,10 @@
                         </Border>
                         <HorizontalStackLayout
                         Spacing="12" HorizontalOptions="Center" IsVisible="{Binding IsPictureChanged}">
-                            <Button Text="{local:Translate Confirm}" Command="{Binding ConfirmProfilePictureCommand}" />
-                            <Button Text="{local:Translate Cancel}" Command="{Binding CancelProfilePictureCommand}" />
+                            <Button Text="{local:Translate Confirm}" Command="{Binding ConfirmProfilePictureCommand}" CornerRadius="20" />
+                            <Button Text="{local:Translate Cancel}" Command="{Binding CancelProfilePictureCommand}" BorderWidth="1"
+                                    TextColor="{DynamicResource SecondaryDarkText}" BackgroundColor="{DynamicResource Gray600}" 
+                                    CornerRadius="20" BorderColor="{DynamicResource SecondaryDarkText}"/>
                         </HorizontalStackLayout>
                         <Label Text="{Binding User.PublicUser.Username}" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" />
                         <Grid ColumnSpacing="20" HorizontalOptions="Center" ColumnDefinitions="*,*">
@@ -152,7 +154,7 @@
                         </Label>
                         <Picker x:Name="LanguagePicker" VerticalOptions="Center" FontSize="Medium"
                         SelectedIndex="{Binding SelectedLanguageIndex, Mode=TwoWay}"
-                        TextColor="{StaticResource SecondaryDarkText}" TitleColor="{StaticResource SecondaryDarkText}">
+                        TextColor="{DynamicResource SecondaryDarkText}" TitleColor="{DynamicResource SecondaryDarkText}">
                             <Picker.Items>
                                 <x:String>English</x:String>
                                 <x:String>Български</x:String>
@@ -161,27 +163,33 @@
                     </HorizontalStackLayout>
                 </Border>
 
-                <Border Style="{StaticResource SectionCard}" Padding="4,20">
+                <Border Style="{StaticResource SectionCard}" Padding="4,12">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Tapped="MacronutrientTheme_Tapped"/>
                     </Border.GestureRecognizers>
                     <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" Grid.Row="1" Padding="0" HorizontalOptions="Center">
-                        <HorizontalStackLayout Spacing="4" Margin="0,0,4,0" VerticalOptions="Center">
+                        <HorizontalStackLayout Spacing="8" Margin="4,2" VerticalOptions="Center">
                             <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
-                                Color="{DynamicResource ProteinColor}" BackgroundColor="Transparent"
-                                VerticalOptions="Center"/>
+                               Color="{DynamicResource PrimaryDark}" BackgroundColor="Transparent"
+                               VerticalOptions="Center"/>
+                            <Label Text="{local:Translate Calories}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                        <HorizontalStackLayout Spacing="8" Margin="4,2" VerticalOptions="Center">
+                            <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
+                             Color="{DynamicResource ProteinColor}" BackgroundColor="Transparent"
+                             VerticalOptions="Center"/>
                             <Label Text="{local:Translate Protein}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
-                        <HorizontalStackLayout Spacing="4" Margin="4,0,4,0" VerticalOptions="Center">
+                        <HorizontalStackLayout Spacing="8" Margin="4,2" VerticalOptions="Center">
                             <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8" 
-                                Color="{DynamicResource CarbsColor}" BackgroundColor="Transparent"
-                                VerticalOptions="Center"/>
+                             Color="{DynamicResource CarbsColor}" BackgroundColor="Transparent"
+                             VerticalOptions="Center"/>
                             <Label Text="{local:Translate Carbohydrates}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
-                        <HorizontalStackLayout Spacing="4" Margin="4,0,0,0" VerticalOptions="Center">
+                        <HorizontalStackLayout Spacing="8" Margin="4,2" VerticalOptions="Center">
                             <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
-                                Color="{DynamicResource FatColor}" BackgroundColor="Transparent"
-                                VerticalOptions="Center"/>
+                             Color="{DynamicResource FatColor}" BackgroundColor="Transparent"
+                             VerticalOptions="Center"/>
                             <Label Text="{local:Translate Fat}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
                     </FlexLayout>
@@ -220,23 +228,29 @@
                 <Grid.GestureRecognizers>
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
                 </Grid.GestureRecognizers>
-                <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0" Padding="16,16,16,10">
+                <Border Style="{StaticResource SectionCard}" StrokeShape="RoundRectangle 20,20,0,0" Padding="20,12,20,8">
                     <Grid RowDefinitions="Auto, *" RowSpacing="12">
-                        <Border Style="{StaticResource SectionCard}" BackgroundColor="{StaticResource Gray600}" Grid.Row="0" Padding="4,20">
+                        <Border Style="{StaticResource SectionCard}" BackgroundColor="{StaticResource Gray600}" Grid.Row="0" Padding="4">
                             <FlexLayout Wrap="Wrap" Direction="Row" JustifyContent="Center" Grid.Row="1" Padding="0" HorizontalOptions="Center">
-                                <HorizontalStackLayout Spacing="4" Margin="0,0,4,0" VerticalOptions="Center">
+                                <HorizontalStackLayout Spacing="8" Margin="4,2" VerticalOptions="Center">
+                                    <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
+                                         Color="{DynamicResource PrimaryDark}" BackgroundColor="Transparent"
+                                         VerticalOptions="Center"/>
+                                    <Label Text="{local:Translate Calories}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Spacing="8" Margin="4,2" VerticalOptions="Center">
                                     <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
                                        Color="{DynamicResource ProteinColor}" BackgroundColor="Transparent"
                                        VerticalOptions="Center"/>
                                     <Label Text="{local:Translate Protein}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
                                 </HorizontalStackLayout>
-                                <HorizontalStackLayout Spacing="4" Margin="4,0,4,0" VerticalOptions="Center">
+                                <HorizontalStackLayout Spacing="8" Margin="4,2" VerticalOptions="Center">
                                     <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8" 
                                        Color="{DynamicResource CarbsColor}" BackgroundColor="Transparent"
                                        VerticalOptions="Center"/>
                                     <Label Text="{local:Translate Carbohydrates}" FontSize="Small" VerticalTextAlignment="Center" VerticalOptions="Center"/>
                                 </HorizontalStackLayout>
-                                <HorizontalStackLayout Spacing="4" Margin="4,0,0,0" VerticalOptions="Center">
+                                <HorizontalStackLayout Spacing="8" Margin="4,2" VerticalOptions="Center">
                                     <BoxView CornerRadius="4" HeightRequest="8" WidthRequest="8"
                                        Color="{DynamicResource FatColor}" BackgroundColor="Transparent"
                                        VerticalOptions="Center"/>
@@ -261,7 +275,7 @@
                                                 </VisualState>
                                                 <VisualState x:Name="Selected">
                                                     <VisualState.Setters>
-                                                        <Setter Property="Background" Value="{StaticResource Primary}"/>
+                                                        <Setter Property="Background" Value="{StaticResource White}"/>
                                                     </VisualState.Setters>
                                                 </VisualState>
                                             </VisualStateGroup>
@@ -272,10 +286,11 @@
                             <CollectionView.ItemTemplate>
                                 <DataTemplate x:DataType="models:MacronutrientTheme">
                                     <Border Style="{StaticResource SectionCard}" BackgroundColor="{StaticResource Gray600}" Padding="10">
-                                        <Grid ColumnDefinitions="*, *, *" VerticalOptions="Center">
-                                            <Ellipse Fill="{Binding Protein}" WidthRequest="16" HeightRequest="16"/>
-                                            <Ellipse Fill="{Binding Carbs}" Grid.Column="1" WidthRequest="16" HeightRequest="16"/>
-                                            <Ellipse Fill="{Binding Fat}" Grid.Column="2" WidthRequest="16" HeightRequest="16"/>
+                                        <Grid ColumnDefinitions="*, *,*, *" VerticalOptions="Center">
+                                            <Ellipse Fill="{Binding Calories}" Grid.Column="0" WidthRequest="16" HeightRequest="16"/>
+                                            <Ellipse Fill="{Binding Protein}" Grid.Column="1" WidthRequest="16" HeightRequest="16"/>
+                                            <Ellipse Fill="{Binding Carbs}" Grid.Column="2" WidthRequest="16" HeightRequest="16"/>
+                                            <Ellipse Fill="{Binding Fat}" Grid.Column="3" WidthRequest="16" HeightRequest="16"/>
                                         </Grid>
                                     </Border>
                                 </DataTemplate>

@@ -19,7 +19,7 @@
                     <Grid ColumnDefinitions="Auto, *, *" RowDefinitions="Auto, Auto, Auto"
                  ColumnSpacing="12" RowSpacing="8">
                         <Border Grid.Column="0" Grid.RowSpan="3"
-                        Stroke="{StaticResource Primary}" StrokeThickness="2" StrokeShape="RoundRectangle 60"
+                        Stroke="{DynamicResource Primary}" StrokeThickness="2" StrokeShape="RoundRectangle 60"
                         WidthRequest="80" HeightRequest="80" VerticalOptions="Center">
                             <ImageButton
                         Source="{Binding User.ProfilePictureSource}" Aspect="AspectFill">

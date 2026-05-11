@@ -19,7 +19,7 @@
                 HorizontalOptions="Center" Grid.Row="0" Grid.ColumnSpan="2"/>
 
             <Border
-                Stroke="{StaticResource Primary}" Grid.Row="1" Grid.ColumnSpan="2"
+                Stroke="{DynamicResource Primary}" Grid.Row="1" Grid.ColumnSpan="2"
                 StrokeThickness="2" StrokeShape="RoundRectangle 60" WidthRequest="120"
                 HeightRequest="120" HorizontalOptions="Center" VerticalOptions="Center">
 
@@ -57,11 +57,11 @@
 
             <Button 
                 Text="{local:Translate SignUpText}" Grid.Row="6" Grid.ColumnSpan="2" Command="{Binding SignUpCommand}"
-                BackgroundColor="{StaticResource Primary}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Fill" />
+                BackgroundColor="{DynamicResource Primary}" FontAttributes="Bold" CornerRadius="20" HorizontalOptions="Fill" />
 
             <Button
                 Text="{local:Translate AlreadyHaveAccountText}" Grid.Row="7" Grid.ColumnSpan="2" Command="{Binding GoToLoginCommand}"
-                BackgroundColor="Transparent" TextColor="{StaticResource PrimaryDark}" FontSize="Small" HorizontalOptions="Center" />
+                BackgroundColor="Transparent" TextColor="{DynamicResource PrimaryDark}" FontSize="Small" HorizontalOptions="Center" />
         </Grid>
     </ScrollView>
 </ContentPage>

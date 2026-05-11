@@ -4,8 +4,17 @@
              x:Class="NutriNET.Maui.Resources.Styles.MacronutrientThemes.Lava">
     <Color x:Key="ProteinColor">#FF3D00</Color>
     <Color x:Key="ProteinColorSecondary">#99FF3D00</Color>
-    <Color x:Key="CarbsColor">#FF9100</Color>
-    <Color x:Key="CarbsColorSecondary">#99FF9100</Color>
-    <Color x:Key="FatColor">#FFEA00</Color>
-    <Color x:Key="FatColorSecondary">#99FFEA00</Color>
+    <Color x:Key="CarbsColor">#FFC400</Color>
+    <Color x:Key="CarbsColorSecondary">#99FFC400</Color>
+    <Color x:Key="FatColor">#FFF176</Color>
+    <Color x:Key="FatColorSecondary">#99FFF176</Color>
+
+    <Color x:Key="Primary">#D72600</Color>
+    <Color x:Key="PrimaryOverlay">#BFD72600</Color>
+    <Color x:Key="PrimaryDark">#FF9E80</Color>
+    <Color x:Key="PrimaryDarkText">#2B1B12</Color>
+    <Color x:Key="Secondary">#FFE5DB</Color>
+    <Color x:Key="SecondaryDark">#99FF9E80</Color>
+    <Color x:Key="SecondaryDarkText">#FF6F3C</Color>
+    <Color x:Key="Tertiary">#7A1200</Color>
 </ResourceDictionary>

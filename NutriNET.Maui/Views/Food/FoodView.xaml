@@ -10,7 +10,7 @@
              x:Name="Root">
     <Border
         Margin="6" StrokeShape="RoundRectangle 10"
-        Padding="0" HorizontalOptions="Fill" >
+        Padding="0" HorizontalOptions="Fill" Background="{StaticResource Gray200}">
         <Border.Behaviors>
             <toolkit:TouchBehavior
                LongPressDuration="1000"
@@ -28,7 +28,7 @@
                 HeightRequest="180"
                 Source="{Binding ImageSource}" />
 
-            <VerticalStackLayout Padding="10, 4, 10, 4" Spacing="4" Background="{StaticResource PrimaryOverlay}" HorizontalOptions="Fill" VerticalOptions="End">
+            <VerticalStackLayout Padding="10, 4, 10, 4" Spacing="4" Background="{DynamicResource PrimaryOverlay}" HorizontalOptions="Fill" VerticalOptions="End">
                 <Label
                     Text="{Binding Name}" FontSize="Small"
                     LineBreakMode="TailTruncation"/>
